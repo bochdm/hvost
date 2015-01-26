@@ -1,4 +1,4 @@
-package com.hvost.base;
+package com.hvost.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

@@ -1,4 +1,4 @@
-package com.hvost.base;
+package com.hvost.controller;
 
 import org.junit.Before;
 import org.junit.Test;

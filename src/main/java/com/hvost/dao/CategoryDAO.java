@@ -1,6 +1,6 @@
 package com.hvost.dao;
 
-import con.hvost.model.Category;
+import com.hvost.model.Category;
 
 import java.util.List;
 

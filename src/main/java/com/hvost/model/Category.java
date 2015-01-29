@@ -7,19 +7,18 @@ import java.io.Serializable;
  * Created by kseniaselezneva on 27/01/15.
  */
 @Entity
-@Table(name="CATEGORY")
-public class Category implements Serializable {
+@Table(name = "category")
+public class Category {
 
 
     @Id
-    @Column(name = "ID")
     @GeneratedValue
     private int id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "URL")
+    @Column(name = "url")
     private String url;
 
     public int getId() {
@@ -46,15 +45,6 @@ public class Category implements Serializable {
         this.url = url;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    private String description;
 
     @Override
     public String toString() {
@@ -62,7 +52,6 @@ public class Category implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
-                ", description='" + description + '\'' +
                 '}';
     }
 }

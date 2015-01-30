@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by kseniaselezneva on 29/01/15.
  */
 @Controller
-@RequestMapping("/test")
+@RequestMapping("/home")
 public class HomeController {
 
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value="/test", method = RequestMethod.GET)
     public String listAll(Model model){
      model.addAttribute("categories", categoryService.getAll());
 

@@ -13,17 +13,32 @@
 
        <context:component-scan base-package="com.hvost"/>
 
-       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<!--       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
               <property name="prefix" value="/WEB-INF/pages/"/>
               <property name="suffix" value=".jsp"/>
-       </bean>
+       </bean>-->
+
+  <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+    <property name="prefix" value="/WEB-INF/pages/"/>
+    <property name="suffix" value=".html"/>
+    <property name="templateMode" value="HTML5"/>
+  </bean>
+
+  <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+    <property name="templateResolver" ref="templateResolver"/>
+  </bean>
+
+  <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+    <property name="templateEngine" ref="templateEngine" />
+  </bean>
 
 
-       <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+
+  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
               <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
               <property name="url" value="jdbc:mysql://localhost:3306/dbhvost"/>
               <property name="username" value="root"/>
-              <property name="password" value=""/>
+              <property name="password" value="together14"/>
        </bean>
 
        <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">

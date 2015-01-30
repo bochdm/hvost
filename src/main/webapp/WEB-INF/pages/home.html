@@ -1,0 +1,13 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>CATEGORIES</title>
+</head>
+<body>
+       <div th:each="category : ${categories}">
+         <a href="hello1.jsp" th:href="@{category.url}" th:text="${category.url}"/>
+         <p th:text="${category.name}"></p>
+       </div>
+</body>
+</html>

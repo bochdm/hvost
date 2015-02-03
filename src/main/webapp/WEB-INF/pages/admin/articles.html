@@ -12,17 +12,22 @@
 </head>
 <body  layout:fragment="content">
 
-  <div class="row">
-    <div class="col-md-9" role="main">
-      <form th:with="create=1" th:action="@{/admin/blog}" method="post">
+  <div class="row row-centered">
+    <div class="col-md-7 col-centered" role="main">
+      <form th:with="create=1" th:action="@{/admin/addarticle}" th:object="${article}" method="post">
         <div class="form-group">
           <label for="title">Название</label>
-          <input id="title" class="form-control" type="text" name="title"/>
+          <input id="title" class="form-control" type="text" name="title" maxlength="100" th:field="*{title}"/>
         </div>
 
         <div class="form-group">
-          <label for="content">Содержание</label>
-          <textarea id="content" class="textarea" placeholder="Enter text ..." style="width: 810px; height: 200px"></textarea>
+          <label for="author">Автор</label>
+          <input id="author" class="form-control" type="text" name="author" maxlength="100" th:field="*{author}"/>
+        </div>
+
+        <div class="form-group">
+          <label for="content" th:value="Содержание"></label>
+          <textarea id="content" class="textarea" placeholder="Enter text ..." style="width: 810px; height: 200px" th:field="*{content}"/>
         </div>
 
         <button type="submit" class="btn btn-default">Submit</button>

@@ -24,6 +24,7 @@
     <property name="prefix" value="/WEB-INF/pages/"/>
     <property name="suffix" value=".html"/>
     <property name="templateMode" value="HTML5"/>
+    <property name="characterEncoding" value="UTF8"/>
     <property name="cacheable" value="false"/>
   </bean>
 
@@ -38,6 +39,7 @@
 
   <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
     <property name="templateEngine" ref="templateEngine" />
+      <property name="contentType" value="text/html; charset=UTF-8"/>
   </bean>
 
 

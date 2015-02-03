@@ -12,6 +12,7 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@Table(name = "article")
 public class Article implements Serializable {
 
   @Id

@@ -1,7 +1,10 @@
 package com.hvost.admin;
 
+import com.hvost.article.Article;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,11 +19,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value="/admin")
 public class AdminController {
 
-  @RequestMapping(value="/addarticle", method = RequestMethod.GET)
-  public String addArticle(Model model){
-    //model.addAttribute("categories", categoryService.getAll());
+  @Autowired
+  AdminService adminService;
 
+  @RequestMapping(value="/newarticle", method = RequestMethod.GET)
+  public String showArticle(Model model){
+    model.addAttribute("article", new Article());
     return "admin/articles";
+  }
+
+  @RequestMapping(value="/addarticle", method = RequestMethod.POST)
+  public String addArticle(@ModelAttribute Article article){
+    //model.addAttribute("categories", categoryService.getAll());
+    adminService.addArticle(article);
+    return "redirect:/home/test";
   }
 
 }

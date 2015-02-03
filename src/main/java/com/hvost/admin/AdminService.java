@@ -1,6 +1,11 @@
 package com.hvost.admin;
 
+import com.hvost.article.Article;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,5 +17,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminService {
 
+    @PersistenceContext
+    EntityManager em;
 
+    @Transactional
+    public void addArticle(Article a){
+        em.persist(a);
+    }
 }

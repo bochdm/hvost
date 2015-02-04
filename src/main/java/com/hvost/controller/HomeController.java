@@ -21,10 +21,17 @@ public class HomeController {
 
     @RequestMapping(value="/test", method = RequestMethod.GET)
     public String listAll(Model model){
-     model.addAttribute("categories", categoryService.getAll());
+      model.addAttribute("categories", categoryService.getAll());
 
-        return "home";
+      return "home";
     }
+
+  @RequestMapping(value="/articles", method = RequestMethod.GET)
+  public String listArticles(Model model){
+    model.addAttribute("articles", categoryService.getAll());
+
+    return "home";
+  }
 
     @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
     public String addCategory(@ModelAttribute Category category){

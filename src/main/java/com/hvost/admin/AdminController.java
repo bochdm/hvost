@@ -20,12 +20,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminController {
 
   @Autowired
-  AdminService adminService;
+  private AdminService adminService;
 
   @RequestMapping(value="/newarticle", method = RequestMethod.GET)
   public String showArticle(Model model){
     model.addAttribute("article", new Article());
     return "admin/articles";
+  }
+
+  @RequestMapping(value = "/listarticle", method = RequestMethod.GET)
+  public String allArticles(Model model){
+    model.addAttribute("articles", adminService.getAll());
+
+    return "home";
   }
 
   @RequestMapping(value="/addarticle", method = RequestMethod.POST)
@@ -34,5 +41,7 @@ public class AdminController {
     adminService.addArticle(article);
     return "redirect:/home/test";
   }
+
+
 
 }

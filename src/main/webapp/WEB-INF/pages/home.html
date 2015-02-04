@@ -11,12 +11,22 @@
 <h3>after   header page</h3>
 
 <div layout:fragment="content">
+<!-- Категории
     <main>
        <div th:each="category : ${categories}">
          <a href="hello1.jsp" th:href="@{category.url}" th:text="${category.url}"/>
          <p th:text="${category.name}"></p>
        </div>
-    </main>
+    </main>-->
+
+  <main>
+    <div th:each="article : ${articles}">
+     <!-- <a href="hello1.jsp" th:href="@{category.url}" th:text="${category.url}"/>-->
+      <p th:text="${article.title}"></p>
+      <p th:text="${article.author}"></p>
+      <div th:utext="${article.content}">Blog content</div>
+    </div>
+  </main>
 
     <input type="button" class="btn" value="test"/>
 </div>

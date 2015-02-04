@@ -46,8 +46,9 @@
 
   <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
               <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-              <property name="url" value="jdbc:mysql://localhost:3306/dbhvost"/>
+              <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8"/>
               <property name="username" value="root"/>
+              <property name="password" value="together14"/>
        </bean>
 
        <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,5 +24,15 @@ public class AdminService {
     @Transactional
     public void addArticle(Article a){
         em.persist(a);
+    }
+
+    @Transactional
+    public List<Article> getAll() {
+      List<Article> result = em.createQuery("SELECT a FROM Article a", Article.class).getResultList();
+
+      for(Article a:result)
+        System.out.println("a -> " + a);
+
+      return result;
     }
 }

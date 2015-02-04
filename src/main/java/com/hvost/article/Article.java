@@ -1,5 +1,7 @@
 package com.hvost.article;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -26,6 +28,7 @@ public class Article implements Serializable {
   private String title;
 
   @Column
+  @Type(type="text")
   private String content;
 
   @Column

@@ -1,4 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/site" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/css/bootstrap/bootstrap-wysihtml5.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/css/bootstrap/bootstrap3-wysihtml5.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/css/bootstrap/bootstrap3-wysihtml5.min.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/css/bootstrap/font-awesome.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/css/bootstrap/font-awesome.min.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/fonts/FontAwesome.otf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/fonts/fontawesome-webfont.eot" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/fonts/fontawesome-webfont.svg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/fonts/fontawesome-webfont.ttf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/fonts/fontawesome-webfont.woff" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/fonts/fontawesome-webfont.woff2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/js/bootstrap/bootstrap-wysihtml5.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/js/jquery/jquery-1.7.2.min.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/js/jquery/jquery-2.1.3.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/js/wysihtml5/bootstrap3-wysihtml5.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/js/wysihtml5/bootstrap3-wysihtml5.min.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/site/src/main/webapp/resources/js/wysihtml5/wysihtml5x-toolbar.min.js" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/15.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/404.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/arrows.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/bg-content.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/bg-content2.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/blog-1.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/blog-2.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/blog-3.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/blog-featured-01.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/blog-featured-02.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/blog-featured-03.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/blog-featured-04.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/border-horiz.gif" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/glyphicons-halflings-white.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/glyphicons-halflings.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/header-bg.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/image-blank.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/indicator.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/indicator1.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/loader.gif" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/logo.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/magnifier.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/map.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/marker-1.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/marker.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/next.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/prev.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/service-1.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/service-2.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/service-3.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/service-4.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/service-5.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/service-6.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/slide-1.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/slide-2.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/slide-3.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/slide-4.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/slide-5.jpg" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/soc-icon-1.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/soc-icon-2.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/soc-icon-3.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/soc-icon-4.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/soc-icon-5.png" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/spinner.gif" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/spinner1.gif" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/tm" charset="UTF-8" />
+    <file url="file://C:/temp/codester/img/work" charset="UTF-8" />
+  </component>
 </project>
+

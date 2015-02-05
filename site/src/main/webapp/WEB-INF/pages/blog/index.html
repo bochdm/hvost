@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+  <title>Статьи</title>
+</head>
+<body>
+  <div layout:fragment="header-container"></div>
+  <div layout:fragment="content">
+    <main>
+      <article class="" th:each="article : ${articles}">
+        <h2 th:text="${article.title}">
+          <a th:href="" th:text="*{title}"/>
+        </h2>
+        <p th:text="${article.author}"></p>
+        <div th:utext="${article.content}">Blog content</div>
+        <a  th:text="*{title}">Читать ...</a>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

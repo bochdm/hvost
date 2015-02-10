@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
@@ -73,8 +73,7 @@
 <div class="container">
 <div class="row">
   <div class="col-sm-12">
-    <p class="lead lead-lg text-center">Quisque nunc sapien, malesuada vitae luctus in, blandit eu erat. Cras
-      fringilla eros eget justo dictum convallis.</p>
+    <p class="lead lead-lg text-center" th:text="#{main.site.about}"></p>
   </div>
 </div>
 <div class="row panels">
@@ -86,9 +85,9 @@
       <div class="panel-heading"><img class="img-responsive-sm" alt="Project planning" width="768" height="300"
                                       th:src="@{/resources/img/demo/panels/panel_bg_compass.jpg}"/></div>
       <div class="panel-body">
-        <h3 class="panel-title">Project planning</h3>
+        <h3 class="panel-title" th:text="#{lyceum.number}">Лицей 369</h3>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu pharetra felis.est.</p>
+        <p align="justify" th:text="#{lyceum.start.info}">Мы приглашаем вас посетить школьную страничку и погрузиться в яркий, красочный, многоликий мир детства Лицея № 369.</p>
       </div>
     </a>
   </div>
@@ -100,9 +99,9 @@
       <div class="panel-heading"><img class="img-responsive-sm" alt="Easy customizable" width="768" height="300"
                                       th:src="@{/resources/img/demo/panels/panel_bg_hat.jpg}"/></div>
       <div class="panel-body">
-        <h3 class="panel-title">Easy customizable</h3>
+        <h3 class="panel-title" th:text="#{young.teacher}">Молодые учителя</h3>
 
-        <p>Etiam init rutrum ligula semper neque relu dapibus, non tempus mauris sodales.est.</p>
+        <p align="justify" th:text="#{young.teacher.info}">Мы обращаемся к молодым учителям и студентам педагогических вузов России с предложением войти в состав Ассоциации молодых учителей России, созданную Всероссийским педагогическим собранием.</p>
       </div>
     </a>
   </div>
@@ -121,7 +120,7 @@
     </a>
   </div>
 </div>
-<div class="row">
+<!--<div class="row">
   <div class="col-sm-12">
     <div class="page-header page-header-with-icon">
       <i class="fa-icon-star"></i>
@@ -158,67 +157,69 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-sm-12">
-    <div class="page-header page-header-with-icon">
-      <i class="fa-icon-suitcase"></i>
+</div>-->
 
-      <h2>
-        Our last projects
-        <small>Phasellus malesuada sapien non orci semper gravida.</small>
-      </h2>
-    </div>
-    <div class="row portfolio-boxes">
-      <div class="col-sm-3 col-xs-6 no-mb-t-xs portfolio-box">
-        <a class="image-link" th:href="portfolio_detail.html">
-          <i class="fa-icon-search"></i>
-          <img class="img-responsive img-rounded center-block" alt="Etiam vestibulum" width="262" height="262"
-               th:src="@{/resources/img/demo/last_projects/cyclist.jpg}"/>
-        </a>
-
-        <h3 class="title">Etiam vestibulum</h3>
-
-        <p class="category">Photography</p>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class='page-header page-header-with-icon'>
+        <i class='fa-icon-comment'></i>
+        <h2 th:text="#{newest.blog}">Новые статьи</h2>
       </div>
-      <div class="col-sm-3 col-xs-6 no-mb-t-xs portfolio-box">
-        <a class="image-link" th:href="portfolio_detail.html">
-          <i class="fa-icon-link"></i>
-          <img class="img-responsive img-rounded center-block" alt="Malesuada" width="262" height="262"
-               th:src="@{/resources/img/demo/last_projects/blueberries.jpg}"/>
-        </a>
-
-        <h3 class="title">Malesuada</h3>
-
-        <p class="category">Webdesign</p>
-      </div>
-      <div class="col-sm-3 col-xs-6 portfolio-box">
-        <a th:href="portfolio_detail.html">
-          <div class="image-link">
-            <i class="fa-icon-search"></i>
-            <img class="img-responsive img-rounded center-block" alt="Dictum vulputate" width="262" height="262"
-                 th:src="@{/resources/img/demo/last_projects/photographer.jpg}"/>
+      <div class='row text-boxes'>
+        <div class='col-sm-6 text-box' th:each="post : ${newest_posts}">
+          <div class='row'>
+            <div class='col-sm-4'><img class="img-responsive center-block" alt="Lorem ipsum dolor sit amet" width="340" height="188" src="assets/images/demo/common/devices.jpg" /></div>
+            <div class='col-sm-8'>
+              <h3 class='title' th:text="${post.title}"><a href="#">Lorem ipsum dolor sit amet</a></h3>
+              <div class='toolbar'>
+                <a class='btn btn-link' href='#'>
+                  <i class='fa-icon-calendar-empty'></i>
+                  <time th:datetime-local="ru" th:datetime="${post.createdAt}" th:text='${#dates.format(post.createdAt, "dd MMMM yyyy HH:MM")}'/>
+                </a>
+              </div>
+              <p th:utext="${post.summary}"/>
+              <a class='btn btn-contrast btn-bordered btn-xs' href='#'>Читать</a>
+            </div>
           </div>
-          <h3 class="title">Dictum vulputate</h3>
+        </div>
 
-          <p class="category">Identity</p>
-        </a>
-      </div>
-      <div class="col-sm-3 col-xs-6 portfolio-box">
-        <a th:href="portfolio_detail.html">
-          <div class="image-link">
-            <i class="fa-icon-search"></i>
-            <img class="img-responsive img-rounded center-block" alt="Semper massa" width="262" height="262"
-                 th:src="@{/resources/img/demo/last_projects/wipe_ears.jpg}"/>
+<!--        <div class='col-sm-6 text-box'>
+          <div class='row'>
+            <div class='col-sm-4'><img class="img-responsive center-block" alt="Lorem ipsum dolor sit amet" width="340" height="188" src="assets/images/demo/common/devices.jpg" /></div>
+            <div class='col-sm-8'>
+              <h3 class='title'><a href="#">Lorem ipsum dolor sit amet</a></h3>
+              <div class='toolbar'>
+                <a class='btn btn-link' href='#'>
+                  <i class='fa-icon-calendar-empty'></i>
+                  <span>April 19, 2013</span>
+                </a>
+              </div>
+              <p>Nullam rhoncus, eros a commodo convallis, purus orci consectetur arcu, a euismod magna augue eu mi. Nunc tempus, lorem eu semper commodo, ipsum urna lobortis ligula.</p>
+              <a class='btn btn-contrast btn-bordered btn-xs' href='#'>Read more</a>
+            </div>
           </div>
-          <h3 class="title">Semper massa</h3>
-
-          <p class="category">Marketing</p>
-        </a>
+        </div>
+        <div class='col-sm-6 text-box'>
+          <hr class='visible-xs'/>
+          <div class='row'>
+            <div class='col-sm-4'><img class="img-responsive center-block" alt="Praesent vitae adipiscing nunc" width="330" height="183" src="assets/images/demo/common/chart.png" /></div>
+            <div class='col-sm-8'>
+              <h3 class='title'><a href="#">Praesent vitae adipiscing nunc</a></h3>
+              <div class='toolbar'>
+                <a class='btn btn-link' href='#'>
+                  <i class='fa-icon-calendar-empty'></i>
+                  <span>March 3, 2013</span>
+                </a>
+              </div>
+              <p>Mauris at ultricies eros. Morbi vel dui nec arcu suscipit euismod. Phasellus pellentesque lectus eget quam ullamcorper consectetur. Vestibulum vitae risus a erat mollis.</p>
+              <a class='btn btn-contrast btn-bordered btn-xs' href='#'>Read more</a>
+            </div>
+          </div>
+        </div>-->
       </div>
     </div>
   </div>
-</div>
+
 <div class="row">
   <div class="col-sm-12">
     <div class="page-header page-header-with-icon">

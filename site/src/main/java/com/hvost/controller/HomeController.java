@@ -1,5 +1,6 @@
 package com.hvost.controller;
 
+import com.hvost.blog.support.PostService;
 import com.hvost.model.Category;
 import com.hvost.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by kseniaselezneva on 29/01/15.
  */
 @Controller
-@RequestMapping("/home")
+@RequestMapping("")
 public class HomeController {
 
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private PostService postService;
+
     @RequestMapping(value="/test", method = RequestMethod.GET)
     public String listAll(Model model){
       model.addAttribute("categories", categoryService.getAll());
-
+      model.addAttribute("newest_posts", postService.getNewPosts());
 
       return "home";
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String startPage(Model model){
+        model.addAttribute("newest_posts", postService.getNewPosts());
+        return "/index";
     }
 
   @RequestMapping(value="/articles", method = RequestMethod.GET)

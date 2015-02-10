@@ -28,7 +28,7 @@ public class AdminService {
 
     @Transactional
     public List<Post> getAll() {
-      List<Post> result = em.createQuery("SELECT a FROM Article a", Post.class).getResultList();
+      List<Post> result = em.createQuery("SELECT a FROM ARTICLE a", Post.class).getResultList();
 
       for(Post p : result)
         System.out.println("a -> " + p);

@@ -4,7 +4,10 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
@@ -17,7 +20,26 @@
 
   <context:component-scan base-package="com.hvost"/>
 
-  <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+  <jpa:repositories base-package="com.hvost.blog"/>
+
+
+    <!-- Application Message Bundle -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="ru" />
+    </bean>
+
+    <bean id="messageResolver" class="org.thymeleaf.spring4.messageresolver.SpringMessageResolver">
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+
+
+    <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
     <property name="prefix" value="/WEB-INF/pages/"/>
     <property name="suffix" value=".html"/>
     <property name="templateMode" value="HTML5"/>
@@ -55,6 +77,8 @@
   <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
   </bean>
+
+
 
   <tx:annotation-driven/>
 </beans>

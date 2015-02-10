@@ -14,7 +14,7 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "article")
+@Table(name = "POST")
 public class Post implements Serializable {
 
   @Id
@@ -33,6 +33,20 @@ public class Post implements Serializable {
 
   @Column
   private Date createdAt;
+
+  @Column
+  private String summary;
+
+
+  public String getSummary() {
+    return summary;
+  }
+
+  public void setSummary(String summary) {
+    if (summary.isEmpty())
+    this.summary = content.substring(0, 330) + "...";
+  }
+
 
   public Post(String author, String title, String content) {
     this.author = author;

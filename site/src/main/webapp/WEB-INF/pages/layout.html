@@ -76,8 +76,7 @@
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
-                    <span>
-                      Pages
+                    <span th:text="#{menu.projects}">Проекты
                       <i class="fa-icon-angle-down"></i>
                     </span>
             </a>
@@ -107,8 +106,7 @@
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
-                    <span>
-                      Features
+                    <span th:text="#{menu.society}">Общественная работа
                       <i class="fa-icon-angle-down"></i>
                     </span>
             </a>
@@ -143,8 +141,7 @@
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
-                    <span>
-                      Portfolio
+                    <span th:text="#{menu.archive}">Архив
                       <i class="fa-icon-angle-down"></i>
                     </span>
             </a>
@@ -165,8 +162,8 @@
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
-                    <span>
-                      Contact
+                    <span th:text="#{menu.contacts}">
+                      Контакты
                       <i class="fa-icon-angle-down"></i>
                     </span>
             </a>
@@ -213,18 +210,14 @@
           <p class="no-mg-b">Директор 369 Лицея. Председатель регионального отделения общественной организации Всероссийское педагогическое собрание. Региональный штаб ОНФ</p>
         </div>
         <div class="col-md-3 col-sm-6 info-box">
-          <h2 class="title">Contact</h2>
+          <h2 class="title" th:text="#{menu.contacts}"/>
 
           <div class="icon-boxes">
             <div class="icon-box">
               <div class="icon icon-wrap">
                 <i class="fa-icon-map-marker"></i>
               </div>
-              <div class="content">
-                4567 Street name,
-                <br/>
-                012 12 City name, Country
-              </div>
+              <div class="content" th:text="#{address.text}"/>
             </div>
             <div class="icon-box">
               <div class="icon icon-wrap">

@@ -13,10 +13,15 @@
 <div>
 <!-- Категории -->
     <main layout:fragment="content">
-       <div th:each="category : ${categories}">
-         <a href="hello1.jsp" th:href="@{category.url}" th:text="${category.url}"/>
-         <p th:text="${category.name}"></p>
-       </div>
+       <!--<div th:each="category : ${categories}">-->
+         <!--<a href="hello1.jsp" th:href="@{category.url}" th:text="${category.url}"/>-->
+         <!--<p th:text="${category.name}"></p>-->
+       <!--</div>-->
+
+        <div th:each="t : ${tweets}">
+            <p th:text="${t.getText()}"/>
+            <p th:text="${t.getSource()}"/>
+        </div>
     </main>
 
 <!--  <main layout:fragment="content">

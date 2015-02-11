@@ -6,12 +6,16 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/data/jpa
         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/aop">
 
   <mvc:annotation-driven/>
@@ -85,11 +89,19 @@
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
   </bean>
 
+    <context:property-placeholder location="classpath*:twitter.properties"/>
+
+    <bean id="tweet" class="org.springframework.social.twitter.api.impl.TwitterTemplate">
+        <constructor-arg name="consumerKey" value="${twitter.consumerKey}"/>
+        <constructor-arg name="consumerSecret" value="${twitter.consumerSecret}"/>
+        <constructor-arg name="accessToken" value="${twitter.accessToken}"/>
+        <constructor-arg name="accessTokenSecret" value="${twitter.accesTokenSecret}"/>
+
+    </bean>
 
 
     <!-- Spring Social -->
-    <bean id="connectionFactoryLocator"
-          class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+<!--   <bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
         <property name="connectionFactories">
             <list>
                 <bean class="org.springframework.social.twitter.connect.TwitterConnectionFactory">
@@ -113,15 +125,15 @@
     <bean id="connectionRepository" factory-method="createConnectionRepository"
           factory-bean="usersConnectionRepository" scope="request">
         <constructor-arg value="#{request.userPrincipal.name}" />
-<!--        <aop:scoped-proxy proxy-target-class="false" />-->
+        <aop:scoped-proxy proxy-target-class="false" />
     </bean>
 
 
     <bean id="twitter" factory-method="findPrimaryConnection"
           factory-bean="connectionRepository" scope="request" depends-on="connectionRepository">
         <constructor-arg value="org.springframework.social.twitter.api.Twitter" />
-<!--        <aop:scoped-proxy proxy-target-class="false" />-->
-    </bean>
+        <aop:scoped-proxy proxy-target-class="false" />
+    </bean>-->
 
 
   <tx:annotation-driven/>

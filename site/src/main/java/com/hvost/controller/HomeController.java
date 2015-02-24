@@ -25,7 +25,7 @@ import java.util.List;
  * Created by kseniaselezneva on 29/01/15.
  */
 @Controller
-@RequestMapping("")
+@RequestMapping(value = {"", "/", "/index"})
 public class HomeController {
 
     @Autowired

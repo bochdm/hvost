@@ -10,7 +10,7 @@
     <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
 
   </head>
-  <body class=''>
+  <body>
     <div id='wrapper'>
 
 
@@ -127,32 +127,17 @@
                       </ul>
                     </div>
                     <div class='box social-box'>
-                      <h3 class='title'>Latest tweets</h3>
+                      <h3 class='title'>Твиты</h3>
                       <div class='icon-boxes icon-boxes-nowrap'>
-                        <div class='icon-box'>
+                        <div th:each="tweet : ${tweets}" class='icon-box'>
                           <div class='icon icon-wrap'>
                             <i class='fa-icon-twitter text-contrast'></i>
                           </div>
                           <div class='content'>
-                            <p>
-                              Phasellus vulputate lobortis sem. Mauris id velit in urna.
+                            <p th:text="${tweet.text}">
                               <br/>
                               <a class='time' href='#'>
-                                <i>1 hour ago</i>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                        <div class='icon-box'>
-                          <div class='icon icon-wrap'>
-                            <i class='fa-icon-twitter text-contrast'></i>
-                          </div>
-                          <div class='content'>
-                            <p>
-                              Etiam luctus, dui congue tempus blandit, dui.
-                              <br/>
-                              <a class='time' href='#'>
-                                <i>3 hours ago</i>
+                                <i th:text="${tweet.getCreatedAt()}"/>
                               </a>
                             </p>
                           </div>
@@ -163,8 +148,8 @@
                 </nav>
               </div>
 
-              <div th:each="article : ${articles}" class="col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9">
-                <div class="text-boxes">
+              <div class="col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9">
+                <div th:each="article : ${articles}" class="text-boxes">
                   <div class='row text-box text-box-title-above'>
                     <div class='col-sm-12'>
                       <h2 class="title"><a th:href="@{'/blog/'+${article.id}}" th:text="${article.title}"/></h2>
@@ -196,7 +181,40 @@
               </div>
 
 
-              <div class='col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9'>
+              <!-- Paging -->
+             <div class='col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9'>
+                <div class="text-center">
+                  <ul class="pagination">
+                    <li th:if="${paginationInfo.previousVisible}">
+                      <a th:href="@{'/blog/'(page=${paginationInfo.previousPageNumber})}" >
+                        <i class="fa-icon-angle-left"/>
+                      </a>
+                    </li>
+
+                    <li th:each="element : ${paginationInfo.pageElement}" >
+
+                      <li  th:if="${element.navigable}">
+                        <a th:href="@{'/blog/'(page=${element.label})}" th:text="${element.label}" />
+                      </li>
+                      <li th:if="${!element.navigable and element.currentPage}" class="active">
+                        <a class="disabled" th:text="${element.label}" />
+                      </li>
+                      <li th:unless="${element.navigable or element.currentPage}">
+                        <a th:text="${element.label}" />
+                      </li>
+                    </li>
+                    <li th:if="${paginationInfo.nextVisible}">
+                      <a th:href="@{'/blog/'(page=${paginationInfo.nextPageNumber})}">
+                        <i class="fa-icon-angle-right"/>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+
+
+              <!--<div class='col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9'>
 
                 <div class='text-center'>
                   <ul class='pagination'>
@@ -221,7 +239,8 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div>-->
+
             </div>
           </div>
         </div>

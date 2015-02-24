@@ -72,20 +72,20 @@
     <property name="contentType" value="text/html; charset=UTF-8"/>
   </bean>
 
-  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8"/>
     <property name="username" value="root"/>
     <property name="password" value=""/>
   </bean>
 
-  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
+  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
     <property name="persistenceUnitName" value="persistenceUnit"/>
     <property name="dataSource" ref="dataSource"/>
   </bean>
 
   <!-- Transaction Manager -->
-  <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" >
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
   </bean>
 
@@ -135,6 +135,9 @@
         <aop:scoped-proxy proxy-target-class="false" />
     </bean>-->
 
+   <!-- <bean id="paginationInfo" class=""/>-->
+
+    <import resource="spring-security.xml" />
 
   <tx:annotation-driven/>
 </beans>

@@ -22,6 +22,12 @@ public class AdminController {
   @Autowired
   private AdminService adminService;
 
+/*  @RequestMapping(value = {"/", "/login", "/index"}, method = RequestMethod.GET)
+  public String getIndex(){
+      System.out.println("AdminController.getIndex");
+     return "login";
+  }*/
+
   @RequestMapping(value="/newarticle", method = RequestMethod.GET)
   public String showArticle(Model model){
     model.addAttribute("article", new Post());

@@ -28,7 +28,13 @@ public class AdminController {
      return "login";
   }*/
 
-  @RequestMapping(value="/newarticle", method = RequestMethod.GET)
+/*  @RequestMapping(method = RequestMethod.GET)
+  public String index(Model model){
+    model.addAttribute("article", new Post());
+    return "admin/articles";
+  }*/
+
+  @RequestMapping(value= {"/newarticle"}, method = RequestMethod.GET)
   public String showArticle(Model model){
     model.addAttribute("article", new Post());
     return "admin/articles";

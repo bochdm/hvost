@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8"/>
   <title></title>
-  <link th:href="@{/resources/css/bootstrap/bootstrap.min.css}" media="all" rel="stylesheet" type="text/css"/>
+  <link th:href="@{/resources/css/bootstrap/bootstrap.css}" media="all" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <!--<p th:if="${loginError}">Wrong user or password</p>-->
@@ -21,6 +21,8 @@
       <div style="padding-top:30px" class="panel-body">
 
         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+        <p th:if="${loginError}">Wrong user or password</p>
 
         <form th:action="@{/j_spring_security_check}" id="loginform" class="form-horizontal" role="form"
               method="post">
@@ -47,8 +49,9 @@
 
           <div style="margin-top:10px" class="form-group">
             <div class="col-sm-12 controls">
-              <a id="btn-login" href="#" class="btn btn-success">Login </a>
-              <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
+              <button type="submit" class="btn btn-success">Войти</button>
+<!--              <a id="btn-login" href="#" class="btn btn-success" >Login </a>
+              <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
             </div>
           </div>
 

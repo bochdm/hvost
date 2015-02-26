@@ -10,7 +10,8 @@
 <http auto-config="true">
     <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
     <intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>
-    <form-login login-page="/login.html" />
+    <form-login login-page="/login.html"
+                authentication-failure-url="/login-error.html"/>
     <logout logout-url="/logout" />
     <anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
 </http>

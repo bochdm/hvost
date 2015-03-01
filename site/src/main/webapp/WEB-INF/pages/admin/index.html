@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]>
+<html class="lt-ie9" lang="ru"> <![endif]-->
+<!--[if !IE] -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/admin/layout">
+<head>
+  <meta charset="UTF-8"/>
+  <meta content="blog, business, clean, multipurpose template, twitter bootstrap 3, responsive" name="keywords"/>
+  <meta content="all" name="robots"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+  <link th:href="@{/resources/css/bootstrap/bootstrap.min.css}" media="all" rel="stylesheet" type="text/css"/>
+  <link th:href="@{/resources/css/common.css}" media="all" rel="stylesheet" type="text/css"/>
+  <title>Административный интерфейс</title>
+</head>
+<body>
+
+
+<main layout:fragment="content">
+  Admin/Index.html
+</main>
+
+
+</body>
+</html>

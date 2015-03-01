@@ -34,6 +34,13 @@ public class AdminController {
     return "admin/articles";
   }*/
 
+  @RequestMapping(method = RequestMethod.GET)
+  //@RequestMapping(value = {"/"}, method = RequestMethod.GET)
+  public String index(){
+
+    return "/admin/index";
+  }
+
   @RequestMapping(value= {"/newarticle"}, method = RequestMethod.GET)
   public String showArticle(Model model){
     model.addAttribute("article", new Post());

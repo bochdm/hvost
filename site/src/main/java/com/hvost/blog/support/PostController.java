@@ -45,7 +45,6 @@ public class PostController {
 
         Page<Post> result = postService.getAll(pageNum);
 
-
         return renderListPosts(result, model);
         //return "/blog/blog_small";
     }

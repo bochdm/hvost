@@ -1,5 +1,7 @@
 package com.hvost.activepeople;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,9 +14,11 @@ public class Answer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ASW_ID")
   private long id;
 
   @Column(name = "ANSWER_TEXT")
+  @Type(type="text")
   private String answerText;
 
   @Column
@@ -23,8 +27,9 @@ public class Answer {
   @Column(name = "PUBLIC")
   private int isPublic;
 
-  @Column(name = "QST_QST_ID")
-  private long qstID;
+  @OneToOne(mappedBy = "answerId")
+//  @Column(name = "QST_QST_ID")
+  private Questions qstID;
 
 
   public long getId() {
@@ -55,11 +60,11 @@ public class Answer {
     this.isPublic = isPublic;
   }
 
-  public long getQstID() {
+  public Questions getQstID() {
     return qstID;
   }
 
-  public void setQstID(long qstID) {
+  public void setQstID(Questions qstID) {
     this.qstID = qstID;
   }
 }

@@ -13,13 +13,14 @@ public class Questions implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "QST_ID")
   private Long id;
 
   @Column(name = "QUESTION_TEXT")
   private String questionText;
 
-  @Column(name = "CQ_CQ_ID")
-  private int categoryID;
+/*  @Column(name = "CQ_CQ_ID")
+  private int categoryID;*/
 
   @Column
   private Date date;
@@ -27,9 +28,36 @@ public class Questions implements Serializable {
   @Column
   private String author;
 
+  @ManyToOne
+  @JoinColumn(name = "CQ_CQ_ID")
+  private CategoryQuestion category;
+
+  public Answer getAnswerId() {
+    return answerId;
+  }
+
+  public void setAnswerId(Answer answerId) {
+    this.answerId = answerId;
+  }
+
+  @OneToOne
+  @MapsId
+  //@PrimaryKeyJoinColumn
+  @JoinColumn(name = "QST_ID")
+  private Answer answerId;
+
   public Long getId() {
     return id;
   }
+
+  public CategoryQuestion getCategory() {
+    return category;
+  }
+
+  public void setCategory(CategoryQuestion categoryID) {
+    this.category = categoryID;
+  }
+
 
   public String getQuestionText() {
     return questionText;
@@ -39,13 +67,6 @@ public class Questions implements Serializable {
     this.questionText = questionText;
   }
 
-  public int getCategoryID() {
-    return categoryID;
-  }
-
-  public void setCategoryID(int categoryID) {
-    this.categoryID = categoryID;
-  }
 
   public Date getDate() {
     return date;

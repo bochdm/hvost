@@ -63,23 +63,35 @@
                   </div>
                 </div>
                 <div class='panel-group accordion accordion-bordered' id='accordion'>
-                  <div class='panel panel-default'>
+
+                  <div th:each="question : ${questions}" class='panel panel-default'>
                     <div class='panel-heading'>
                       <h4 class='panel-title'>
-                        <a class='accordion-toggle collapsed' data-toggle='collapse' href='#accordion-item-1'>
-                          Morbi et vehicula ipsum?
-                        </a>
+                        <a class='accordion-toggle collapsed' data-toggle='collapse' th:text="${question.questionText}" href='#accordion-item-1'/>
                       </h4>
                     </div>
                     <div class='panel-collapse collapse' id='accordion-item-1'>
+                      <div class="toolbar">
+                        <p th:text="${question.category.name}"/>
+                        <a class='btn btn-link' th:href="@{/}">
+                          <i class="fa-icon-calendar-empty"></i>
+                          <time th:datetime-local="ru" th:datetime="${question.date}" th:text='${#dates.format(question.date, "dd MMMM yyyy HH:MM")}'/>
+                        </a>
+                        <a class='btn btn-link' href='#'>
+                          <i class='fa-icon-user'></i>
+                          <span th:text="${question.author}"/>
+                        </a>
+                      </div>
                       <div class='panel-body'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pretium gravida posuere. Nullam nibh purus, feugiat sit amet molestie at, dictum id nisi. Fusce sem purus, hendrerit eu euismod iaculis, consectetur et sapien. Pellentesque pharetra gravida leo sed auctor. Praesent eu eleifend odio, ac congue nisl. Sed sollicitudin pharetra justo, a euismod tortor fringilla et. Nam a imperdiet mi.
+                        <span th:text="${question.answerId.date}"/>
                         <br/>
-                        <br/>
-                        Quisque ultricies tristique metus vitae sodales. Morbi et vehicula ipsum. Fusce at vulputate erat. Etiam ultrices ultricies tincidunt. Aliquam sit amet convallis erat. Nunc commodo facilisis felis, non ultrices justo pellentesque et. Ut at lorem non massa pellentesque malesuada. Ut sit amet est pulvinar, placerat magna et, congue tortor. Sed faucibus ante nec lectus dapibus, nec condimentum ligula elementum. Duis malesuada sapien nec hendrerit dapibus. Phasellus vitae risus sit amet risus dictum sagittis.
+                        <span th:text="${question.answerId.answerText}"/>
+
                       </div>
                     </div>
                   </div>
+
+
                   <div class='panel panel-default'>
                     <div class='panel-heading'>
                       <h4 class='panel-title'>

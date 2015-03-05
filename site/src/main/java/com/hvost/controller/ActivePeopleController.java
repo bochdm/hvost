@@ -1,5 +1,6 @@
 package com.hvost.controller;
 
+import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Questions;
 import com.hvost.activepeople.support.ActivePeopleService;
 import com.hvost.blog.Post;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,20 +31,31 @@ public class ActivePeopleController {
 
   @RequestMapping(method = RequestMethod.GET)
   public String listQuestions(Model model, @RequestParam(defaultValue = "1") int page){
-    System.out.println("ActivePeopleService");
+
     PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "date");
 
-    //   Page<Post> result = postService.getAllPost(page);
-    //  model.addAttribute("articles", result);
 
-    Page<Questions> result = service.getAll(pageNum);
+    //Page<Questions> result = service.getAll(pageNum);
+
+    Answer a = new Answer();
+    a.setIsPublic(1);
+    Page<Questions> result = service.getPublished(a, pageNum);
+
+
 
     List<Questions> qq =  result.getContent();
     for(Questions q: qq)
       System.out.println("q->" + q.getQuestionText());
 
+    model.addAttribute("newQuestion", new Questions());
+
     return renderList(result, model);
 
+  }
+
+  @RequestMapping(value = "/newquestion", method = RequestMethod.POST)
+  public void addQuestion(@ModelAttribute Questions questions){
+    service.addNewQuestion(questions);
   }
 
   private String renderList(Page<Questions> page, Model model){

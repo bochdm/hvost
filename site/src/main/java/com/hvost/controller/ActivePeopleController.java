@@ -54,8 +54,10 @@ public class ActivePeopleController {
   }
 
   @RequestMapping(value = "/newquestion", method = RequestMethod.POST)
-  public void addQuestion(@ModelAttribute Questions questions){
+  public String addQuestion(@ModelAttribute Questions questions){
     service.addNewQuestion(questions);
+
+    return "/activepeople/activepeople";
   }
 
   private String renderList(Page<Questions> page, Model model){

@@ -27,9 +27,8 @@ public class Answer {
   @Column(name = "PUBLIC")
   private int isPublic;
 
-  @OneToOne(mappedBy = "answerId")
-//  @Column(name = "QST_QST_ID")
-  private Questions qstID;
+  //@OneToOne(mappedBy = "answerId")
+  //private Questions qstID;
 
 
   public long getId() {
@@ -60,11 +59,11 @@ public class Answer {
     this.isPublic = isPublic;
   }
 
-  public Questions getQstID() {
+/*  public Questions getQstID() {
     return qstID;
   }
 
   public void setQstID(Questions qstID) {
     this.qstID = qstID;
-  }
+  }*/
 }

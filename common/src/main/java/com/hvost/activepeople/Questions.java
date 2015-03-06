@@ -1,6 +1,10 @@
 package com.hvost.activepeople;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.metamodel.binding.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -36,14 +40,9 @@ public class Questions implements Serializable {
     return answerId;
   }
 
-  public void setAnswerId(Answer answerId) {
-    this.answerId = answerId;
-  }
-
   @OneToOne
-  @MapsId
-  //@PrimaryKeyJoinColumn
-  @JoinColumn(name = "QST_ID")
+ // @MapsId
+  @JoinColumn(name = "QST_ID", referencedColumnName = "ASW_ID", insertable = false, updatable = false)
   private Answer answerId;
 
   public Long getId() {

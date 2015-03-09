@@ -19,15 +19,23 @@ public class ActivePeopleService {
   @Autowired
   QuestionRepository questionRepository;
 
+  @Autowired
+  AnswerRepository answerRepository;
+
   public Page<Questions> getAll(Pageable pageRequest){
 
     return questionRepository.findAll(pageRequest);
   }
 
-  public Page<Questions> getPublished(Answer a, Pageable pageRequest){
+/*  public Page<Questions> getPublished(Answer a, Pageable pageRequest){
 
-    return questionRepository.findByAnswerId(pageRequest);
+     return questionRepository.findByAnswerId(pageRequest);
+  }*/
+
+  public Page<Answer> getPublished1(Pageable pageRequest){
+    return answerRepository.findByPublished(pageRequest);
   }
+
 
   public void addNewQuestion(Questions questions) {
     questionRepository.save(questions);

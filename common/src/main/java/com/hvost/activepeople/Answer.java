@@ -21,14 +21,23 @@ public class Answer {
   @Type(type="text")
   private String answerText;
 
-  @Column
+  @Column(name = "DATE")
   private Date date;
 
   @Column(name = "PUBLIC")
   private int isPublic;
 
   //@OneToOne(mappedBy = "answerId")
-  //private Questions qstID;
+/*  @Column(name="QST_QST_ID")
+  private long qstID;*/
+
+  public Questions getQuestion() {
+    return question;
+  }
+
+  @OneToOne
+  @JoinColumn(name = "QST_QST_ID", referencedColumnName = "QST_ID")
+  private Questions question;
 
 
   public long getId() {
@@ -59,11 +68,15 @@ public class Answer {
     this.isPublic = isPublic;
   }
 
-/*  public Questions getQstID() {
-    return qstID;
-  }
 
-  public void setQstID(Questions qstID) {
-    this.qstID = qstID;
-  }*/
+  @Override
+  public String toString() {
+    return "Answer{" +
+        "id=" + id +
+        ", answerText='" + answerText + '\'' +
+        ", date=" + date +
+        ", isPublic=" + isPublic +
+        ", question=" + question +
+        '}';
+  }
 }

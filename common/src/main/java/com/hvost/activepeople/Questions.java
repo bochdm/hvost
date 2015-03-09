@@ -1,12 +1,16 @@
 package com.hvost.activepeople;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.metamodel.binding.*;
+
+
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+
 
 /**
  * Created by kseniaselezneva on 03/03/15.
@@ -20,30 +24,38 @@ public class Questions implements Serializable {
   @Column(name = "QST_ID")
   private Long id;
 
+  @NotNull(message = "{error.questiontext.notnull}")
+  @NotEmpty(message = "{error.questiontext.notnull}")
+  @Min(10)
   @Column(name = "QUESTION_TEXT")
   private String questionText;
 
 /*  @Column(name = "CQ_CQ_ID")
   private int categoryID;*/
 
-  @Column
+  @Column(insertable = false)
   private Date date;
 
   @Column
   private String author;
 
   @ManyToOne
-  @JoinColumn(name = "CQ_CQ_ID")
+  @JoinColumn(name = "CQ_CQ_ID", insertable = false)
   private CategoryQuestion category;
 
+  public Questions() {
+  }
+
+  /*
   public Answer getAnswerId() {
     return answerId;
   }
+*/
 
-  @OneToOne
- // @MapsId
-  @JoinColumn(name = "QST_ID", referencedColumnName = "ASW_ID", insertable = false, updatable = false)
-  private Answer answerId;
+/*  @OneToOne(optional = false)
+  //@MapsId
+//  @JoinColumn(name = "QST_ID", referencedColumnName = "QST_QST_ID", insertable = false, updatable = false)
+  private Answer answerId;*/
 
   public Long getId() {
     return id;
@@ -81,5 +93,15 @@ public class Questions implements Serializable {
 
   public void setAuthor(String author) {
     this.author = author;
+  }
+
+  @Override
+  public String toString() {
+    return "Questions{" +
+        "id=" + id +
+        ", questionText='" + questionText + '\'' +
+        ", date=" + date +
+        ", author='" + author + '\'' +
+        '}';
   }
 }

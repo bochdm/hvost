@@ -38,7 +38,7 @@ public class ActivePeopleController {
     PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "date");
 
 
-   // Page<Questions> result = service.getAll(pageNum);
+   // Page<Questions> result = service.getAllArticles(pageNum);
 
     Answer a = new Answer();
     a.setIsPublic(1);
@@ -59,22 +59,18 @@ public class ActivePeopleController {
 
     Questions newQuestion = new Questions();
     System.out.println("newQuestion " + newQuestion);
-    model.addAttribute("newquestion", newQuestion);
+    model.addAttribute("questions", newQuestion);
 
     return renderList(result, model);
 
   }
 
   @RequestMapping(value = "/addquestion", method = RequestMethod.POST)
-  public String addQuestion(@Valid Questions questions, BindingResult bindingResult){
+  public String addQuestion(@ModelAttribute @Valid Questions questions, BindingResult bindingResult){
     System.out.println("newQuestion" + questions);
-    if (bindingResult.hasErrors()) {
+    if (bindingResult.hasErrors())
+      return "/activepeople/activepeople";
 
-      List<ObjectError> errors =  bindingResult.getAllErrors();
-      for(ObjectError e : errors)
-        System.out.println(e.toString());
-      return "/activepeople/addquestion";
-    }
     service.addNewQuestion(questions);
 
 
@@ -85,7 +81,6 @@ public class ActivePeopleController {
 
     model.addAttribute("answers", page);
     model.addAttribute("paginationInfo", new PaginationInfo(page));
-
 
     return "/activepeople/activepeople";
   }

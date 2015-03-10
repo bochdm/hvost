@@ -131,7 +131,7 @@
                   <i class='fa-icon-question-sign'></i>
                   <h2>Can't find the answer?</h2>
                 </div>
-                <form th:with="create=1" th:action="@{/activepeople/addquestion}" th:object="${newquestion}" class='form form-validation' method='post'>
+                <form th:action="@{/activepeople/addquestion}" th:object="${questions}" class='form form-validation' method='post'>
                   <div class='row'>
                     <div class='col-sm-6'>
                       <div class='form-group control-group'>

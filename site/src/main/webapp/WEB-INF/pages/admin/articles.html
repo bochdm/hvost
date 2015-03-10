@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout"
+      layout:decorator="/admin/layout"
       xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute">
 <head>
   <title>Статьи</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap/bootstrap3-wysihtml5.css}"/>
-  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap/bootstrap-theme.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap/font-awesome.min.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5.css}"/>
 
 </head>
 <body>
@@ -34,8 +34,8 @@
 
         <div class="form-group">
           <label for="content" th:value="Содержание"></label>
-          <textarea id="content" class="textarea" placeholder="Enter text ..." style="width: 810px; height: 200px"
-                    th:field="*{content}"/>
+          <textarea id="content" class="textarea form-control wysihtml5-editor placeholder" placeholder="Enter text ..."
+                    th:field="*{content}" style="width: 810px; height: 250px" />
         </div>
 
         <button type="submit" class="btn btn-default">Submit</button>
@@ -47,11 +47,10 @@
 
 <th:block layout:fragment="script">
 
-  <script th:src="@{/resources/js/wysihtml5/wysihtml5-0.3.0.min.js}"></script>
+  <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}"></script>
   <script th:src="@{/resources/js/jquery/jquery.min.js}"></script>
   <script th:src="@{/resources/js/bootstrap/bootstrap.min.js}"></script>
-  <script th:src="@{/resources/js/handlebars/handlebars.runtime.min.js}"></script>
-  <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.min.js}"></script>
+  <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.js}"></script>
 
 <!--  <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}"></script>
   <script th:src="@{/resources/js/jquery/jquery-1.7.2.js}"></script>
@@ -60,9 +59,7 @@
   <script th:inline="javascript">
     /*<![CDATA[*/
     $('.textarea').wysihtml5({
-      toolbar: {
-        fa:true
-      }
+      html:true, stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
     });
     /*]]>*/
   </script>

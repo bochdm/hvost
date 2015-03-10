@@ -24,8 +24,8 @@ public class Questions implements Serializable {
   @Column(name = "QST_ID")
   private Long id;
 
-  @NotNull(message = "{error.questiontext.notnull}")
-  @NotEmpty(message = "{error.questiontext.notnull}")
+  @NotNull
+  @NotEmpty
   @Min(10)
   @Column(name = "QUESTION_TEXT")
   private String questionText;

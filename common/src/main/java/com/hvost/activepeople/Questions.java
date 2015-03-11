@@ -26,7 +26,6 @@ public class Questions implements Serializable {
 
   @NotNull
   @NotEmpty
-  @Min(10)
   @Column(name = "QUESTION_TEXT")
   private String questionText;
 

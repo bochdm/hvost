@@ -32,8 +32,10 @@ public class ActivePeopleController {
   @Autowired
   private ActivePeopleService service;
 
-  @RequestMapping(method = RequestMethod.GET)
+  @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
   public String listQuestions(Model model, @RequestParam(defaultValue = "1") int page){
+
+    System.out.println("listQuestions");
 
     PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "date");
 
@@ -57,22 +59,17 @@ public class ActivePeopleController {
 
 
 
-    Questions newQuestion = new Questions();
-    System.out.println("newQuestion " + newQuestion);
-    model.addAttribute("questions", newQuestion);
-
     return renderList(result, model);
 
   }
 
   @RequestMapping(value = "/addquestion", method = RequestMethod.POST)
-  public String addQuestion(@ModelAttribute @Valid Questions questions, BindingResult bindingResult){
-    System.out.println("newQuestion" + questions);
+  public String addQuestion(@ModelAttribute("questions") @Valid Questions questions, BindingResult bindingResult, Model model){
+    System.out.println("addQuestion:newQuestion" + questions);
     if (bindingResult.hasErrors())
       return "/activepeople/activepeople";
 
     service.addNewQuestion(questions);
-
 
     return "redirect:/activepeople";
   }
@@ -80,6 +77,7 @@ public class ActivePeopleController {
   private String renderList(Page<Answer> page, Model model){
 
     model.addAttribute("answers", page);
+    model.addAttribute("questions", new Questions());
     model.addAttribute("paginationInfo", new PaginationInfo(page));
 
     return "/activepeople/activepeople";

@@ -1,19 +1,16 @@
 package com.hvost.controller;
 
 import com.hvost.activepeople.Answer;
-import com.hvost.activepeople.Questions;
+import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.ActivePeopleService;
-import com.hvost.blog.Post;
 import com.hvost.support.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,12 +61,12 @@ public class ActivePeopleController {
   }
 
   @RequestMapping(value = "/addquestion", method = RequestMethod.POST)
-  public String addQuestion(@ModelAttribute("questions") @Valid Questions questions, BindingResult bindingResult, Model model){
-    System.out.println("addQuestion:newQuestion" + questions);
+  public String addQuestion(@ModelAttribute("question") @Valid Question question, BindingResult bindingResult, Model model){
+    System.out.println("addQuestion:newQuestion" + question);
     if (bindingResult.hasErrors())
       return "/activepeople/activepeople";
 
-    service.addNewQuestion(questions);
+    service.addNewQuestion(question);
 
     return "redirect:/activepeople";
   }
@@ -77,7 +74,7 @@ public class ActivePeopleController {
   private String renderList(Page<Answer> page, Model model){
 
     model.addAttribute("answers", page);
-    model.addAttribute("questions", new Questions());
+    model.addAttribute("question", new Question());
     model.addAttribute("paginationInfo", new PaginationInfo(page));
 
     return "/activepeople/activepeople";

@@ -1,19 +1,12 @@
 package com.hvost.activepeople.support;
 
-import com.hvost.activepeople.Answer;
-import com.hvost.activepeople.Questions;
-import com.hvost.blog.Post;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.hvost.activepeople.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
 
 /**
  * Created by kseniaselezneva on 04/03/15.
  */
-public interface QuestionRepository extends JpaRepository<Questions, Long> {
+public interface QuestionRepository extends JpaRepository<Question, Long> {
 
  // Page<Questions> findByAnswerId(Answer isPublic, Pageable pageable);
 

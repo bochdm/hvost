@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Dmitry.Bochkanov
@@ -71,6 +73,11 @@ public class AdminController {
   public String getAllAnswer(Model model, @RequestParam(defaultValue = "1") int page){
     PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "date");
     Page<Answer> result = adminService.getAllAnswers(pageNum);
+
+    List<Answer> ans = result.getContent();
+    System.out.println("AdminController:getAllAnswer");
+    for (Answer a : ans)
+      System.out.println(a);
 
     model.addAttribute("answers", result);
     model.addAttribute("paginationInfo", new PaginationInfo(result));

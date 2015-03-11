@@ -17,7 +17,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="QUESTIONS")
-public class Questions implements Serializable {
+public class Question implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class Questions implements Serializable {
   @JoinColumn(name = "CQ_CQ_ID", insertable = false)
   private CategoryQuestion category;
 
-  public Questions() {
+  public Question() {
   }
 
   /*

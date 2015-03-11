@@ -6,12 +6,11 @@ $(document).ready(function(){
                 required: true
             },
             'contact_email': {
-                required: true,
                 email: true
-            },
+            }/*,
             'author':{
                 required: true
-            }
+            }*/
         },
         messages: {
             'questionText':  {
@@ -25,10 +24,25 @@ $(document).ready(function(){
             $(element).closest('.control-group').removeClass('success').addClass('error');
         },
         success: function(element) {
+
             element
-              .text('OK!').addClass('valid')
               .closest('.control-group').removeClass('error').addClass('success');
-        }
+        },
+        submitHandler: showThanks
     });
 
-}); // end document.ready
+
+/*    $("#newQuestion").click(function(){
+        bootbox.alert("Спасибо за Ваш вопрос! Мы постараемся ответить Вам в ближайшее время", function() {
+            console.log("Alert Callback");
+        });
+    });*/
+
+});
+function showThanks(form){
+    bootbox.alert("Спасибо за Ваш вопрос! Мы постараемся ответить Вам в ближайшее время", function() {
+        form.submit();
+    });
+
+
+}

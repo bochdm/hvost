@@ -1,7 +1,7 @@
 package com.hvost.activepeople.support;
 
 import com.hvost.activepeople.Answer;
-import com.hvost.activepeople.Questions;
+import com.hvost.activepeople.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ public class ActivePeopleService {
   @Autowired
   AnswerRepository answerRepository;
 
-  public Page<Questions> getAll(Pageable pageRequest){
+  public Page<Question> getAll(Pageable pageRequest){
 
     return questionRepository.findAll(pageRequest);
   }
@@ -37,7 +37,7 @@ public class ActivePeopleService {
   }
 
 
-  public void addNewQuestion(Questions questions) {
-    questionRepository.save(questions);
+  public void addNewQuestion(Question question) {
+    questionRepository.save(question);
   }
 }

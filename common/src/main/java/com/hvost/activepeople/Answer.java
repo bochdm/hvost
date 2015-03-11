@@ -31,13 +31,13 @@ public class Answer {
 /*  @Column(name="QST_QST_ID")
   private long qstID;*/
 
-  public Questions getQuestion() {
+  public Question getQuestion() {
     return question;
   }
 
   @OneToOne
   @JoinColumn(name = "QST_QST_ID", referencedColumnName = "QST_ID")
-  private Questions question;
+  private Question question;
 
 
   public long getId() {

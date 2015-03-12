@@ -21,7 +21,7 @@ public class Answer {
   @Type(type="text")
   private String answerText;
 
-  @Column(name = "DATE")
+  @Column(name = "DATE", insertable = false)
   private Date date;
 
   @Column(name = "PUBLIC")

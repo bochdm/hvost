@@ -9,11 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -84,6 +83,28 @@ public class AdminController {
     return "admin/allquestions";
   }
 
+  @RequestMapping(value = "/answer/{id:[0-9]+}/edit", method = {RequestMethod.GET})
+  public String showAnswer(@PathVariable Long id, Model model){
 
+    Answer answer = adminService.getAnswer(id);
+    System.out.println("AdminController:showAnswer = " + answer);
+    model.addAttribute("answer", answer);
+    return "/admin/answeredit";
+  }
+
+  @RequestMapping(value = "/answer/{id:[0-9]+}/edit", method = {RequestMethod.POST})
+  public String editAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
+
+    Answer ans = adminService.getAnswer(id);
+    System.out.println("editAnswer -> " + ans);
+    if (!bindingResult.hasErrors()){
+      ans.setAnswerText(answer.getAnswerText());
+      adminService.updateAnswer(ans);
+    }
+
+
+
+    return "admin/allquestions";
+  }
 
 }

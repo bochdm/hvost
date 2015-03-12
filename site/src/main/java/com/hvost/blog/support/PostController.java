@@ -62,7 +62,7 @@ public class PostController {
     //    return renderListPosts(result, model);
     }
 
-    @RequestMapping(value = "/{id:\\d}", method = {GET})
+    @RequestMapping(value = "/{id:\\d+}", method = {GET})
     public String showPost(Model model, @PathVariable Long id){
         System.out.println("id_post = " + id);
         Post post = postService.getPost(id);

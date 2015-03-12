@@ -38,9 +38,17 @@ public class AdminService {
         em.persist(a);
     }
 
+
+  @Transactional
+  public void updateAnswer(Answer a){
+  //  answerRepository.save(a);
+
+    em.merge(a);
+  }
+
     @Transactional
     public List<Post> getAllArticles() {
-      List<Post> result = em.createQuery("SELECT a FROM ARTICLE a", Post.class).getResultList();
+      List<Post> result = em.createQuery("SELECT a FROM Post a", Post.class).getResultList();
 
       for(Post p : result)
         System.out.println("a -> " + p);
@@ -53,4 +61,8 @@ public class AdminService {
      // Page<Answer> pageAnswer = answerRepository.findAll(pageRequest);
       return answerRepository.findAll(pageRequest);
     }
+
+  public Answer getAnswer(Long ansId){
+    return answerRepository.findOne(ansId);
+  }
 }

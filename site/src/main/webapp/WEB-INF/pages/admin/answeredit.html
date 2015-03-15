@@ -13,8 +13,14 @@
 </head>
 <body>
   <main layout:fragment="content">
+
+    <div class='page-header page-header-with-icon'>
+      <i class='fa-icon-table'></i>
+      <h3>Вопрос-ответ</h3>
+    </div>
+
     <div class="row row-centered">
-      <div class="col-md-7 col-centered" role="main">
+      <div class="col-md-10 col-centered" role="main">
         <form th:with="edit=1" th:action="@{'/admin/answer/'+${answer.id}+'/edit'}" th:object="${answer}" method="post">
           <div class="form-group">
             <label for="question">Вопрос</label>

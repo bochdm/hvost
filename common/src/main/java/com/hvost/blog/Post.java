@@ -37,21 +37,22 @@ public class Post implements Serializable {
   @Column
   private String summary;
 
-
   public String getSummary() {
     return summary;
   }
 
   public void setSummary(String summary) {
-    if (summary.isEmpty())
-    this.summary = content.substring(0, 330) + "...";
+/*    if (summary.isEmpty())
+      this.summary = content.substring(0, 330) + "...";*/
+
+    this.summary = summary;
   }
 
-
-  public Post(String author, String title, String content) {
+  public Post(String author, String title, String content, String summary) {
     this.author = author;
     this.title = title;
     this.content = content;
+    this.summary = summary;
   }
 
   public Post() {
@@ -99,6 +100,7 @@ public class Post implements Serializable {
         "id=" + id +
         ", author='" + author + '\'' +
         ", title='" + title + '\'' +
+        ", summary='" + summary + '\'' +
         ", content='" + content + '\'' +
         ", createdAt=" + createdAt +
         '}';

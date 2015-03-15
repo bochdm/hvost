@@ -80,7 +80,6 @@ public class PostController {
 
         model.addAttribute("tweets", tweets);
 
-
         return "/blog/blog_small";
     }
 }

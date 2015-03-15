@@ -9,16 +9,43 @@
 <body>
 <main layout:fragment="content">
 
-<!--  <div th:each="answer : ${answers}">
-    <div>
-      <p th:text="*{id}"></p>
-      <p th:text="${answer.answerText}"></p>
-      <p th:text="${answer.question.questionText}"></p>
-    </div>
-  </div>-->
+  <div class='page-header page-header-with-icon'>
+    <i class='fa-icon-table'></i>
+    <h3>Вопрос-ответ</h3>
+  </div>
 
+  <!-- Paging -->
+  <nav>
+    <ul class="pagination pagination-sm">
+      <li th:if="${paginationInfo.previousVisible}">
+        <a th:href="@{'/admin/allquestions/'(page=${paginationInfo.previousPageNumber})}" >
+          <i class="glyphicon glyphicon-menu-left"/>
+        </a>
+      </li>
 
-  <div class='panel-group accordion accordion-bordered' id='accordion'>
+      <li th:each="element : ${paginationInfo.pageElement}" >
+
+      <li  th:if="${element.navigable}">
+        <a th:href="@{'/admin/allquestions/'(page=${element.label})}" th:text="${element.label}" />
+      </li>
+      <li th:if="${!element.navigable and element.currentPage}" class="active">
+        <a class="disabled" th:text="${element.label}" />
+      </li>
+      <li th:unless="${element.navigable or element.currentPage}">
+        <a th:text="${element.label}" />
+      </li>
+      </li>
+      <li th:if="${paginationInfo.nextVisible}">
+        <a th:href="@{'/admin/allquestions/'(page=${paginationInfo.nextPageNumber})}">
+          <i class="glyphicon glyphicon-menu-right"/>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="row">
+    <div class='col-sm-12'>
+    <div class='panel-group accordion accordion-bordered' id='accordion'>
     <div th:each="answer : ${answers}" class='panel panel-default'>
       <div class='panel-heading'>
         <h4 class='panel-title'>
@@ -44,24 +71,55 @@
         <div class='panel-body'>
           <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:MM")}'/>
           <br/>
-          <span th:text="${answer.answerText}"/>
+          <span th:utext="${answer.answerText}"/>
         </div>
 
-
-        <div class="btn-toolbar" role="toolbar" aria-label="...">
-          <a th:href="@{'/admin/answer/'+${answer.id}+'/edit'}" th:text="Редактировать"/>
-          <button type="button" class="btn btn-default" th:href="@{'/admin/answer/'+*{id}+'/edit'}">Редактировать</button>
-          <button type="button" class="btn btn-default">Удалить</button>
-         </div>
+        <div class="modal-footer">
+          <div class="btn-toolbar" role="toolbar" aria-label="...">
+            <a class="btn btn-primary" th:href="@{'/admin/answer/'+${answer.id}+'/edit'}" th:text="Редактировать"/>
+            <button type="button" class="btn btn-default">Удалить</button>
+           </div>
+        </div>
 
       </div>
     </div>
   </div>
+  </div>
+  </div>
+
+  <!-- Paging -->
+  <nav>
+    <ul class="pagination pagination-sm">
+      <li th:if="${paginationInfo.previousVisible}">
+        <a th:href="@{'/admin/allquestions/'(page=${paginationInfo.previousPageNumber})}" >
+          <i class="glyphicon glyphicon-menu-left"/>
+        </a>
+      </li>
+
+      <li th:each="element : ${paginationInfo.pageElement}" >
+
+      <li  th:if="${element.navigable}">
+        <a th:href="@{'/admin/allquestions/'(page=${element.label})}" th:text="${element.label}" />
+      </li>
+      <li th:if="${!element.navigable and element.currentPage}" class="active">
+        <a class="disabled" th:text="${element.label}" />
+      </li>
+      <li th:unless="${element.navigable or element.currentPage}">
+        <a th:text="${element.label}" />
+      </li>
+      </li>
+      <li th:if="${paginationInfo.nextVisible}">
+        <a th:href="@{'/admin/allquestions/'(page=${paginationInfo.nextPageNumber})}">
+          <i class="glyphicon glyphicon-menu-right"/>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
 </main>
 
 <th:block layout:fragment="script">
-
+  <script th:src="@{/resources/js/pages/allquestions.js}" type="text/javascript"></script>
 </th:block>
 </body>
 </html>

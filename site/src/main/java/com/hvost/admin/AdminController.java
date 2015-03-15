@@ -1,12 +1,14 @@
 package com.hvost.admin;
 
 import com.hvost.activepeople.Answer;
+import com.hvost.activepeople.Question;
 import com.hvost.blog.Post;
 import com.hvost.support.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,18 +56,26 @@ public class AdminController {
     return "admin/articles";
   }
 
-  @RequestMapping(value = "/listarticle", method = RequestMethod.GET)
-  public String allArticles(Model model){
-    model.addAttribute("articles", adminService.getAllArticles());
+  @RequestMapping(value = "/allarticles", method = RequestMethod.GET)
+  public String allArticles(Model model, @RequestParam(defaultValue = "1") int page){
+  //  model.addAttribute("articles", adminService.getAllArticles());
+    PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "createdAt");
+    Page<Post> result = adminService.getAllPosts(pageNum);
 
-    return "home";
+    List<Post> posts = result.getContent();
+    for (Post p: posts)
+      System.out.println("posts-> " + p);
+
+    model.addAttribute("post_count", result.getTotalElements());
+
+    return renderLists(result, model);
   }
 
   @RequestMapping(value="/addarticle", method = RequestMethod.POST)
   public String addArticle(@ModelAttribute Post post){
     //model.addAttribute("categories", categoryService.getAllArticles());
     adminService.addArticle(post);
-    return "redirect:/home/test";
+    return "redirect:/admin/allarticles";
   }
 
   @RequestMapping(value = "/allanswers", method = RequestMethod.GET)
@@ -78,9 +88,29 @@ public class AdminController {
     for (Answer a : ans)
       System.out.println(a);
 
+    model.addAttribute("answer_count", result.getTotalElements());
+
     model.addAttribute("answers", result);
     model.addAttribute("paginationInfo", new PaginationInfo(result));
     return "admin/allquestions";
+  }
+
+  @RequestMapping(value = "/unanswered", method = RequestMethod.GET)
+  public String getAllUnansweredQuestions(Model model, @RequestParam(defaultValue = "1") int page){
+    PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "date");
+    Page<Question> result = adminService.getAllUnansweredQuestions(pageNum);
+
+    System.out.println("admin:unanswered");
+    List<Question> qq = result.getContent();
+    for (Question q : qq)
+      System.out.println("q -> " + q);
+
+    model.addAttribute("unanswered_count", result.getTotalElements());
+
+    model.addAttribute("questions", result);
+    model.addAttribute("paginationInfo", new PaginationInfo(result));
+
+    return "admin/unanswered";
   }
 
   @RequestMapping(value = "/answer/{id:[0-9]+}/edit", method = {RequestMethod.GET})
@@ -89,7 +119,7 @@ public class AdminController {
     Answer answer = adminService.getAnswer(id);
     System.out.println("AdminController:showAnswer = " + answer);
     model.addAttribute("answer", answer);
-    return "/admin/answeredit";
+    return "admin/answeredit";
   }
 
   @RequestMapping(value = "/answer/{id:[0-9]+}/edit", method = {RequestMethod.POST})
@@ -102,9 +132,47 @@ public class AdminController {
       adminService.updateAnswer(ans);
     }
 
-
-
     return "admin/allquestions";
+  }
+
+  @RequestMapping(value = "/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})
+  public String findPost(@PathVariable Long id, Model model){
+    Post post = adminService.getPost(id);
+    model.addAttribute("post", post);
+    return "admin/editpost";
+  }
+
+  @RequestMapping(value = "/post/{id:[0-9]+}/edit", method = {RequestMethod.POST})
+  public String editPost(@PathVariable Long id, @ModelAttribute @Valid Post post, BindingResult bindingResult, Model model){
+    Post p = adminService.getPost(id);
+    if (!bindingResult.hasErrors()){
+      p.setTitle(post.getTitle());
+      p.setAuthor(post.getAuthor());
+      p.setSummary(post.getSummary());
+      p.setContent(post.getContent());
+      adminService.updatePost(p);
+    }
+
+    //allArticles(model, 1);
+    return "redirect:/admin/allarticles";
+  }
+
+  @RequestMapping(value = "/post/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  public String deletePost(@PathVariable Long id, Model model){
+
+    Post post = adminService.getPost(id);
+    adminService.deletePost(post);
+    return "redirect:/admin/allarticles";
+  }
+
+  private String renderLists(Page<Post> page, Model model){
+
+    System.out.println("admin: renderLists");
+
+    model.addAttribute("articles", page);
+    model.addAttribute("paginationInfo", new PaginationInfo(page));
+
+    return "admin/allarticles";
   }
 
 }

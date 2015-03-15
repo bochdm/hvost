@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/admin/layout">
+<head lang="ru">
+  <meta charset="UTF-8"/>
+  <title></title>
+</head>
+<body>
+  <main layout:fragment="content">
+    <div class='page-header page-header-with-icon'>
+      <i class='fa-icon-table'></i>
+      <h3>Список неотвеченных вопросов</h3>
+    </div>
+
+    <!-- Paging -->
+    <nav>
+      <ul class="pagination pagination-sm">
+        <li th:if="${paginationInfo.previousVisible}">
+          <a th:href="@{'/admin/unanswered/'(page=${paginationInfo.previousPageNumber})}" >
+            <i class="glyphicon glyphicon-menu-left"/>
+          </a>
+        </li>
+
+        <li th:each="element : ${paginationInfo.pageElement}" >
+
+        <li  th:if="${element.navigable}">
+          <a th:href="@{'/admin/unanswered/'(page=${element.label})}" th:text="${element.label}" />
+        </li>
+        <li th:if="${!element.navigable and element.currentPage}" class="active">
+          <a class="disabled" th:text="${element.label}" />
+        </li>
+        <li th:unless="${element.navigable or element.currentPage}">
+          <a th:text="${element.label}" />
+        </li>
+        </li>
+        <li th:if="${paginationInfo.nextVisible}">
+          <a th:href="@{'/admin/unanswered/'(page=${paginationInfo.nextPageNumber})}">
+            <i class="glyphicon glyphicon-menu-right"/>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class='row'>
+      <div class='col-sm-12'>
+        <div class='table-responsive'>
+          <table class='table table-striped'>
+            <thead>
+            <tr>
+              <th th:text="Вопрос"/>
+              <th th:text="Автор"/>
+              <th th:text="Дата"/>
+              <th th:text="Действия"/>
+            </tr>
+            </thead>
+            <tbody>
+              <tr th:each="question : ${questions}">
+                <td class="col-md-3">
+                  <small th:text="${question.questionText}"/>
+                </td>
+                <td class="col-md-1">
+                  <small th:text="${question.author}"/>
+                </td>
+                <td  class="col-md-2">
+                  <small>
+                    <time th:datetime-local="ru" th:datetime="${question.date}" th:text='${#dates.format(question.date, "dd MMMM yyyy HH:MM")}'/>
+                  </small>
+                </td>
+                <td class="col-md-1">
+                  <small><a id="edit" th:href="@{'/admin/post/'+${question.id}+'/edit'}" th:text="Редактировать"/></small>
+                  <small><a id="delete" th:href="@{'/admin/post/'+${question.id}+'/delete'}" th:text="Удалить"/></small>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paging -->
+    <nav>
+      <ul class="pagination pagination-sm">
+        <li th:if="${paginationInfo.previousVisible}">
+          <a th:href="@{'/admin/unanswered/'(page=${paginationInfo.previousPageNumber})}" >
+            <i class="glyphicon glyphicon-menu-left"/>
+          </a>
+        </li>
+
+        <li th:each="element : ${paginationInfo.pageElement}" >
+
+        <li  th:if="${element.navigable}">
+          <a th:href="@{'/admin/unanswered/'(page=${element.label})}" th:text="${element.label}" />
+        </li>
+        <li th:if="${!element.navigable and element.currentPage}" class="active">
+          <a class="disabled" th:text="${element.label}" />
+        </li>
+        <li th:unless="${element.navigable or element.currentPage}">
+          <a th:text="${element.label}" />
+        </li>
+        </li>
+        <li th:if="${paginationInfo.nextVisible}">
+          <a th:href="@{'/admin/unanswered/'(page=${paginationInfo.nextPageNumber})}">
+            <i class="glyphicon glyphicon-menu-right"/>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </main>
+
+</body>
+</html>

@@ -39,6 +39,7 @@ $(document).ready(function(){
     });*/
 
 });
+
 function showThanks(form){
     bootbox.alert("Спасибо за Ваш вопрос! Мы постараемся ответить Вам в ближайшее время", function() {
         form.submit();

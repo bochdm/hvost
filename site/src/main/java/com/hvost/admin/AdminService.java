@@ -1,8 +1,11 @@
 package com.hvost.admin;
 
 import com.hvost.activepeople.Answer;
+import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.AnswerRepository;
+import com.hvost.activepeople.support.QuestionRepository;
 import com.hvost.blog.Post;
+import com.hvost.blog.support.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +34,13 @@ public class AdminService {
     EntityManager em;
 
   @Autowired
+  PostRepository postRepository;
+
+  @Autowired
    AnswerRepository answerRepository;
+
+  @Autowired
+  QuestionRepository questionRepository;
 
     @Transactional
     public void addArticle(Post a){
@@ -44,6 +53,20 @@ public class AdminService {
   //  answerRepository.save(a);
 
     em.merge(a);
+  }
+
+  /**
+   * Обновляем статью
+   */
+  @Transactional
+  public void updatePost(Post p){
+    em.merge(p);
+  }
+
+  @Transactional
+  public void deletePost(Post p){
+    // em.remove(p);
+    em.remove(em.contains(p) ? p : em.merge(p));
   }
 
     @Transactional
@@ -62,7 +85,23 @@ public class AdminService {
       return answerRepository.findAll(pageRequest);
     }
 
+
+  public Page<Question> getAllUnansweredQuestions(Pageable pageRequest){
+
+    return questionRepository.findAllUnswered(pageRequest);
+  }
+
   public Answer getAnswer(Long ansId){
     return answerRepository.findOne(ansId);
   }
+
+  public Page<Post> getAllPosts(Pageable pageRequest){
+    return postRepository.findAll(pageRequest);
+  }
+
+  public Post getPost(Long postID) {
+    return postRepository.findOne(postID);
+  }
+
+
 }

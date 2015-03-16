@@ -55,6 +55,11 @@ public class AdminService {
     em.merge(a);
   }
 
+  @Transactional
+  public void addReply(Answer a){
+    em.persist(a);
+  }
+
   /**
    * Обновляем статью
    */
@@ -103,5 +108,8 @@ public class AdminService {
     return postRepository.findOne(postID);
   }
 
+  public Question getQuestion(Long id){
+    return questionRepository.findOne(id);
+  }
 
 }

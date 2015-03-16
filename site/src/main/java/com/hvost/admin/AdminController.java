@@ -95,6 +95,24 @@ public class AdminController {
     return "admin/allquestions";
   }
 
+  @RequestMapping(value = "/question/{id:[0-9]+}/newreply", method = RequestMethod.GET)
+  public String reply(Model model, @PathVariable Long id){
+    Question q = adminService.getQuestion(id);
+    Answer a = new Answer();
+    a.setQuestion(q);
+    model.addAttribute("answer", a);
+    return "admin/reply";
+  }
+
+  @RequestMapping(value = "/newreply/{id:[0-9]+}", method = RequestMethod.POST)
+  public String newReply(@ModelAttribute Answer answer, @PathVariable Long id){
+    Question q = adminService.getQuestion(id);
+    answer.setQuestion(q);
+    adminService.addReply(answer);
+    return "redirect:/admin/unanswered";
+  }
+
+
   @RequestMapping(value = "/unanswered", method = RequestMethod.GET)
   public String getAllUnansweredQuestions(Model model, @RequestParam(defaultValue = "1") int page){
     PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "date");
@@ -106,6 +124,7 @@ public class AdminController {
       System.out.println("q -> " + q);
 
     model.addAttribute("unanswered_count", result.getTotalElements());
+    System.out.println("unanswered_count ->" + result.getTotalElements());
 
     model.addAttribute("questions", result);
     model.addAttribute("paginationInfo", new PaginationInfo(result));

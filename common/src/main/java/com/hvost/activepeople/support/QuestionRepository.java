@@ -19,7 +19,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
  // Page<Questions> findByAnswerId(Pageable pageable);
 
 //  @Query(value = "SELECT q FROM Question q INNER JOIN Answer a WHERE q.id = a.qst_sqt_id", nativeQuery = true)
-  @Query(value = "SELECT q FROM Question q WHERE q NOT IN (SELECT a.question FROM  Answer a)")
+  @Query(value = "SELECT q FROM Question q WHERE q NOT IN (SELECT a.question FROM Answer a)")
   Page<Question> findAllUnswered(Pageable pageable);
 
 }

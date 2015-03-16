@@ -3,6 +3,7 @@ package com.hvost.blog;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -34,7 +35,7 @@ public class Post implements Serializable {
   @Column
   private Date createdAt;
 
-  @Column
+  @Column(length = 350)
   private String summary;
 
   public String getSummary() {
@@ -42,9 +43,15 @@ public class Post implements Serializable {
   }
 
   public void setSummary(String summary) {
-/*    if (summary.isEmpty())
-      this.summary = content.substring(0, 330) + "...";*/
+    try {
+      int size = getClass().getDeclaredField("summary").getAnnotation(Column.class).length();
+      int inLength = summary.length();
+      if (inLength>=size)
+        summary = summary.substring(0, size-1);
 
+    } catch (NoSuchFieldException ex) {
+    } catch (SecurityException ex) {
+    }
     this.summary = summary;
   }
 

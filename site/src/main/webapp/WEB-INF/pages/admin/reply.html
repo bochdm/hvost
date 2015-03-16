@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/admin/layout">
+<head lang="ru">
+  <meta charset="UTF-8"/>
+  <title></title>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap/font-awesome.min.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5.css}"/>
+
+</head>
+<body>
+  <div class='page-header page-header-with-icon'>
+    <i class='fa-icon-table'></i>
+    <h3>Ответ на новый вопрос</h3>
+  </div>
+
+  <main layout:fragment="content">
+
+    <div class="row row-centered">
+      <div class="col-md-10 col-centered" role="main">
+        <form th:with="create=1" th:action="@{'/admin/newreply/'+${answer.question.id}}" th:object="${answer}" method="post">
+          <div class="form-group">
+            <label for="question">Вопрос</label>
+            <input id="question" th:field="*{question.questionText}" class="form-control" type="text" name="question"/>
+          </div>
+          <div class="form-group">
+            <label for="answer">Ответ</label>
+            <textarea id="answer" th:field="*{answerText}" class="textarea form-control wysihtml5-editor placeholder" placeholder="Enter text ..."/>
+          </div>
+
+          <button type="submit" class="btn btn-default">Ответить</button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <th:block layout:fragment="script">
+
+    <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}"></script>
+    <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.js}"></script>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      $('.textarea').wysihtml5({
+        html:true, stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
+      });
+      /*]]>*/
+    </script>
+  </th:block>
+
+</body>
+</html>

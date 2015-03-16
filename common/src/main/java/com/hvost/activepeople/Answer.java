@@ -35,6 +35,11 @@ public class Answer {
     return question;
   }
 
+  public void setQuestion(Question question) {
+    this.question = question;
+  }
+
+  //@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
   @OneToOne
   @JoinColumn(name = "QST_QST_ID", referencedColumnName = "QST_ID")
   private Question question;

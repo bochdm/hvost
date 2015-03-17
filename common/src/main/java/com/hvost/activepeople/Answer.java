@@ -25,8 +25,24 @@ public class Answer {
   private Date date;
 
   @Column(name = "PUBLIC")
-  private int isPublic;
+  private boolean isPublic;
 
+  @OneToOne
+  @JoinColumn(name = "QST_QST_ID", referencedColumnName = "QST_ID")
+  private Question question;
+
+  @Column(name = "AUTHOR")
+  private String author;
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(String author) {
+    this.author = author;
+  }
+
+  //@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
   //@OneToOne(mappedBy = "answerId")
 /*  @Column(name="QST_QST_ID")
   private long qstID;*/
@@ -38,12 +54,6 @@ public class Answer {
   public void setQuestion(Question question) {
     this.question = question;
   }
-
-  //@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-  @OneToOne
-  @JoinColumn(name = "QST_QST_ID", referencedColumnName = "QST_ID")
-  private Question question;
-
 
   public long getId() {
     return id;
@@ -65,11 +75,11 @@ public class Answer {
     this.date = date;
   }
 
-  public int getIsPublic() {
+  public boolean getIsPublic() {
     return isPublic;
   }
 
-  public void setIsPublic(int isPublic) {
+  public void setIsPublic(boolean isPublic) {
     this.isPublic = isPublic;
   }
 
@@ -77,7 +87,7 @@ public class Answer {
   @Override
   public String toString() {
     return "Answer{" +
-        "id=" + id +
+        "  id=" + id +
         ", answerText='" + answerText + '\'' +
         ", date=" + date +
         ", isPublic=" + isPublic +

@@ -32,12 +32,10 @@
         <div class="row">
           <div class="col-lg-12 animate">
             <h2 class="big fadeInLeftBig animated">
-              Clean, flat
-              &amp;
-              polished design
+              Проект 1
             </h2>
 
-            <p class="normal fadeInRightBig animated">Sed felis ligula, eleifend at neque eget.</p>
+            <p class="normal fadeInRightBig animated">Описание проекта и еtс...</p>
             <a class="btn btn-contrast btn-lg fadeInDownBig animated" th:href="home" th:text="#{button.read}"/>
           </div>
         </div>
@@ -47,9 +45,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 animate">
-            <h2 class="big fadeInRightBig animated">Based on Twitter Bootstrap</h2>
+            <h2 class="big fadeInRightBig animated">Проект 2</h2>
 
-            <p class="normal fadeInLeftBig animated">Nam nec tellus molestie, sollicitudin, at...</p>
+            <p class="normal fadeInLeftBig animated">Описание проекта и еtс...</p>
             <a class="btn btn-contrast btn-lg fadeInUpBig animated" th:href="home" th:text="#{button.read}"/>
           </div>
         </div>
@@ -103,9 +101,9 @@
       <div class="panel-heading"><img class="img-responsive-sm" alt="Fastest workers" width="768" height="300"
                                       th:src="@{/resources/img/demo/panels/panel_bg_chess.jpg}"/></div>
       <div class="panel-body">
-        <h3 class="panel-title">Fastest workers</h3>
+        <h3 class="panel-title">Проект 1</h3>
 
-        <p>Pellentesque id neque sit amet nibh placerat suscipit et a purus, mauris id.</p>
+        <p>Здесь представлено описание проекта 1, о котором мы хотели бы Вам рассказать</p>
       </div>
     </a>
   </div>
@@ -164,7 +162,7 @@
               <div class='toolbar'>
                 <a class='btn btn-link' href='#'>
                   <i class='fa-icon-calendar-empty'></i>
-                  <time th:datetime-local="ru" th:datetime="${post.createdAt}" th:text='${#dates.format(post.createdAt, "dd MMMM yyyy HH:MM")}'/>
+                  <time th:datetime-local="ru" th:datetime="${post.createdAt}" th:text='${#dates.format(post.createdAt, "dd MMMM yyyy HH:mm")}'/>
                 </a>
               </div>
               <p th:utext="${post.summary}"/>
@@ -224,7 +222,7 @@
               <div class="col-sm-12 text-center">
                 <p class="lead" th:utext="${tweet.getText()}"/>
                 <div class="author-wrapper">
-                  <time th:datetime-local="ru" th:datetime="${tweet.getCreatedAt()}" th:text='${#dates.format(tweet.getCreatedAt(), "dd MMMM yyyy HH:MM")}'/>
+                  <time th:datetime-local="ru" th:datetime="${tweet.getCreatedAt()}" th:text='${#dates.format(tweet.getCreatedAt(), "dd MMMM yyyy HH:mm")}'/>
                 </div>
               </div>
           </div>

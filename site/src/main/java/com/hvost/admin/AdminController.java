@@ -138,7 +138,7 @@ public class AdminController {
     Answer answer = adminService.getAnswer(id);
     System.out.println("AdminController:showAnswer = " + answer);
     model.addAttribute("answer", answer);
-    return "admin/answeredit";
+    return "redirect:/admin/allquestions";
   }
 
   @RequestMapping(value = "/answer/{id:[0-9]+}/edit", method = {RequestMethod.POST})
@@ -151,7 +151,27 @@ public class AdminController {
       adminService.updateAnswer(ans);
     }
 
-    return "admin/allquestions";
+    return "redirect:/admin/allquestions";
+  }
+
+  @RequestMapping(value = "/answer/{id:[0-9]+}/publish", method = {RequestMethod.GET})
+  public String publishAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
+    Answer ans = adminService.getAnswer(id);
+    if (!bindingResult.hasErrors()) {
+      ans.setIsPublic(true);
+      adminService.updateAnswer(ans);
+    }
+    return "redirect:/admin/allquestions";
+  }
+
+  @RequestMapping(value = "/answer/{id:[0-9]+}/unpublish", method = {RequestMethod.GET})
+  public String unPublishAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
+    Answer ans = adminService.getAnswer(id);
+    if (!bindingResult.hasErrors()) {
+      ans.setIsPublic(false);
+      adminService.updateAnswer(ans);
+    }
+    return "redirect:/admin/allquestions";
   }
 
   @RequestMapping(value = "/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})

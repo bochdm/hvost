@@ -40,7 +40,7 @@ public class ActivePeopleController {
    // Page<Questions> result = service.getAllArticles(pageNum);
 
     Answer a = new Answer();
-    a.setIsPublic(1);
+    a.setIsPublic(true);
   //  Page<Questions> result = service.getPublished(a, pageNum);
 
     Page<Answer> result = service.getPublished1(pageNum);

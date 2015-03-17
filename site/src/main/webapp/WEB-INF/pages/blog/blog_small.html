@@ -23,7 +23,7 @@
             <div class='row'>
               <div class='col-sm-12'>
                 <h1 class='title'>
-                  Blog (Small image)
+                  Статьи
                 </h1>
                 <ol class='breadcrumb'>
                   <li>
@@ -156,7 +156,7 @@
                       <div class="toolbar">
                         <a class='btn btn-link' th:href="@{/}">
                           <i class="fa-icon-calendar-empty"></i>
-                          <time th:datetime-local="ru" th:datetime="${article.createdAt}" th:text='${#dates.format(article.createdAt, "dd MMMM yyyy HH:MM")}'/>
+                          <time th:datetime-local="ru" th:datetime="${article.createdAt}" th:text='${#dates.format(article.createdAt, "dd MMMM yyyy HH:mm")}'/>
                         </a>
                         <a class='btn btn-link' href='#'>
                           <i class='fa-icon-user'></i>
@@ -182,7 +182,7 @@
 
 
               <!-- Paging -->
-             <div class='col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9'>
+             <nav>
                 <div class="text-center">
                   <ul class="pagination">
                     <li th:if="${paginationInfo.previousVisible}">
@@ -210,7 +210,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </nav>
 
 
 

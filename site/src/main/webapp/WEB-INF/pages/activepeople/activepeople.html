@@ -74,7 +74,7 @@
                       <div class="toolbar">
                         <a class='btn btn-link' th:href="@{/}">
                           <i class="fa-icon-calendar-empty"></i>
-                          <time th:datetime-local="ru" th:datetime="${answer.question.date}" th:text='${#dates.format(answer.question.date, "dd MMMM yyyy HH:MM")}'/>
+                          <time th:datetime-local="ru" th:datetime="${answer.question.date}" th:text='${#dates.format(answer.question.date, "dd MMMM yyyy HH:mm")}'/>
                         </a>
                         <a class='btn btn-link' href='#'>
                           <i class='fa-icon-user'></i>
@@ -85,7 +85,7 @@
                         </a>
                       </div>
                       <div class='panel-body'>
-                        <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:MM")}'/>
+                        <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
 
                         <p th:utext="${answer.answerText}"/>
                       </div>
@@ -94,6 +94,35 @@
                 </div>
               </div>
             </div>
+
+            <!-- Paging -->
+            <nav>
+              <ul class="pagination pagination-sm">
+                <li th:if="${paginationInfo.previousVisible}">
+                  <a th:href="@{'/activepeople/'(page=${paginationInfo.previousPageNumber})}" >
+                    <i class="glyphicon glyphicon-menu-left"/>
+                  </a>
+                </li>
+
+                <li th:each="element : ${paginationInfo.pageElement}" >
+
+                <li  th:if="${element.navigable}">
+                  <a th:href="@{'/activepeople/'(page=${element.label})}" th:text="${element.label}" />
+                </li>
+                <li th:if="${!element.navigable and element.currentPage}" class="active">
+                  <a class="disabled" th:text="${element.label}" />
+                </li>
+                <li th:unless="${element.navigable or element.currentPage}">
+                  <a th:text="${element.label}" />
+                </li>
+                </li>
+                <li th:if="${paginationInfo.nextVisible}">
+                  <a th:href="@{'/activepeople/'(page=${paginationInfo.nextPageNumber})}">
+                    <i class="glyphicon glyphicon-menu-right"/>
+                  </a>
+                </li>
+              </ul>
+            </nav>
 
             <div class='row'>
               <div class='col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2'>

@@ -11,7 +11,7 @@
       layout:decorator="layout">
   <!-- <![endif] -->
   <head>
-    <title>Blog - Single post | Jednotka - Multipurpose Template</title>
+    <title>Статьи</title>
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
     <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
   </head>
@@ -36,7 +36,7 @@
                       Blog
                     </a>
                   </li>
-                  <li class='active'>Blog (Single post)</li>
+                  <li class='active'>Статьи 1</li>
                 </ol>
               </div>
             </div>
@@ -177,7 +177,7 @@
                       <div class='toolbar'>
                         <a class='btn btn-link' href='#'>
                           <i class='fa-icon-calendar-empty'></i>
-                          <time th:datetime-local="ru" th:datetime="${post.createdAt}" th:text='${#dates.format(post.createdAt, "dd MMMM yyyy HH:MM")}'/>
+                          <time th:datetime-local="ru" th:datetime="${post.createdAt}" th:text='${#dates.format(post.createdAt, "dd MMMM yyyy HH:mm")}'/>
                         </a>
                         <a class='btn btn-link' href='#'>
                           <i class='fa-icon-user'></i>
@@ -188,18 +188,18 @@
                           <span>13 comments</span>
                         </a>
                       </div>
-                      <div class='row'>
+                     <!-- <div class='row'>
                         <div class='col-sm-12'>
                           <a href='blog_single_post.html'>
                             <img class="img-responsive center-block img-rounded-half" alt="Cras tempus ligula a tempor adipiscing" width="848" height="364" src="assets/images/demo/blog/1_lg.jpg" />
                           </a>
                         </div>
-                      </div>
+                      </div>-->
                       <hr class='hr-half'/>
                     </div>
                 </div>
                   <div th:utext="${post.content}"/>
-                  <div class='row'>
+                 Add com<!-- <div class='row'>
                     <div class='col-sm-12'>
                       <div class='author-box'>
                         <div class='row'>
@@ -213,130 +213,130 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class='row'>
-                    <div class='col-sm-12' id='comments'>
-                      <h3>
-                        Comments (4)
-                      </h3>
-                      <div class='media'>
-                        <div class='pull-left'>
-                          <div class='media-object without-image'></div>
-                        </div>
-                        <div class='media-body'>
-                          <div class='content'>
-                            <div class='toolbar'>
-                              <h4 class='title'>John Doe</h4>
-                              <a class='btn btn-link link-contrast btn-sm' href='#'>
-                                <i class='fa-icon-reply'></i>
-                                <span>Reply</span>
-                              </a>
-                            </div>
-                            <p>Praesent sed viverra lacus. Aliquam congue porttitor ipsum sed vulputate. Nam lacus nunc, malesuada a massa sed, commodo placerat sem. Fusce rutrum bibendum adipiscing. Donec ac justo et metus vulputate faucibus. Mauris quis massa.</p>
-                            <p class='time'>
-                              <a href="#">16 April, 2013</a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class='media'>
-                        <div class='pull-left'>
-                          <div class='media-object without-image'></div>
-                        </div>
-                        <div class='media-body'>
-                          <div class='content'>
-                            <div class='toolbar'>
-                              <h4 class='title'>David Doe</h4>
-                              <a class='btn btn-link link-contrast btn-sm' href='#'>
-                                <i class='fa-icon-reply'></i>
-                                <span>Reply</span>
-                              </a>
-                            </div>
-                            <p>Etiam ac consectetur dui, id mollis neque. Phasellus rutrum augue nec convallis bibendum. Etiam vitae aliquam leo, laoreet venenatis massa. Aliquam erat volutpat.</p>
-                            <p class='time'>
-                              <a href="#">14 April, 2013</a>
-                            </p>
-                          </div>
-                          <div class='media'>
-                            <div class='pull-left'>
-                              <img class="media-object" width="60" height="60" alt="Jessica Doe" src="assets/images/demo/profiles/4.jpg" />
-                            </div>
-                            <div class='media-body'>
-                              <div class='content staff'>
-                                <div class='toolbar'>
-                                  <h4 class='title'>
-                                    Jessica Doe
-                                    <span class='label label-contrast'>Staff</span>
-                                  </h4>
-                                  <a class='btn btn-link link-contrast btn-sm' href='#'>
-                                    <i class='fa-icon-reply'></i>
-                                    <span>Reply</span>
-                                  </a>
+                  </div>-->
+                              <div class='row'>
+                                <div class='col-sm-12' id='comments'>
+                                  <h3>
+                                    Комментарии (4)
+                                  </h3>
+                                  <div class='media'>
+                                    <div class='pull-left'>
+                                      <div class='media-object without-image'></div>
+                                    </div>
+                                    <div class='media-body'>
+                                      <div class='content'>
+                                        <div class='toolbar'>
+                                          <h4 class='title'>John Doe</h4>
+                                          <a class='btn btn-link link-contrast btn-sm' href='#'>
+                                            <i class='fa-icon-reply'></i>
+                                            <span>Ответить</span>
+                                          </a>
+                                        </div>
+                                        <p>Бла бла бла</p>
+                                        <p class='time'>
+                                          <a href="#">16 April, 2013</a>
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class='media'>
+                                    <div class='pull-left'>
+                                      <div class='media-object without-image'></div>
+                                    </div>
+                                    <div class='media-body'>
+                                      <div class='content'>
+                                        <div class='toolbar'>
+                                          <h4 class='title'>Василий</h4>
+                                          <a class='btn btn-link link-contrast btn-sm' href='#'>
+                                            <i class='fa-icon-reply'></i>
+                                            <span>Ответить</span>
+                                          </a>
+                                        </div>
+                                        <p>Очень интересная статья!!!!!</p>
+                                        <p class='time'>
+                                          <a href="#">14 April, 2013</a>
+                                        </p>
+                                      </div>
+                                      <div class='media'>
+                                        <div class='pull-left'>
+                                          <img class="media-object" width="60" height="60" alt="Jessica Doe" src="assets/images/demo/profiles/4.jpg" />
+                                        </div>
+                                        <div class='media-body'>
+                                          <div class='content staff'>
+                                            <div class='toolbar'>
+                                              <h4 class='title'>
+                                                Иван
+                                                <span class='label label-contrast'>Admin</span>
+                                              </h4>
+                                              <a class='btn btn-link link-contrast btn-sm' href='#'>
+                                                <i class='fa-icon-reply'></i>
+                                                <span>Ответить</span>
+                                              </a>
+                                            </div>
+                                            <p>Мне статья тоже понравилась</p>
+                                            <p class='time'>
+                                              <a href="#">14 April, 2013</a>
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class='media'>
+                                    <div class='pull-left'>
+                                      <div class='media-object without-image'></div>
+                                    </div>
+                                    <div class='media-body'>
+                                      <div class='content'>
+                                        <div class='toolbar'>
+                                          <h4 class='title'>Елена</h4>
+                                          <a class='btn btn-link link-contrast btn-sm' href='#'>
+                                            <i class='fa-icon-reply'></i>
+                                            <span>Ответить</span>
+                                          </a>
+                                        </div>
+                                        <p>Тра та та та</p>
+                                        <p class='time'>
+                                          <a href="#">11 April, 2013</a>
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
-                                <p>Proin eu ullamcorper urna. Nullam eu mi vel metus faucibus mollis. Nulla rutrum fermentum dui quis ullamcorper. Integer metus nunc, interdum non libero a, semper fringilla ligula.</p>
-                                <p class='time'>
-                                  <a href="#">14 April, 2013</a>
-                                </p>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class='media'>
-                        <div class='pull-left'>
-                          <div class='media-object without-image'></div>
-                        </div>
-                        <div class='media-body'>
-                          <div class='content'>
-                            <div class='toolbar'>
-                              <h4 class='title'>Mike Doe</h4>
-                              <a class='btn btn-link link-contrast btn-sm' href='#'>
-                                <i class='fa-icon-reply'></i>
-                                <span>Reply</span>
-                              </a>
-                            </div>
-                            <p>Praesent sed viverra lacus. Aliquam congue porttitor ipsum sed vulputate. Nam lacus nunc, malesuada a massa sed, commodo placerat sem.</p>
-                            <p class='time'>
-                              <a href="#">11 April, 2013</a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class='row'>
-                    <hr class='hr-invisible hr-half'/>
-                    <div class='col-sm-12' id='add-new-comment'>
-                      <h3>Add comment</h3>
-                      <form action='http://jednotka.bublinastudio.com/blog_single_post.html' class='form form-validation' method='get'>
-                        <div class='row'>
-                          <div class='col-sm-4'>
-                            <div class='form-group control-group'>
-                              <input class='form-control' data-rule-required='true' id='comment_name' name='comment[name]' placeholder='Name' type='text'/>
-                            </div>
-                          </div>
-                          <div class='col-sm-4'>
-                            <div class='form-group control-group'>
-                              <input class='form-control' data-rule-email='true' data-rule-required='true' id='comment_email' name='comment[email]' placeholder='E-Mail' type='text'/>
-                            </div>
-                          </div>
-                          <div class='col-sm-4'>
-                            <div class='form-group control-group'>
-                              <input class='form-control' id='comment_website' name='comment[website' placeholder='Website' type='text'/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-sm-12'>
-                            <div class='form-group control-group'>
-                              <textarea class='form-control' data-rule-required='true' id='comment_message' name='comment[message]' placeholder='Comment...' rows='5'></textarea>
-                            </div>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-sm-12'>
-                            <button class='btn btn-contrast' type='submit'>
-                              Add comment
+                              <div class='row'>
+                                <hr class='hr-invisible hr-half'/>
+                                <div class='col-sm-12' id='add-new-comment'>
+                                  <h3>Добавить комментарий</h3>
+                                  <form action='http://jednotka.bublinastudio.com/blog_single_post.html' class='form form-validation' method='get'>
+                                    <div class='row'>
+                                      <div class='col-sm-4'>
+                                        <div class='form-group control-group'>
+                                          <input class='form-control' data-rule-required='true' id='comment_name' name='comment[name]' placeholder='Name' type='text'/>
+                                        </div>
+                                      </div>
+                                      <div class='col-sm-4'>
+                                        <div class='form-group control-group'>
+                                          <input class='form-control' data-rule-email='true' data-rule-required='true' id='comment_email' name='comment[email]' placeholder='E-Mail' type='text'/>
+                                        </div>
+                                      </div>
+                                      <div class='col-sm-4'>
+                                        <div class='form-group control-group'>
+                                          <input class='form-control' id='comment_website' name='comment[website' placeholder='Website' type='text'/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class='row'>
+                                      <div class='col-sm-12'>
+                                        <div class='form-group control-group'>
+                                          <textarea class='form-control' data-rule-required='true' id='comment_message' name='comment[message]' placeholder='Comment...' rows='5'></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class='row'>
+                                      <div class='col-sm-12'>
+                                        <button class='btn btn-contrast' type='submit'>
+                                          Отправить
                             </button>
                           </div>
                         </div>

@@ -1,6 +1,7 @@
 package com.hvost.blog.support;
 
 
+import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,9 @@ public class PostService {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    CategoryPostRepository categoryPostRepository;
+
 
     public Page<Post> getAllPost(int pageNumber){
         PageRequest pageRequest = new PageRequest(pageNumber, size, Sort.Direction.DESC, "id");
@@ -34,6 +38,10 @@ public class PostService {
             System.out.println("page- > " + p.toString());
         return postRepository.findAll(pageRequest);
     }
+
+  public List<CategoryPost> getAllCategories(){
+    return categoryPostRepository.findAll();
+  }
 
     public Page<Post> getAll(Pageable pageRequest){
         return postRepository.findAll(pageRequest);

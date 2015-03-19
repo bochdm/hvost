@@ -4,6 +4,7 @@
   <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <class>com.hvost.blog.Post</class>
+    <class>com.hvost.blog.CategoryPost</class>
     <class>com.hvost.activepeople.Question</class>
     <class>com.hvost.activepeople.CategoryQuestion</class>
     <class>com.hvost.activepeople.Answer</class>

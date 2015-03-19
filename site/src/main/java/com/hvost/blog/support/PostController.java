@@ -1,6 +1,8 @@
 package com.hvost.blog.support;
 
+import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
+import com.hvost.model.Category;
 import com.hvost.support.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +32,8 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+
+
     @Autowired
     private Twitter twitter;
 
@@ -44,7 +48,12 @@ public class PostController {
       //  model.addAttribute("articles", result);
 
         Page<Post> result = postService.getAll(pageNum);
+      List<CategoryPost> categories = postService.getAllCategories();
 
+      model.addAttribute("categories", categories);
+      System.out.println("categories.size() -> " + categories.size());
+      for(CategoryPost cp : categories)
+        System.out.println("CategoryPost -> " + cp);
         return renderListPosts(result, model);
         //return "/blog/blog_small";
     }
@@ -57,7 +66,11 @@ public class PostController {
         model.addAttribute("articles", result);
         model.addAttribute("paginationInfo", new PaginationInfo(result));
 
-    //   model.addAttribute("articles", result);
+
+
+
+
+      //   model.addAttribute("articles", result);
         return "/blog/blog_small";
     //    return renderListPosts(result, model);
     }

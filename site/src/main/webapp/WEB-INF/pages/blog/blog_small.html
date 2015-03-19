@@ -59,9 +59,10 @@
                     </div>
                     <div class='box'>
                       <h3 class='title'>Категории</h3>
-                      <div th:each="category : ${categories}" class="list-group">
-                          <a class="list-group-item" href="#" th:text="${category.name}"><i class='fa-icon-angle-right fa-icon-fixed-width'></i>
-                        Quisque et fringilla
+                      <div class="list-group">
+                          <a th:each="category : ${categories}" class="list-group-item" href="#" >
+                            <i class='fa-icon-angle-right fa-icon-fixed-width'/>
+                            <span th:text="${category.name}"/>
                         </a>
                       
                           <a class="list-group-item active" href="#"><i class='fa-icon-angle-right fa-icon-fixed-width'></i>

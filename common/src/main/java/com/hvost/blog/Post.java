@@ -3,7 +3,6 @@ package com.hvost.blog;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,6 +16,7 @@ import java.util.Date;
 @Entity
 @Table(name = "POST")
 public class Post implements Serializable {
+
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +38,31 @@ public class Post implements Serializable {
   @Column(length = 350)
   private String summary;
 
+
+  public CategoryPost getCategoryPost() {
+    return categoryPost;
+  }
+
+  public void setCategoryPost(CategoryPost categoryPost) {
+    this.categoryPost = categoryPost;
+  }
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "CP_CP_ID")
+  private CategoryPost categoryPost;
+
+  public Post() {
+  }
+
+  public Post(String author, String title, String content, Date createdAt, String summary, CategoryPost categoryPost) {
+    this.author = author;
+    this.title = title;
+    this.content = content;
+    this.createdAt = createdAt;
+    this.summary = summary;
+    this.categoryPost = categoryPost;
+  }
+
   public String getSummary() {
     return summary;
   }
@@ -55,15 +80,6 @@ public class Post implements Serializable {
     this.summary = summary;
   }
 
-  public Post(String author, String title, String content, String summary) {
-    this.author = author;
-    this.title = title;
-    this.content = content;
-    this.summary = summary;
-  }
-
-  public Post() {
-  }
 
   public Long getId() {
     return id;
@@ -109,6 +125,7 @@ public class Post implements Serializable {
         ", title='" + title + '\'' +
         ", summary='" + summary + '\'' +
         ", content='" + content + '\'' +
+        ", category='" + categoryPost + '\'' +
         ", createdAt=" + createdAt +
         '}';
   }

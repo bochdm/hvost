@@ -1,5 +1,6 @@
 package com.hvost.blog.support;
 
+import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,5 +24,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> getNewestPosts();
 
   //  Page<Post> findTop2OrderByCreatedAtOrderByCreatedAtDesc();
+
+ // Page<Post> findByCategory(Integer categoryPost, Pageable pageRequest);
+  Page<Post> findByCategoryPost_Id(Integer categoryPost, Pageable pageRequest);
 
 }

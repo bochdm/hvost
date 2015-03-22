@@ -4,7 +4,9 @@ import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.AnswerRepository;
 import com.hvost.activepeople.support.QuestionRepository;
+import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
+import com.hvost.blog.support.CategoryPostRepository;
 import com.hvost.blog.support.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,6 +43,9 @@ public class AdminService {
 
   @Autowired
   QuestionRepository questionRepository;
+
+  @Autowired
+  CategoryPostRepository categoryPostRepository;
 
     @Transactional
     public void addArticle(Post a){
@@ -112,4 +117,7 @@ public class AdminService {
     return questionRepository.findOne(id);
   }
 
+  public List<CategoryPost> getAllCategoriesPost(){
+    return categoryPostRepository.findAll();
+  }
 }

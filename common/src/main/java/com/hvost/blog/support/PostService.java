@@ -54,6 +54,10 @@ public class PostService {
         return null;
     }
 
+  public Page<Post> getPublishPostByCategory(Integer category, Pageable pageRequest){
+    return postRepository.findByCategoryPost_Id(category, pageRequest);
+  }
+
     public Page<Post> getNewPosts(){
         //List<Post> posts = postRepository.getNewestPost();
         Pageable page = new PageRequest(0,2, Sort.Direction.DESC, "createdAt");

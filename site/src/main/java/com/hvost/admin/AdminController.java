@@ -2,16 +2,17 @@ package com.hvost.admin;
 
 import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
+import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.support.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -52,8 +53,13 @@ public class AdminController {
 
   @RequestMapping(value= {"/newarticle"}, method = RequestMethod.GET)
   public String showArticle(Model model){
+
     model.addAttribute("article", new Post());
-    return "admin/articles";
+
+    List<CategoryPost> categories = adminService.getAllCategoriesPost();
+
+   model.addAttribute("postcategories", categories);
+    return "admin/newarticle";
   }
 
   @RequestMapping(value = "/allarticles", method = RequestMethod.GET)
@@ -72,9 +78,18 @@ public class AdminController {
   }
 
   @RequestMapping(value="/addarticle", method = RequestMethod.POST)
-  public String addArticle(@ModelAttribute Post post){
+  public String addArticle(@Valid Post post, BindingResult bindingResult, Model model){
     //model.addAttribute("categories", categoryService.getAllArticles());
-    adminService.addArticle(post);
+    System.out.println("AdminController.addArticle");
+      System.out.println(post);
+    if (!bindingResult.hasErrors()) {
+      adminService.addArticle(post);
+    } else {
+      List<ObjectError> errors = bindingResult.getAllErrors();
+      for(ObjectError error : errors)
+        System.out.println("error ->" + error);
+    }
+
     return "redirect:/admin/allarticles";
   }
 

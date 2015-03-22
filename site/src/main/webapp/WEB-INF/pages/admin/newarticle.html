@@ -37,6 +37,19 @@
         </div>
 
         <div class="form-group">
+          <label for="categoryPost">Выберите категорию</label>
+          <div class="dropdown">
+            <select id="categoryPost" name="categoryPost" th:field="*{categoryPost}">
+
+              <option th:each="category : ${postcategories}"
+                      th:value="${category.id}"
+                      th:text="${category.name}">Category</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="form-group">
           <label for="summary" th:text="Краткое_описание"/>
           <textarea id="summary" class="textarea form-control wysihtml5-editor placeholder" placeholder="Краткое описание ..."
                     th:field="*{summary}" style="width: 810px; height: 250px" maxlength="350"/>

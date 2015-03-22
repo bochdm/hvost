@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.awt.print.Pageable;
@@ -68,8 +69,6 @@ public class PostController {
 
 
 
-
-
       //   model.addAttribute("articles", result);
         return "/blog/blog_small";
     //    return renderListPosts(result, model);
@@ -82,6 +81,19 @@ public class PostController {
         model.addAttribute("post", post);
         return "/blog/blog_single_post";
     }
+
+  @RequestMapping(value = "/category/{id:\\d+}", method = {GET})
+  public String publishPostsForCategory(@PathVariable Integer id, Model model,
+                                        @RequestParam(defaultValue = "1") int page){
+
+    System.out.println("publishPostsForCategory");
+
+    PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "createdAt");
+
+    Page<Post> result = postService.getPublishPostByCategory(id, pageNum);
+
+    return renderListPosts(result, model);
+  }
 
 
     private String renderListPosts(Page<Post> page, Model model){

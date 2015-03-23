@@ -12,19 +12,15 @@ public class CategoryPost {
 
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "CP_ID")
-  private Integer id;
+  private Long id;
 
   @Column(name = "name")
   private String name;
 
-  public Integer getId() {
+  public Long getId() {
     return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
   }
 
   public String getName() {
@@ -35,8 +31,8 @@ public class CategoryPost {
     this.name = name;
   }
 
-  @OneToMany(mappedBy = "categoryPost")
-  public List<Post> posts;
+/*  @OneToMany(mappedBy = "categoryPost")
+  public List<Post> posts;*/
 
   @Override
   public String toString() {

@@ -49,7 +49,8 @@ public class AdminService {
 
     @Transactional
     public void addArticle(Post a){
-        em.persist(a);
+        //em.persist(a);
+      em.merge(a);
     }
 
 

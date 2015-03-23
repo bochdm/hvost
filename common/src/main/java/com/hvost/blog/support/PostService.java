@@ -43,6 +43,10 @@ public class PostService {
     return categoryPostRepository.findAll();
   }
 
+  public CategoryPost findCategoryPostById(Long id){
+    return categoryPostRepository.findOne(id);
+  }
+
     public Page<Post> getAll(Pageable pageRequest){
         return postRepository.findAll(pageRequest);
     }

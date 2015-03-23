@@ -78,7 +78,7 @@ public class AdminController {
   }
 
   @RequestMapping(value="/addarticle", method = RequestMethod.POST)
-  public String addArticle(@Valid Post post, BindingResult bindingResult, Model model){
+  public String addArticle( @Valid Post post, BindingResult bindingResult, Model model){
     //model.addAttribute("categories", categoryService.getAllArticles());
     System.out.println("AdminController.addArticle");
       System.out.println(post);
@@ -228,5 +228,4 @@ public class AdminController {
 
     return "admin/allarticles";
   }
-
 }

@@ -26,6 +26,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
   //  Page<Post> findTop2OrderByCreatedAtOrderByCreatedAtDesc();
 
  // Page<Post> findByCategory(Integer categoryPost, Pageable pageRequest);
-  Page<Post> findByCategoryPost_Id(Integer categoryPost, Pageable pageRequest);
+  Page<Post> findByCategoryPost_Id(Long categoryPost, Pageable pageRequest);
 
 }

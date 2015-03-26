@@ -157,19 +157,18 @@
                   </div>
                   <hr class='hr-half'/>
                 </div>
-              </div>
 
-              <!-- Paging -->
-             <nav>
-                <div class="text-center">
-                  <ul class="pagination">
-                    <li th:if="${paginationInfo.previousVisible}">
-                      <a th:href="@{'/blog/'(page=${paginationInfo.previousPageNumber})}" >
-                        <i class="fa-icon-angle-left"/>
-                      </a>
-                    </li>
+                <!-- Paging -->
+                <nav>
+                  <div class="text-center">
+                    <ul class="pagination">
+                      <li th:if="${paginationInfo.previousVisible}">
+                        <a th:href="@{'/blog/'(page=${paginationInfo.previousPageNumber})}" >
+                          <i class="fa-icon-angle-left"/>
+                        </a>
+                      </li>
 
-                    <li th:each="element : ${paginationInfo.pageElement}" >
+                      <li th:each="element : ${paginationInfo.pageElement}" >
 
                       <li  th:if="${element.navigable}">
                         <a th:href="@{'/blog/'(page=${element.label})}" th:text="${element.label}" />
@@ -180,15 +179,18 @@
                       <li th:unless="${element.navigable or element.currentPage}">
                         <a th:text="${element.label}" />
                       </li>
-                    </li>
-                    <li th:if="${paginationInfo.nextVisible}">
-                      <a th:href="@{'/blog/'(page=${paginationInfo.nextPageNumber})}">
-                        <i class="fa-icon-angle-right"/>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
+                      </li>
+                      <li th:if="${paginationInfo.nextVisible}">
+                        <a th:href="@{'/blog/'(page=${paginationInfo.nextPageNumber})}">
+                          <i class="fa-icon-angle-right"/>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+
+
 
             </div>
           </div>

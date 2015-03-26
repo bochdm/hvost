@@ -30,65 +30,57 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping("/blog")
 public class PostController {
 
-    @Autowired
-    private PostService postService;
+  @Autowired
+  private PostService postService;
 
 
+  @Autowired
+  private Twitter twitter;
 
-    @Autowired
-    private Twitter twitter;
+  //@RequestMapping(method = {GET, POST})
+  @RequestMapping(value = "", method = {GET, POST})
+  public String listBlogs(Model model, @RequestParam(defaultValue = "1") int page) {
+    //Pageable pageRequst = PageableFactory
+    System.out.println("PostController");
+    PageRequest pageNum = new PageRequest(page - 1, 10, Sort.Direction.DESC, "createdAt");
 
-    //@RequestMapping(method = {GET, POST})
-    @RequestMapping(value = "", method = {GET,POST})
-    public String listBlogs(Model model, @RequestParam(defaultValue = "1") int page){
-        //Pageable pageRequst = PageableFactory
-        System.out.println("PostController");
-        PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "createdAt");
+    //   Page<Post> result = postService.getAllPost(page);
+    //  model.addAttribute("articles", result);
 
-     //   Page<Post> result = postService.getAllPost(page);
-      //  model.addAttribute("articles", result);
+    Page<Post> result = postService.getAll(pageNum);
 
-        Page<Post> result = postService.getAll(pageNum);
-      List<CategoryPost> categories = postService.getAllCategories();
+    return renderListPosts(result, model);
+    //return "/blog/blog_small";
+  }
 
-      model.addAttribute("categories", categories);
-      System.out.println("categories.size() -> " + categories.size());
-      for(CategoryPost cp : categories)
-        System.out.println("CategoryPost -> " + cp);
-        return renderListPosts(result, model);
-        //return "/blog/blog_small";
-    }
+  @RequestMapping(value = "/all")
+  public String getAll(Model model) {
+    PageRequest pageRequest = new PageRequest(0, 10);
+    Page<Post> result = postService.getAll(pageRequest);
 
-    @RequestMapping(value="/all")
-    public String getAll(Model model){
-        PageRequest pageRequest = new PageRequest(0, 10);
-        Page<Post> result = postService.getAll(pageRequest);
+    model.addAttribute("articles", result);
+    model.addAttribute("paginationInfo", new PaginationInfo(result));
 
-        model.addAttribute("articles", result);
-        model.addAttribute("paginationInfo", new PaginationInfo(result));
-
-
-
-      //   model.addAttribute("articles", result);
-        return "/blog/blog_small";
+    //   model.addAttribute("articles", result);
+    return "/blog/blog_small";
     //    return renderListPosts(result, model);
-    }
+  }
 
-    @RequestMapping(value = "/{id:\\d+}", method = {GET})
-    public String showPost(Model model, @PathVariable Long id){
-        System.out.println("id_post = " + id);
-        Post post = postService.getPost(id);
-        model.addAttribute("post", post);
-        return "/blog/blog_single_post";
-    }
+  @RequestMapping(value = "/{id:\\d+}", method = {GET})
+  public String showPost(Model model, @PathVariable Long id) {
+    System.out.println("id_post = " + id);
+    Post post = postService.getPost(id);
+    model.addAttribute("post", post);
+    return "/blog/blog_single_post";
+  }
 
   @RequestMapping(value = "/category/{id:\\d+}", method = {GET})
-  public String publishPostsForCategory(@PathVariable Integer id, Model model,
-                                        @RequestParam(defaultValue = "1") int page){
+  public String publishPostsForCategory(@PathVariable Long id, Model model,
+                                        @RequestParam(defaultValue = "1") int page) {
 
     System.out.println("publishPostsForCategory");
 
-    PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "createdAt");
+    PageRequest pageNum = new PageRequest(page - 1, 10, Sort.Direction.DESC, "createdAt");
 
     Page<Post> result = postService.getPublishPostByCategory(id, pageNum);
 
@@ -96,15 +88,18 @@ public class PostController {
   }
 
 
-    private String renderListPosts(Page<Post> page, Model model){
+  private String renderListPosts(Page<Post> page, Model model) {
 
-        model.addAttribute("articles", page);
-        model.addAttribute("paginationInfo", new PaginationInfo(page));
+    model.addAttribute("articles", page);
+    model.addAttribute("paginationInfo", new PaginationInfo(page));
 
-        List<Tweet> tweets = twitter.timelineOperations().getUserTimeline("K_Tkhostov", 3);
+    List<CategoryPost> categories = postService.getAllCategories();
+    model.addAttribute("categories", categories);
 
-        model.addAttribute("tweets", tweets);
+    List<Tweet> tweets = twitter.timelineOperations().getUserTimeline("K_Tkhostov", 3);
 
-        return "/blog/blog_small";
-    }
+    model.addAttribute("tweets", tweets);
+
+    return "/blog/blog_small";
+  }
 }

@@ -4,6 +4,8 @@ import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.model.Category;
 import com.hvost.support.PaginationInfo;
+import com.hvost.support.navigation.Navigation;
+import com.hvost.support.navigation.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 @Controller
 @RequestMapping("/blog")
+@Navigation(Section.BLOG)
 public class PostController {
 
   @Autowired

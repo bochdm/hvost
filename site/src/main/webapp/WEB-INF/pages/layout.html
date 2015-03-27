@@ -63,17 +63,17 @@
       </div>
       <div class="collapse navbar-collapse navbar-header-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li class="active dropdown">
-            <a class="dropdown-toggle" data-delay="50"  th:href="@{/index}">
+          <li th:class="${beans.uih.navClass(navSection?:'','home')}">
+            <a class="dropdown-toggle" data-delay="50" th:href="@{/index}">
                     <span th:text="#{menu.main}">Главная</span>
             </a>
           </li>
-          <li>
+          <li th:class="${beans.uih.navClass(navSection?:'','aboutme')}">
             <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown"  th:href="@{/}">
               <span th:text="#{menu.about.me}">Обо мне</span>
             </a>
           </li>
-          <li class="dropdown">
+          <li th:class="${beans.uih.navClass(navSection?:'','projects')}">
             <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
                     <span th:text="#{menu.projects}">Проекты
                       <i class="fa-icon-angle-down"></i>
@@ -103,7 +103,7 @@
               </li>
             </ul>
           </li>
-          <li class="dropdown">
+          <li  th:class="${beans.uih.navClass(navSection?:'','activepeople')}">
             <a class="dropdown-toggle" th:href="@{/activepeople}">
                     <span th:text="#{menu.society}">Активный гражданин
                       <i class="fa-icon-angle-down"></i>
@@ -130,7 +130,7 @@
               </li>
             </ul>
           </li>
-          <li class="dropdown">
+          <li th:class="${beans.uih.navClass(navSection?:'','blog')}">
             <a class="dropdown-toggle" th:href="@{/blog}">
                     <span>
                       Статьи

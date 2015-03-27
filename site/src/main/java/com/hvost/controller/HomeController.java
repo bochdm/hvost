@@ -3,11 +3,10 @@ package com.hvost.controller;
 import com.hvost.blog.support.PostService;
 import com.hvost.model.Category;
 import com.hvost.service.CategoryService;
+import com.twitter.Autolink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.twitter.api.CursoredList;
-import org.springframework.social.twitter.api.Tweet;
-import org.springframework.social.twitter.api.TwitterProfile;
+import org.springframework.social.twitter.api.*;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import org.springframework.social.twitter.api.Twitter;
-
 //import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -74,9 +75,55 @@ public class HomeController {
     public String startPage(Model model){
         model.addAttribute("newest_posts", postService.getNewPosts());
         List<Tweet> twitts = tt.timelineOperations().getUserTimeline("K_Tkhostov", 4);
-        model.addAttribute("tweets", twitts);
+
+      List<String> tweets = new ArrayList<String>(4);
+
+        for (Tweet tweet : twitts){
+          String regex = "((https?):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+          Pattern p = Pattern.compile(regex);
+          Matcher m = p.matcher(tweet.getUnmodifiedText());
+          System.out.println("tweet before ->" + tweet.getUnmodifiedText());
+          StringBuffer result = new StringBuffer();
+          while (m.find()){
+            String url = m.group();
+            m.appendReplacement(result, getReplacement(m));
+          }
+          m.appendTail(result);
+
+       /*    System.out.println("tweet after ->" + result.toString());
+
+         Map<String,Object> map = tweet.getExtraData();
+          for (Map.Entry<String,Object> mm :  map.entrySet())
+            System.out.println("getExtraData - > " + mm.toString())*/;
+
+          Entities e =  tweet.getEntities();
+          System.out.println("e.toString ->" +  e.getMentions().toString());
+          List<UrlEntity> listUrl = e.getUrls();
+          for (UrlEntity ue: listUrl)
+            System.out.println("ue ->" + ue.getDisplayUrl());
+
+          Autolink autolink = new Autolink();
+          autolink.setUrlTarget("_blank");
+          System.out.println("autolink -> " + autolink.autoLink(tweet.getUnmodifiedText()));
+
+          tweets.add(autolink.autoLink(tweet.getUnmodifiedText()));
+
+        }
+
+
+
+     //   model.addAttribute("tweets", twitts);
+        model.addAttribute("tweets", tweets);
         return "/index";
     }
+
+  private  String getReplacement(Matcher matcher){
+    String prefix  = "<a target=\"_blank\" href=\"";
+    String postfix = "\">" + matcher.group() + "</a>";
+    String replace = prefix + matcher.group() + postfix;
+
+    return replace;
+  }
 
   @RequestMapping(value="/articles", method = RequestMethod.GET)
   public String listArticles(Model model){

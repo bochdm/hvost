@@ -4,6 +4,8 @@ import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.ActivePeopleService;
 import com.hvost.support.PaginationInfo;
+import com.hvost.support.navigation.Navigation;
+import com.hvost.support.navigation.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/activepeople")
+@Navigation(Section.ACTIVEPEOPLE)
 public class ActivePeopleController {
 
   @Autowired

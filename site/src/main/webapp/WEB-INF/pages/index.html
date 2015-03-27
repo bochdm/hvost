@@ -220,10 +220,11 @@
         <div class="carousel-inner">
           <div th:each="tweet,idTweet : ${tweets}" class="item quote" th:classappend="${idTweet.index == 0}? active">
               <div class="col-sm-12 text-center">
-                <p class="lead" th:utext="${tweet.getText()}"/>
+                <p class="lead" th:utext="${tweet}"/>
+                <!--<p class="lead" th:utext="${tweet.getText()}"/>
                 <div class="author-wrapper">
                   <time th:datetime-local="ru" th:datetime="${tweet.getCreatedAt()}" th:text='${#dates.format(tweet.getCreatedAt(), "dd MMMM yyyy HH:mm")}'/>
-                </div>
+                </div>-->
               </div>
           </div>
 

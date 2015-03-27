@@ -76,11 +76,15 @@
     <property name="contentType" value="text/html; charset=UTF-8"/>
   </bean>
 
+  <mvc:interceptors>
+    <bean class="com.hvost.support.navigation.Navigable"  />
+  </mvc:interceptors>
+
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8"/>
     <property name="username" value="root"/>
-    <property name="password" value=""/>
+    <property name="password" value="together14"/>
   </bean>
 
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
@@ -111,6 +115,8 @@
             </set>
         </property>
     </bean>
+
+  <bean id="uih" class="com.hvost.support.navigation.ViewRenderingHelper" scope="request"/>
 
 
     <!-- Spring Social -->

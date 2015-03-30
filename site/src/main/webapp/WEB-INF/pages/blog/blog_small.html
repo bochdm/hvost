@@ -69,41 +69,7 @@
                       </div>
                     </div>
 
-                    <div class='box'>
-                      <h3 class='title'>Photostream</h3>
-                      <ul class='list-unstyled list-inline image-list-box'>
-                        <li>
-                          <a href='#'>
-                            <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/1.jpg" />
-                          </a>
-                        </li>
-                        <li>
-                          <a href='#'>
-                            <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/2.jpg" />
-                          </a>
-                        </li>
-                        <li>
-                          <a href='#'>
-                            <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/3.jpg" />
-                          </a>
-                        </li>
-                        <li>
-                          <a href='#'>
-                            <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/4.jpg" />
-                          </a>
-                        </li>
-                        <li>
-                          <a href='#'>
-                            <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/5.jpg" />
-                          </a>
-                        </li>
-                        <li>
-                          <a href='#'>
-                            <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/6.jpg" />
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+                    <!--Твиты-->
                     <div class='box social-box'>
                       <h3 class='title'>Твиты</h3>
                       <div class='icon-boxes icon-boxes-nowrap'>
@@ -112,11 +78,11 @@
                             <i class='fa-icon-twitter text-contrast'></i>
                           </div>
                           <div class='content'>
-                            <p th:text="${tweet.text}">
-                              <br/>
+                            <p th:utext="${tweet}">
+                              <!--<br/>
                               <a class='time' href='#'>
                                 <i th:text="${tweet.getCreatedAt()}"/>
-                              </a>
+                              </a>-->
                             </p>
                           </div>
                         </div>
@@ -143,12 +109,13 @@
                         </a>
                       </div>
                       <div class='row'>
-                        <div class='col-sm-3'>
+                        <!--TODO вставить фотки-->
+                        <!--<div class='col-sm-3'>
                           <a href='blog_single_post.html'>
                             <img class="img-responsive center-block img-rounded-half" alt="Cras tempus ligula a tempor adipiscing" width="189" height="129" src="assets/images/demo/blog/1.jpg" />
                           </a>
-                        </div>
-                        <div class='col-sm-9'>
+                        </div>-->
+                        <div class='col-sm-12'>
                           <p th:utext="${article.summary}"/>
                           <a class="btn btn-contrast btn-bordered btn-xs" th:href="@{'/blog/'+${article.id}}">Читать</a>
                         </div>

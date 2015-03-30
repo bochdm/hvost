@@ -69,7 +69,7 @@
             </a>
           </li>
           <li th:class="${beans.uih.navClass(navSection?:'','aboutme')}">
-            <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown"  th:href="@{/}">
+            <a class="dropdown-toggle" th:href="@{/aboutme}">
               <span th:text="#{menu.about.me}">Обо мне</span>
             </a>
           </li>
@@ -134,7 +134,6 @@
             <a class="dropdown-toggle" th:href="@{/blog}">
                     <span>
                       Статьи
-                      <i class="fa-icon-angle-down"></i>
                     </span>
             </a>
           </li>
@@ -160,23 +159,12 @@
             </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
+            <a class="dropdown-toggle"  th:href="@{/contacts}">
                     <span th:text="#{menu.contacts}">
                       Контакты
                       <i class="fa-icon-angle-down"></i>
                     </span>
             </a>
-            <ul class="dropdown-menu" role="menu">
-              <li class="">
-                <a th:href="contact.html">Contact</a>
-              </li>
-              <li class="">
-                <a th:href="contact2.html">Contact 2</a>
-              </li>
-              <li class="">
-                <a th:href="contact3.html">Contact 3</a>
-              </li>
-            </ul>
           </li>
         </ul>
       </div>

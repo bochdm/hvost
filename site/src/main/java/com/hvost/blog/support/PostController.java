@@ -6,6 +6,7 @@ import com.hvost.model.Category;
 import com.hvost.support.PaginationInfo;
 import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
+import com.twitter.Autolink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.awt.print.Pageable;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -101,7 +103,19 @@ public class PostController {
 
     List<Tweet> tweets = twitter.timelineOperations().getUserTimeline("K_Tkhostov", 3);
 
-    model.addAttribute("tweets", tweets);
+    List<String> tweetList = new ArrayList<String>(3);
+
+
+    for (Tweet tweet : tweets){
+      Autolink autolink = new Autolink();
+      autolink.setUrlTarget("_blank");
+      System.out.println("autolink -> " + autolink.autoLink(tweet.getUnmodifiedText()));
+
+      tweetList.add(autolink.autoLink(tweet.getUnmodifiedText()));
+    }
+
+    model.addAttribute("tweets", tweetList);
+
 
     return "/blog/blog_small";
   }

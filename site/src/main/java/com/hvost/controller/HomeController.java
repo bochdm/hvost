@@ -117,6 +117,16 @@ public class HomeController {
         return "/index";
     }
 
+  @RequestMapping(value = "/aboutme", method = RequestMethod.GET)
+  public String aboutMe(){
+    return "/about/aboutme";
+  }
+
+  @RequestMapping(value = "/contacts", method = RequestMethod.GET)
+  public String contacts(){
+    return "/contacts/contacts";
+  }
+
   private  String getReplacement(Matcher matcher){
     String prefix  = "<a target=\"_blank\" href=\"";
     String postfix = "\">" + matcher.group() + "</a>";

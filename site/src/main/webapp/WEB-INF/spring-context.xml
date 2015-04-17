@@ -118,6 +118,10 @@
 
   <bean id="uih" class="com.hvost.support.navigation.ViewRenderingHelper" scope="request"/>
 
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+
+  </bean>
+
 
     <!-- Spring Social -->
 <!--   <bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +33,9 @@ public class ActivePeopleController {
 
   @Autowired
   private ActivePeopleService service;
+
+  @Autowired
+  private JavaMailSender mailSender;
 
   @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
   public String listQuestions(Model model, @RequestParam(defaultValue = "1") int page){
@@ -70,6 +75,13 @@ public class ActivePeopleController {
       return "/activepeople/activepeople";
 
     service.addNewQuestion(question);
+
+    SimpleMailMessage email = new SimpleMailMessage();
+    email.setTo("bochkanov.dm@gmail.com");
+    email.setSubject("новый вопрос");
+    email.setText("Новы вопрос отпроекта Активный гражданин " + System.lineSeparator() + question.getQuestionText());
+
+    mailSender.send(email);
 
     return "redirect:/activepeople";
   }

@@ -166,7 +166,7 @@
                 </a>
               </div>
               <p th:utext="${post.summary}"/>
-              <a class='btn btn-contrast btn-bordered btn-xs' href='#'>Читать</a>
+              <a class='btn btn-contrast btn-bordered btn-xs' th:href="@{'/blog/'+${post.id}}">Читать</a>
             </div>
           </div>
         </div>

@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.awt.print.Pageable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -103,16 +105,27 @@ public class PostController {
 
     List<Tweet> tweets = twitter.timelineOperations().getUserTimeline("K_Tkhostov", 3);
 
-    List<String> tweetList = new ArrayList<String>(3);
+   // List<Map<Long, String>> tweetList = new ArrayList<String>(3);
+   // List<Map<Long, String>> tweetList = new ArrayList<Map<Long, String>>(3);
+    Map<Long, String> tweetList = new HashMap<Long, String>(3);
 
 
     for (Tweet tweet : tweets){
+
       Autolink autolink = new Autolink();
       autolink.setUrlTarget("_blank");
       System.out.println("autolink -> " + autolink.autoLink(tweet.getUnmodifiedText()));
+     // System.out.println("tweet.id -> " + tweet;
+      tweetList.put(tweet.getId(), autolink.autoLink(tweet.getUnmodifiedText()));
 
-      tweetList.add(autolink.autoLink(tweet.getUnmodifiedText()));
+
+
+
     }
+
+    /*for(Map.Entry<Long, String> t: tweetList){
+      t.getKey();
+    }*/
 
     model.addAttribute("tweets", tweetList);
 

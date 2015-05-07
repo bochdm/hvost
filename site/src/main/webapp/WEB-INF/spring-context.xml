@@ -84,7 +84,7 @@
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8"/>
     <property name="username" value="root"/>
-    <property name="password" value=""/>
+    <property name="password" value="together14"/>
   </bean>
 
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
@@ -103,7 +103,7 @@
         <constructor-arg name="consumerKey" value="${twitter.consumerKey}"/>
         <constructor-arg name="consumerSecret" value="${twitter.consumerSecret}"/>
         <constructor-arg name="accessToken" value="${twitter.accessToken}"/>
-        <constructor-arg name="accessTokenSecret" value="${twitter.accesTokenSecret}"/>
+        <constructor-arg name="accessTokenSecret" value="${twitter.accessTokenSecret}"/>
 
     </bean>
 

@@ -124,6 +124,7 @@
                         <div class='col-sm-12'>
                           <p th:utext="${article.summary}"/>
                           <a class="btn btn-contrast btn-bordered btn-xs" th:href="@{'/blog/'+${article.id}}">Читать</a>
+                          <a class="btn btn-contrast btn-bordered btn-xs" th:href="@{'/blog/tweet/'+${article.id}}">Твитнуть</a>
                         </div>
                       </div>
                     </div>

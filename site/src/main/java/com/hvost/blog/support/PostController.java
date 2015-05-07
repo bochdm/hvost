@@ -8,10 +8,12 @@ import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
 import com.twitter.Autolink;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.TweetData;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.awt.print.Pageable;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +73,7 @@ public class PostController {
     model.addAttribute("paginationInfo", new PaginationInfo(result));
 
     //   model.addAttribute("articles", result);
-    return "/blog/blog_small";
+    return "/blog";
     //    return renderListPosts(result, model);
   }
 
@@ -78,6 +82,24 @@ public class PostController {
     System.out.println("id_post = " + id);
     Post post = postService.getPost(id);
     model.addAttribute("post", post);
+    return "/blog/blog_single_post";
+  }
+
+  @RequestMapping(value = "/tweet/{id:\\d+}")
+  public String sendTweet(Model model, @PathVariable Long id) throws UnsupportedEncodingException {
+    Post post = postService.getPost(id);
+    //String tw = new String(post.getContent().substring(0,115));
+    String tw = new String("Тестовое сообщение в твиттер".getBytes("UTF-8"), "ISO-8859-1");
+    System.out.println("tw -> " + tw);
+    TweetData tweetData = new TweetData(tw);
+    try {
+      UrlResource resource = new UrlResource("http://www.w3schools.com/html/pic_mountain.jpg");
+      tweetData.withMedia(resource);
+    } catch (MalformedURLException e) {
+      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+    }
+    model.addAttribute("post", post);
+    twitter.timelineOperations().updateStatus(tweetData);
     return "/blog/blog_single_post";
   }
 

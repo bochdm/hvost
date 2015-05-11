@@ -12,6 +12,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.social.support.URIBuilder;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.TweetData;
 import org.springframework.social.twitter.api.Twitter;
@@ -23,9 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.print.Pageable;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +55,7 @@ public class PostController {
 
   //@RequestMapping(method = {GET, POST})
   @RequestMapping(value = "", method = {GET, POST})
-  public String listBlogs(Model model, @RequestParam(defaultValue = "1") int page) {
+  public String listBlogs(HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") int page) {
     //Pageable pageRequst = PageableFactory
     System.out.println("PostController");
     PageRequest pageNum = new PageRequest(page - 1, 10, Sort.Direction.DESC, "createdAt");
@@ -59,6 +64,17 @@ public class PostController {
     //  model.addAttribute("articles", result);
 
     Page<Post> result = postService.getAll(pageNum);
+
+    URL url = null;
+    try {
+      url = new URL(request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath());
+    }catch (MalformedURLException mue){
+      mue.printStackTrace();
+    }
+
+    model.addAttribute("baseUrl", url.toString());
+
+    System.out.println("baseUrl->" + url);
 
     return renderListPosts(result, model);
     //return "/blog/blog_small";

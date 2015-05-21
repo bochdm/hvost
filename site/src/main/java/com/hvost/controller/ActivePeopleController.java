@@ -71,15 +71,16 @@ public class ActivePeopleController {
   @RequestMapping(value = "/addquestion", method = RequestMethod.POST)
   public String addQuestion(@ModelAttribute("question") @Valid Question question, BindingResult bindingResult, Model model){
     System.out.println("addQuestion:newQuestion" + question);
-    if (bindingResult.hasErrors())
+    if (bindingResult.hasErrors()) {
       return "/activepeople/activepeople";
+    }
 
     service.addNewQuestion(question);
 
     SimpleMailMessage email = new SimpleMailMessage();
     email.setTo("bochkanov.dm@gmail.com");
     email.setSubject("новый вопрос");
-    email.setText("Новы вопрос отпроекта Активный гражданин " + System.lineSeparator() + question.getQuestionText());
+    email.setText("Новый вопрос от проекта Активный гражданин " + System.lineSeparator() + question.getQuestionText());
 
     mailSender.send(email);
 

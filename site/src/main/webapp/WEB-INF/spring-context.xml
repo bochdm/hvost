@@ -82,7 +82,7 @@
 
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8&amp;autoReconnect=true"/>
     <property name="username" value="root"/>
     <property name="password" value=""/>
     <property name="testOnBorrow" value="true"/>
@@ -124,7 +124,7 @@
       <property name="host" value="smtp.gmail.com"/>
       <property name="port" value="587"/>
       <property name="username" value="bochkanov.dm@gmail.com"/>
-      <property name="password" value="together14"/>
+      <property name="password" value="14together"/>
       <property name="defaultEncoding" value="UTF-8"/>
       <property name="javaMailProperties">
           <props>

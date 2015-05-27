@@ -64,13 +64,16 @@ public class PostService {
 
     public Page<Post> getNewPosts(){
         //List<Post> posts = postRepository.getNewestPost();
-        Pageable page = new PageRequest(0,2, Sort.Direction.DESC, "createdAt");
+        Pageable page = new PageRequest(0, 3, Sort.Direction.DESC, "createdAt");
         System.out.println("getNewPosts");
       //  Page<Post> posts = postRepository.findTop10OrderByCreatedAtOrderByCreatedAtDesc(page);
      //   List<Post> p = postRepository.getNewestPosts();
 
         Page<Post> pp = postRepository.findAll(page);
-        System.out.println("getNewPosts");
+
+      for (Post p :pp){
+        System.out.println("getNewPosts -> " + p);
+      }
         return pp;
 /*        for (Post p :posts){
             System.out.println("p->" + p);

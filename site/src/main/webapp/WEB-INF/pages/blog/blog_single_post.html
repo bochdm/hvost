@@ -16,7 +16,8 @@
   <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
   <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
 
-  <link th:href="@{/resources/css/posts/comments.css}" media="all" id="colors" rel="stylesheet" type="text/css"/>
+  <link th:href="@{/resources/css/posts/comments.css}" media="all" id="comments" rel="stylesheet" type="text/css"/>
+  <link th:href="@{/resources/css/posts/twitter.css}" media="all" id="tweets_button" rel="stylesheet" type="text/css"/>
 </head>
 <body class=''>
 <div id='wrapper'>
@@ -194,10 +195,22 @@
                       </a>
                       <a class='btn btn-link' href='#mc-container'>
                         <i class='fa-icon-comments'></i>
-                        <span>Комментариев: </span>
-                        <span id="#commentsCount"/>
+                        <span>Комментариев:</span>
+                        <span id="count"></span>
                       </a>
-                      <a href="https://twitter.com/share" class="twitter-share-button" data-th-attr="data-url=${baseUrl}+'/blog/'+${post.id}, data-text=@{'/blog/'+${post.title}}" >My Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                      <div class="btn-group">
+                        <a href="https://twitter.com/share" style="vertical-align: middle" class="twitter-share-button" data-th-attr="data-url=${baseUrl}+'/blog/'+${post.id}, data-text=@{'/blog/'+${post.title}}" >My Tweet</a>
+                        <script>!function(d,s,id){
+                          var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                          if(!d.getElementById(id)){
+                            js=d.createElement(s);
+                            js.id=id;
+                            js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);
+                          }
+                        }
+                        (document, 'script', 'twitter-wjs');
+                        </script>
+                      </div>
                     </div>
                     <!-- <div class='row'>
                        <div class='col-sm-12'>
@@ -217,7 +230,7 @@
                   <div id="mc-container"></div>
                   <script type="text/javascript">
                     cackle_widget = window.cackle_widget || [];
-                    cackle_widget.push({widget: 'Comment', id: 35378, countContainer: '#commentsCount'});
+                    cackle_widget.push({widget: 'Comment', id: 35378, countContainer: 'count'});
                     (function () {
                       var mc = document.createElement('script');
                       mc.type = 'text/javascript';
@@ -283,5 +296,7 @@
   ga('create', 'UA-44249116-1', 'bublinastudio.com');
   ga('send', 'pageview');
 </script>
+
+
 </body>
 </html>

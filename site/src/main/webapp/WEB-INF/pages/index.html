@@ -22,7 +22,7 @@
             <h1 class="big fadeInUp animated" th:text="#{main.carusel.active}"/>
 
             <p class="normal fadeInUp animated" th:text="#{main.carusel.active.about}"/>
-            <a class="btn btn-contrast btn-lg fadeInRight animated" href="" th:text="#{button.read}" />
+            <a class="btn btn-contrast btn-lg fadeInRight animated" th:href="@{/activepeople}" th:text="#{button.read}" />
           </div>
         </div>
       </div>
@@ -108,56 +108,19 @@
     </a>
   </div>
 </div>
-<!--<div class="row">
-  <div class="col-sm-12">
-    <div class="page-header page-header-with-icon">
-      <i class="fa-icon-star"></i>
 
-      <h2>Top features</h2>
-    </div>
-    <div class="text-boxes">
-      <div class="row text-box">
-        <div class="col-sm-6"><img class="img-responsive center-block img-rounded" alt="Lorem ipsum dolor sit amet"
-                                   width="340" height="188" th:src="@{/resources/img/demo/common/devices.jpg}"/>
-        </div>
-        <div class="col-sm-6">
-          <h3 class="title"><a th:href="home">Lorem ipsum dolor sit amet</a></h3>
 
-          <p>Mauris at ultricies eros. Morbi vel dui nec arcu suscipit euismod. Phasellus pellentesque lectus eget
-            quam ullamcorper consectetur. Vestibulum vitae risus a erat mollis lac in venenatis tellus. Morbi et
-            tristique lacus.</p>
-          <a class="btn btn-contrast btn-bordered btn-sm" th:href="home">Read more</a>
-        </div>
-      </div>
-      <hr/>
-      <div class="row text-box">
-        <div class="col-sm-6 col-sm-push-6"><img class="img-responsive center-block img-rounded"
-                                                 alt="Praesent vitae adipiscing nunc" width="330" height="183"
-                                                 th:src="@{/resources/img/demo/common/chart.png}"/></div>
-        <div class="col-sm-6 col-sm-pull-6">
-          <h3 class="title"><a th:href="home">Praesent vitae adipiscing nunc</a></h3>
-
-          <p>Integer fringtilla fringilla mauris eget accumsan. Nullam quis consequat ipsum, eu cursus mi. Donec
-            quis quam at risus viverra venenatis. Phasellus non nulla tortor. Fusce congue enim sed ullamcorper
-            cursus. Donec tincidunt elit sed felis iaculis laoreet.</p>
-          <a class="btn btn-contrast btn-bordered btn-sm" th:href="home">Read more</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
-
-  <div class='row'>
+  <div class='row panels'>
     <div class='col-sm-12'>
       <div class='page-header page-header-with-icon'>
         <i class='fa-icon-comment'></i>
         <h2 th:text="#{newest.blog}">Новые статьи</h2>
       </div>
       <div class='row text-boxes'>
-        <div class='col-sm-6 text-box' th:each="post : ${newest_posts}">
+        <div class='col-sm-4 text-box' th:each="post : ${newest_posts}">
           <div class='row'>
-            <div class='col-sm-4'><img class="img-responsive center-block" alt="Lorem ipsum dolor sit amet" width="340" height="188" src="assets/images/demo/common/devices.jpg" /></div>
-            <div class='col-sm-8'>
+            <!--<div class='col-sm-4'><img class="img-responsive center-block" alt="Lorem ipsum dolor sit amet" width="340" height="188" src="assets/images/demo/common/devices.jpg" /></div>-->
+            <div class='col-sm-12'>
               <h3 class='title' th:text="${post.title}"><a href="#">Lorem ipsum dolor sit amet</a></h3>
               <div class='toolbar'>
                 <a class='btn btn-link' href='#'>

@@ -8,5 +8,5 @@ package com.hvost.support.navigation;
  * To change this template use File | Settings | File Templates.
  */
 public enum Section {
-  MAIN, ACTIVEPEOPLE, BLOG
+  MAIN, ABOUTME, ACTIVEPEOPLE, BLOG, CONTACTS
 }

@@ -3,6 +3,8 @@ package com.hvost.controller;
 import com.hvost.blog.support.PostService;
 import com.hvost.model.Category;
 import com.hvost.service.CategoryService;
+import com.hvost.support.navigation.Navigation;
+import com.hvost.support.navigation.Section;
 import com.twitter.Autolink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.ConnectionRepository;
@@ -27,6 +29,7 @@ import java.util.regex.Pattern;
  */
 @Controller
 @RequestMapping(value = {"", "/", "/index"})
+@Navigation(Section.MAIN)
 public class HomeController {
 
     @Autowired
@@ -117,15 +120,6 @@ public class HomeController {
         return "/index";
     }
 
-  @RequestMapping(value = "/aboutme", method = RequestMethod.GET)
-  public String aboutMe(){
-    return "/about/aboutme";
-  }
-
-  @RequestMapping(value = "/contacts", method = RequestMethod.GET)
-  public String contacts(){
-    return "/contacts/contacts";
-  }
 
   private  String getReplacement(Matcher matcher){
     String prefix  = "<a target=\"_blank\" href=\"";

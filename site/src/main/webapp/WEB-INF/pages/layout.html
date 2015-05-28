@@ -65,46 +65,26 @@
         </div>
         <div class="collapse navbar-collapse navbar-header-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li th:class="${beans.uih.navClass(navSection?:'','home')}">
+            <li th:class="${beans.uih.navClass(navSection?:'','main')}">
               <a class="dropdown-toggle" data-delay="50" th:href="@{/index}">
                 <span th:text="#{menu.main}">Главная</span>
               </a>
             </li>
+
             <li th:class="${beans.uih.navClass(navSection?:'','aboutme')}">
               <a class="dropdown-toggle" th:href="@{/aboutme}">
                 <span th:text="#{menu.about.me}">Обо мне</span>
               </a>
             </li>
+
             <li th:class="${beans.uih.navClass(navSection?:'','projects')}">
               <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
                     <span th:text="#{menu.projects}">Проекты
                       <i class="fa-icon-angle-down"></i>
                     </span>
               </a>
-              <!--<ul class="dropdown-menu" role="menu">
-                <li class="">
-                  <a th:href="about_us.html">About us</a>
-                </li>
-                <li class="">
-                  <a th:href="services.html">Services</a>
-                </li>
-                <li class="">
-                  <a th:href="faq.html">FAQ</a>
-                </li>
-                <li>
-                  <a th:href="404.html">404 Error</a>
-                </li>
-                <li>
-                  <a th:href="500.html">500 Error</a>
-                </li>
-                <li>
-                  <a th:href="coming_soon.html">Coming soon</a>
-                </li>
-                <li>
-                  <a th:href="under_construction.html">Under construction</a>
-                </li>
-              </ul>-->
             </li>
+
             <li th:class="${beans.uih.navClass(navSection?:'','activepeople')}">
               <a class="dropdown-toggle" th:href="@{/activepeople}">
                     <span th:text="#{menu.society}">Активный гражданин
@@ -147,7 +127,7 @@
               </a>
 
             </li>
-            <li class="dropdown">
+            <li  th:class="${beans.uih.navClass(navSection?:'','contacts')}">
               <a class="dropdown-toggle" th:href="@{/contacts}">
                     <span th:text="#{menu.contacts}">
                       Контакты
@@ -265,7 +245,9 @@
 
 </footer>
 
-<div class="style-switcher" id="style-switcher">
+
+<!--Переключатель стилей -->
+<!--<div class="style-switcher" id="style-switcher">
   <div class="style-switcher-heading">
     Style switcher
     <i class="fa-icon-cogs"></i>
@@ -300,7 +282,7 @@
          th:href="home">Reset to defaults</a>
     </div>
   </div>
-</div>
+</div>-->
 
 
 <!-- / required javascripts -->
@@ -320,6 +302,7 @@
 <script th:src="@{/resources/js/plugins/lightbox/lightbox.min.js}" type="text/javascript"></script>
 <script th:src="@{/resources/js/plugins/cycle/jquery.cycle.all.min.js}" type="text/javascript"></script>
 <script th:src="@{/resources/js/jednotka.js}" type="text/javascript"></script>
+<script th:src="@{/resources/js/common.js}" type="text/javascript"></script>
 
 <!-- / not required javascripts -->
 

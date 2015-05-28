@@ -42,12 +42,18 @@
           <div class='container'>
             <div class='row'>
               <div class='col-sm-12'>
-                <p class='lead lead-md text-center no-mg-b'>Умение задавать вопросы как качество личности – способность посредством  правильно заданных вопросов  достигнуть взаимопонимания, добиться исполнения своих желаний,  добраться до истины, получить информацию, выразить сомнения, проявить собственную позицию, выказать доверие и заинтересованность в сказанном.</p>
+                <p class='lead lead-sm text-center no-mg-b'>Умение задавать вопросы как качество личности – способность посредством  правильно заданных вопросов  достигнуть взаимопонимания, добиться исполнения своих желаний,  добраться до истины, получить информацию, выразить сомнения, проявить собственную позицию, выказать доверие и заинтересованность в сказанном.</p>
+
+                <p class="lead-md text-center" >
+                  <a th:href="@{'#askme'}">
+                  <span>Задать вопрос</span>
+                </a>
+                </p>
               </div>
             </div>
             <div class='row'>
               <div class='col-sm-12'>
-                <hr/>
+                <hr class='hr-half'/>
                 <div class='row'>
                   <div class='col-sm-12'>
                     <form action='#' class='mg-b' method='get'>
@@ -67,20 +73,20 @@
                   <div th:each="answer : ${answers}" class='panel panel-default'>
                     <div class='panel-heading'>
                       <h4 class='panel-title'>
-                        <a class='accordion-toggle collapsed' data-parent="#accordion" data-toggle='collapse' th:text="${answer.question.questionText}" th:href="@{'#accordion-item-'+${answer.id}}"/>
+                        <a class='accordion-toggle' data-parent="#accordion" data-toggle='collapse' th:text="${answer.question.questionText}" th:href="@{'#accordion-item-'+${answer.id}}"/>
                       </h4>
                     </div>
-                    <div class='panel-collapse collapse' id='accordion-item-1' th:id="@{'accordion-item-'+${answer.id}}">
+                    <div class='panel-collapse' id='accordion-item-1' th:id="@{'accordion-item-'+${answer.id}}">
                       <div class="toolbar">
-                        <a class='btn btn-link' th:href="@{/}">
+                        <a class='btn btn-link btn-xs' th:href="@{/}">
                           <i class="fa-icon-calendar-empty"></i>
                           <time th:datetime-local="ru" th:datetime="${answer.question.date}" th:text='${#dates.format(answer.question.date, "dd MMMM yyyy HH:mm")}'/>
                         </a>
-                        <a class='btn btn-link' href='#'>
+                        <a class='btn btn-link btn-xs' href='#'>
                           <i class='fa-icon-user'></i>
                           <span th:text="${answer.question.author}"/>
                         </a>
-                        <a class='btn btn-link' th:href="@{/}">
+                        <a class='btn btn-link btn-xs'  th:href="@{/}">
                           <span>Категория: <span th:text="${answer.question.category.name}"/></span>
                         </a>
                       </div>
@@ -92,8 +98,13 @@
                     </div>
                   </div>
                 </div>
+
+                <hr class="hr-half"/>
+
               </div>
             </div>
+
+
 
             <!-- Paging -->
             <nav>
@@ -124,7 +135,7 @@
               </ul>
             </nav>
 
-            <div class='row'>
+            <div class='row' id="askme">
               <div class='col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2'>
                 <div class='page-header page-header-with-icon'>
                   <i class='fa-icon-question-sign'></i>
@@ -188,5 +199,6 @@
       //ga('create', 'UA-44249116-1', 'bublinastudio.com');
       //ga('send', 'pageview');
     </script>
+
   </body>
 </html>

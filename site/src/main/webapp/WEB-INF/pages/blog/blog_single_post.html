@@ -51,149 +51,23 @@
       <div id='main-content'>
         <div class='container'>
           <div class='row'>
-            <div class='col-md-push-9 col-sm-push-8 col-sm-4 col-md-3'>
-              <nav class='sidebar'>
-                <button class='btn btn-block btn-contrast sidebar-toggle' data-target='.sidebar-collapse'
-                        data-toggle='collapse' type='button'>
-                  <span class='sr-only'>Toggle navigation</span>
-                  <span class='icon-bar'></span>
-                  <span class='icon-bar'></span>
-                  <span class='icon-bar'></span>
-                </button>
-                <div class='sidebar-collapse collapse'>
-                  <div class='box'>
-                    <h3 class='title'>Search in blog</h3>
 
-                    <form action='http://jednotka.bublinastudio.com/blog_large.html' method='get'>
-                      <div class='input-group'>
-                        <input class='form-control' placeholder='Search...' type='text'/>
-                          <span class='input-group-btn'>
-                            <button class='btn btn-contrast' type='button'>
-                              <i class='fa-icon-search'></i>
-                            </button>
-                          </span>
-                      </div>
-                    </form>
-                  </div>
-                  <div class='box'>
-                    <h3 class='title'>Categories</h3>
 
-                    <div class='list-group'>
-                      <a class="list-group-item" href="#"><i class='fa-icon-angle-right fa-icon-fixed-width'></i>
-                        Quisque et fringilla
-                      </a>
-
-                      <a class="list-group-item active" href="#"><i class='fa-icon-angle-right fa-icon-fixed-width'></i>
-                        Etiam bibendum
-                      </a>
-
-                      <a class="list-group-item" href="#"><i class='fa-icon-angle-right fa-icon-fixed-width'></i>
-                        Vestibulum
-                      </a>
-
-                      <a class="list-group-item" href="#"><i class='fa-icon-angle-right fa-icon-fixed-width'></i>
-                        Mauris gravida
-                      </a>
-
-                      <a class="list-group-item" href="#"><i class='fa-icon-angle-right fa-icon-fixed-width'></i>
-                        Magna dui
-                      </a>
-
-                      <a class="list-group-item" href="#"><i class='fa-icon-angle-right fa-icon-fixed-width'></i>
-                        Adipiscing elementum
-                      </a>
-
-                    </div>
-                  </div>
-                  <div class='box'>
-                    <h3 class='title'>Photostream</h3>
-                    <ul class='list-unstyled list-inline image-list-box'>
-                      <li>
-                        <a href='#'>
-                          <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/1.jpg"/>
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/2.jpg"/>
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/3.jpg"/>
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/4.jpg"/>
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/5.jpg"/>
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img alt="Jednotka" width="50" height="50" src="assets/images/demo/stream/6.jpg"/>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class='box social-box'>
-                    <h3 class='title'>Latest tweets</h3>
-
-                    <div class='icon-boxes icon-boxes-nowrap'>
-                      <div class='icon-box'>
-                        <div class='icon icon-wrap'>
-                          <i class='fa-icon-twitter text-contrast'></i>
-                        </div>
-                        <div class='content'>
-                          <p>
-                            Phasellus vulputate lobortis sem. Mauris id velit in urna.
-                            <br/>
-                            <a class='time' href='#'>
-                              <i>1 hour ago</i>
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                      <div class='icon-box'>
-                        <div class='icon icon-wrap'>
-                          <i class='fa-icon-twitter text-contrast'></i>
-                        </div>
-                        <div class='content'>
-                          <p>
-                            Etiam luctus, dui congue tempus blandit, dui.
-                            <br/>
-                            <a class='time' href='#'>
-                              <i>3 hours ago</i>
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </nav>
-            </div>
-            <div class='col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9'>
-              <div class='text-boxes'>
                 <div class='row text-box text-box-title-above text-box-big-image'>
                   <div class='col-sm-12'>
                     <h2 class='title' th:text="${post.title}"></h2>
 
                     <div class='toolbar'>
-                      <a class='btn btn-link' href='#'>
+                      <a class='btn btn-link btn-sm' href='#'>
                         <i class='fa-icon-calendar-empty'></i>
                         <time th:datetime-local="ru" th:datetime="${post.createdAt}"
                               th:text='${#dates.format(post.createdAt, "dd MMMM yyyy HH:mm")}'/>
                       </a>
-                      <a class='btn btn-link' href='#'>
+                      <a class='btn btn-link btn-sm' href='#'>
                         <i class='fa-icon-user'></i>
                         <span th:text="${post.author}"/>
                       </a>
-                      <a class='btn btn-link' href='#mc-container'>
+                      <a class='btn btn-link btn-sm' href='#mc-container'>
                         <i class='fa-icon-comments'></i>
                         <span>Комментариев:</span>
                         <span id="count"></span>
@@ -240,12 +114,8 @@
                       s.parentNode.insertBefore(mc, s.nextSibling);
                     })();
                   </script>
-<!--                  <a id="mc-link" href="http://cackle.ru">Социальные комментарии <b style="color:#4FA3DA">Cackl</b><b
-                      style="color:#F65077">e</b></a>-->
                 </div>
 
-              </div>
-            </div>
           </div>
         </div>
       </div>

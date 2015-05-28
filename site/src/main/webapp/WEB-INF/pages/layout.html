@@ -77,12 +77,20 @@
               </a>
             </li>
 
-            <li th:class="${beans.uih.navClass(navSection?:'','projects')}">
+            <li th:class="${beans.uih.navClass(navSection?:'','projects')}" class="dropdown">
               <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
                     <span th:text="#{menu.projects}">Проекты
                       <i class="fa-icon-angle-down"></i>
                     </span>
               </a>
+              <ul class='dropdown-menu' role='menu'>
+                <li >
+                  <a th:href="@{http://xn--369-qddohl3g.xn--p1ai/}" target="_blank">Лицей 369</a>
+                </li>
+                <li>
+                  <a th:href="@{http://www.onfspb.ru/}" target="_blank">ОНФ. Санкт-Петербург</a>
+                </li>
+              </ul>
             </li>
 
             <li th:class="${beans.uih.navClass(navSection?:'','activepeople')}">
@@ -121,11 +129,18 @@
             </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
-                    <span th:text="#{menu.archive}">Архив
+                    <span th:text="#{menu.video}">Видео
                       <i class="fa-icon-angle-down"></i>
                     </span>
               </a>
-
+              <ul class="dropdown-menu" role="menu">
+                <li class="">
+                  <a th:href="@{/video/online}">Прямая линия</a>
+                </li>
+                <li class="">
+                  <a th:href="@{/video/archive}">Архив</a>
+                </li>
+              </ul>
             </li>
             <li  th:class="${beans.uih.navClass(navSection?:'','contacts')}">
               <a class="dropdown-toggle" th:href="@{/contacts}">

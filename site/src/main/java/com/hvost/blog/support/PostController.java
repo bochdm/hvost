@@ -141,11 +141,11 @@ public class PostController {
     List<CategoryPost> categories = postService.getAllCategories();
     model.addAttribute("categories", categories);
 
-    List<Tweet> tweets = twitter.timelineOperations().getUserTimeline("K_Tkhostov", 3);
+    List<Tweet> tweets = twitter.timelineOperations().getUserTimeline("K_Tkhostov", 4);
 
    // List<Map<Long, String>> tweetList = new ArrayList<String>(3);
    // List<Map<Long, String>> tweetList = new ArrayList<Map<Long, String>>(3);
-    Map<Long, String> tweetList = new HashMap<Long, String>(3);
+    Map<Long, String> tweetList = new HashMap<Long, String>(4);
 
 
     for (Tweet tweet : tweets){
@@ -156,9 +156,6 @@ public class PostController {
      // System.out.println("tweet.id -> " + tweet;
       tweetList.put(tweet.getId(), autolink.autoLink(tweet.getUnmodifiedText()));
 
-
-
-
     }
 
     /*for(Map.Entry<Long, String> t: tweetList){
@@ -166,7 +163,6 @@ public class PostController {
     }*/
 
     model.addAttribute("tweets", tweetList);
-
 
     return "/blog/blog_small";
   }

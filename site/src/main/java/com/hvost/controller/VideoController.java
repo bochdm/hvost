@@ -17,8 +17,4 @@ public class VideoController {
     return "/video/online";
   }
 
-  @RequestMapping(value = "/archive",  method = {RequestMethod.GET})
-  public String getArchive(Model model){
-    return "/video/archive";
-  }
 }

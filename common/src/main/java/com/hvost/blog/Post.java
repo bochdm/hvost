@@ -17,7 +17,6 @@ import java.util.Date;
 @Table(name = "POST")
 public class Post implements Serializable {
 
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

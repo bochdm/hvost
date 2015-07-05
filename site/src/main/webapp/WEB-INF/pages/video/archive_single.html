@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+  Name: Jednotka - Multipurpose Template
+  Author: http://themeforest.net/user/BublinaStudio
+  Version: 1.0
+-->
+<!--[if lt IE 9]>
+<html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if !IE] -->
+<html lang='ru' xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<!-- <![endif] -->
+<head>
+  <title>Статьи</title>
+  <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
+  <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+
+  <link th:href="@{/resources/css/posts/comments.css}" media="all" id="comments" rel="stylesheet" type="text/css"/>
+  <link th:href="@{/resources/css/posts/twitter.css}" media="all" id="tweets_button" rel="stylesheet" type="text/css"/>
+</head>
+<body class=''>
+<div id='wrapper'>
+  <div id='main' role='main'>
+    <div id='main-content-header'>
+      <div class='container'>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <h1 class='title'>
+              Blog (Single post)
+            </h1>
+            <ol class='breadcrumb'>
+              <li>
+                <a href='index.html'>
+                  <i class='fa-icon-home'></i>
+                </a>
+              </li>
+              <li>
+                <a href='blog_large.html'>
+                  Blog
+                </a>
+              </li>
+              <li class='active'>Статьи 1</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main layout:fragment="content">
+      <div id='main-content'>
+        <div class='container'>
+          <div class='row'>
+
+
+            <div class='row text-box text-box-title-above text-box-big-image'>
+              <div class='col-sm-12'>
+                <h2 class='title' th:text="${archive.title}"></h2>
+
+                <div class='toolbar'>
+                  <a class='btn btn-link btn-sm' href='#'>
+                    <i class='fa-icon-calendar-empty'></i>
+                    <time th:datetime-local="ru" th:datetime="${archive.createdAt}"
+                          th:text='${#dates.format(archive.createdAt, "dd MMMM yyyy HH:mm")}'/>
+                  </a>
+                  <a class='btn btn-link btn-sm' href='#mc-container'>
+                    <i class='fa-icon-comments'></i>
+                    <span>Комментариев:</span>
+                    <span id="count">0</span>
+                  </a>
+
+                  <div class="btn-group">
+                    <a href="https://twitter.com/share" style="vertical-align: middle" class="twitter-share-button"
+                       data-th-attr="data-url=${baseUrl}+'/blog/'+${archive.id}, data-text=@{'/blog/'+${archive.title}}">My
+                      Tweet</a>
+                    <script>!function (d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                      if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = p + '://platform.twitter.com/widgets.js';
+                        fjs.parentNode.insertBefore(js, fjs);
+                      }
+                    }
+                    (document, 'script', 'twitter-wjs');
+                    </script>
+                  </div>
+                </div>
+                <hr class='hr-half'/>
+              </div>
+            </div>
+            <div th:utext="${archive.content}"/>
+
+            <!--Видео-->
+            <div class="row" align="center">
+              <div class="col-sm-12" th:utext="${archive.url}"/>
+            </div>
+
+            <!-- Комментарии -->
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="mc-container"/>
+                <script type="text/javascript">
+                  cackle_widget = window.cackle_widget || [];
+                  cackle_widget.push({widget: 'Comment', id: 35378, countContainer: 'count'});
+                  (function () {
+                    var mc = document.createElement('script');
+                    mc.type = 'text/javascript';
+                    mc.async = true;
+                    mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(mc, s.nextSibling);
+                  })();
+                </script>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </main>
+
+    <div class='fade' id='scroll-to-top'>
+      <i class='fa-icon-chevron-up'></i>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

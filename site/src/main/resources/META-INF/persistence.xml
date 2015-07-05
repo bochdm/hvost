@@ -8,6 +8,7 @@
     <class>com.hvost.activepeople.Question</class>
     <class>com.hvost.activepeople.CategoryQuestion</class>
     <class>com.hvost.activepeople.Answer</class>
+    <class>com.hvost.archive.Archive</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
       <property name="hibernate.hbm2ddl.auto" value="validate" />

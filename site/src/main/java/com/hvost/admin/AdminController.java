@@ -1,7 +1,9 @@
 package com.hvost.admin;
 
+import com.apple.jobjc.JObjCRuntime;
 import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
+import com.hvost.archive.Archive;
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.support.PaginationInfo;
@@ -91,6 +93,36 @@ public class AdminController {
     }
 
     return "redirect:/admin/allarticles";
+  }
+
+  @RequestMapping(value = "/allarchivevideo", method = RequestMethod.GET)
+  public String allArchive(Model model, @RequestParam(defaultValue = "1") int page){
+    PageRequest pageNum = new PageRequest(page - 1, 10, Sort.Direction.DESC, "createdAt");
+    Page<Archive> result = adminService.getAllArchive(pageNum);
+
+    model.addAttribute("archivevideo", result);
+    model.addAttribute("paginationInfo", new PaginationInfo(result));
+
+    return "admin/allarchivevideo";
+  }
+
+  @RequestMapping(value= {"/addarchivevideo"}, method = RequestMethod.GET)
+  public String newArhiveVideo(Model model){
+
+    model.addAttribute("video", new Archive());
+
+    return "admin/addarchivevideo";
+  }
+
+  @RequestMapping(value = "/addarchivevideo", method = RequestMethod.POST)
+  public String addArchiveVideo(@Valid Archive archive, BindingResult bindingResult, Model model){
+    if (!bindingResult.hasErrors()){
+      adminService.addArchiveVideo(archive);
+    } else {
+      List<ObjectError> errors = bindingResult.getAllErrors();
+    }
+
+    return "redirect:/admin/addarchivevideo";
   }
 
   @RequestMapping(value = "/allanswers", method = RequestMethod.GET)
@@ -217,6 +249,34 @@ public class AdminController {
     Post post = adminService.getPost(id);
     adminService.deletePost(post);
     return "redirect:/admin/allarticles";
+  }
+  @RequestMapping(value = "/archivevideo/{id:[0-9]+}/edit", method = {RequestMethod.GET})
+  public String findArchiveVideo(@PathVariable Long id, Model model) {
+    System.out.println("admin/editarchivevideo");
+    Archive archive = adminService.getArchiveVideo(id);
+    model.addAttribute("arhivevideo", archive);
+    return "admin/editarchivevideo";
+  }
+
+  @RequestMapping(value = "/archivevideo/{id:[0-9]+}/edit", method = {RequestMethod.POST})
+  public String editArchiveVideo(@PathVariable Long id,@ModelAttribute @Valid Archive archive, BindingResult bindingResult, Model model) {
+    Archive a = adminService.getArchiveVideo(id);
+    if (!bindingResult.hasErrors()){
+      a.setContent(archive.getContent());
+      a.setSummary(archive.getSummary());
+      a.setTitle(archive.getTitle());
+      a.setUrl(archive.getUrl());
+      adminService.updateArchiveVideo(a);
+    }
+
+    return "redirect:/admin/allarchivevideo";
+  }
+
+  @RequestMapping(value = "/archivevideo/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  public String deleteArchiveVideo(@PathVariable Long id, Model model){
+    Archive archive = adminService.getArchiveVideo(id);
+    adminService.deleteArchiveVideo(archive);
+    return "redirect:/admin/allarchivevideo";
   }
 
   private String renderLists(Page<Post> page, Model model){

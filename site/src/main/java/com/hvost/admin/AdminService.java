@@ -4,6 +4,8 @@ import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.AnswerRepository;
 import com.hvost.activepeople.support.QuestionRepository;
+import com.hvost.archive.Archive;
+import com.hvost.archive.support.ArchiveRepository;
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.blog.support.CategoryPostRepository;
@@ -47,6 +49,9 @@ public class AdminService {
   @Autowired
   CategoryPostRepository categoryPostRepository;
 
+  @Autowired
+  ArchiveRepository archiveRepository;
+
     @Transactional
     public void addArticle(Post a){
         //em.persist(a);
@@ -78,6 +83,21 @@ public class AdminService {
   public void deletePost(Post p){
     // em.remove(p);
     em.remove(em.contains(p) ? p : em.merge(p));
+  }
+
+  @Transactional
+  public void addArchiveVideo(Archive a){
+    em.merge(a);
+  }
+
+  @Transactional
+  public void updateArchiveVideo(Archive a){
+    em.merge(a);
+  }
+
+  @Transactional
+  public void deleteArchiveVideo(Archive a){
+    em.remove(em.contains(a) ? a :em.merge(a));
   }
 
     @Transactional
@@ -112,6 +132,15 @@ public class AdminService {
 
   public Post getPost(Long postID) {
     return postRepository.findOne(postID);
+  }
+
+
+  public Page<Archive> getAllArchive(Pageable pageRequest){
+   return archiveRepository.findAll(pageRequest);
+  }
+
+  public Archive getArchiveVideo(Long videoID){
+    return archiveRepository.findOne(videoID);
   }
 
   public Question getQuestion(Long id){

@@ -24,7 +24,7 @@
   <div class="row row-centered">
     <div class="col-md-10 col-centered" role="main">
 
-      <form th:with="create=1" th:action="@{'/admin/archivevideo/'+${arhivevideo.id}+'/edit'}" th:object="${arhivevideo}" method="post">
+      <form th:with="edit=1" th:action="@{'/admin/archivevideo/'+${arhivevideo.id}+'/edit'}" th:object="${arhivevideo}" method="post">
         <div class="form-group">
           <label for="title">Название</label>
           <input id="title" class="form-control" type="text" name="title" maxlength="100" th:field="*{title}"/>
@@ -33,7 +33,7 @@
         <div class="form-group">
           <label for="url">Ссылка на видео</label>
           <textarea id="url" class="textarea form-control wysihtml5-editor placeholder" placeholder="Ссылка на видео ..."
-                            th:text="${arhivevideo.url}" style="width: 810px; height: 90px" maxlength="350"/>
+                             th:field="*{url}" style="width: 810px; height: 90px" maxlength="350" />
         </div>
 
         <div class="form-group">

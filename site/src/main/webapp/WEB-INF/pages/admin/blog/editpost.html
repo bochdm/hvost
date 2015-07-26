@@ -13,41 +13,42 @@
 </head>
 <body>
 
+
 <main layout:fragment="content">
 
   <div class='page-header page-header-with-icon'>
     <i class='fa-icon-table'></i>
-    <h3>Новая статья</h3>
+    <h3>Статья</h3>
   </div>
 
 
   <div class="row row-centered">
     <div class="col-md-10 col-centered" role="main">
-      <form th:with="create=1" th:action="@{/admin/addarchivevideo}" th:object="${video}" method="post">
+      <form th:with="edit=1" th:action="@{'/admin/blog/post/'+${post.id}+'/edit'}" th:object="${post}" method="post">
         <div class="form-group">
           <label for="title">Название</label>
           <input id="title" class="form-control" type="text" name="title" maxlength="100" th:field="*{title}"/>
         </div>
 
         <div class="form-group">
-          <label for="url">Ссылка на видео</label>
-          <textarea id="url" class="textarea form-control wysihtml5-editor placeholder" placeholder="Ссылка на видео ..."
-                              th:field="*{url}" style="width: 810px; height: 90px" maxlength="350"/>
+          <label for="author">Автор</label>
+          <input id="author" class="form-control" type="text" name="author" maxlength="100" th:field="*{author}"/>
         </div>
 
         <div class="form-group">
-          <label for="summary" text="Краткое описание"/>
-          <textarea id="summary" class="textarea form-control wysihtml5-editor placeholder" placeholder="Краткое описание ..."
+          <!--<label for="summary" th:value="Краткое описание"></label>-->
+          <label for="summary" th:value="Описание"></label>
+          <textarea id="summary" class="textarea form-control wysihtml5-editor placeholder" placeholder="Enter text ..."
                     th:field="*{summary}" style="width: 810px; height: 250px" maxlength="350" rows="3"/>
         </div>
 
         <div class="form-group">
-          <label for="content" text="Полный текст"/>
-          <textarea id="content" class="textarea form-control wysihtml5-editor placeholder" placeholder="Полный текст ..."
-                    th:field="*{content}" style="width: 810px; height: 300px"  />
+          <label for="content" th:value="Содержание"></label>
+          <textarea id="content" class="textarea form-control wysihtml5-editor placeholder" placeholder="Enter text ..."
+                    th:field="*{content}" style="width: 810px; height: 250px" />
         </div>
 
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Обновить</button>
       </form>
     </div>
   </div>
@@ -62,8 +63,7 @@
   <script th:inline="javascript">
     /*<![CDATA[*/
     $('.textarea').wysihtml5({
-      html:true,
-      stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
+      html:true, stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
     });
     /*]]>*/
   </script>

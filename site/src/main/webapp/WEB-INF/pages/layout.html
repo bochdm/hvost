@@ -66,7 +66,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" th:href="@{/}">
-            <img alt="Единая Россия" height="85" th:src="@{/resources/img/edro_1.svg}"/>
+            <img alt="Единая Россия" height="85" th:src="@{/resources/img/Onf-logo.svg}"/>
           </a>
         </div>
         <div class="collapse navbar-collapse navbar-header-collapse">
@@ -133,7 +133,7 @@
                     </span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" th:class="${beans.uih.navClass(navSection?:'', 'archive')}">
               <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
                     <span th:text="#{menu.video}">Видео
                       <i class="fa-icon-angle-down"></i>

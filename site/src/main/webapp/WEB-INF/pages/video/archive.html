@@ -29,10 +29,8 @@
           <div class="row">
             <div class='col-sm-12'>
               <div class='page-header page-header-with-icon no-mg-t'>
-                <h2>Архив</h2>
 
-                <!-- Статьи-->
-                <div class="col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9">
+                <!-- Видео архив-->
                   <div th:each="archive : ${archiveList}" class="text-boxes">
                     <div class='row text-box text-box-title-above'>
                       <div class='col-sm-12'>
@@ -59,7 +57,7 @@
                     <div class="text-center">
                       <ul class="pagination">
                         <li th:if="${paginationInfo.previousVisible}">
-                          <a th:href="@{'/blog/'(page=${paginationInfo.previousPageNumber})}" >
+                          <a th:href="@{'/video/archive/'(page=${paginationInfo.previousPageNumber})}" >
                             <i class="fa-icon-angle-left"/>
                           </a>
                         </li>
@@ -67,7 +65,7 @@
                         <li th:each="element : ${paginationInfo.pageElement}" >
 
                         <li  th:if="${element.navigable}">
-                          <a th:href="@{'/blog/'(page=${element.label})}" th:text="${element.label}" />
+                          <a th:href="@{'/video/archive/'(page=${element.label})}" th:text="${element.label}" />
                         </li>
                         <li th:if="${!element.navigable and element.currentPage}" class="active">
                           <a class="disabled" th:text="${element.label}" />
@@ -77,14 +75,13 @@
                         </li>
                         </li>
                         <li th:if="${paginationInfo.nextVisible}">
-                          <a th:href="@{'/blog/'(page=${paginationInfo.nextPageNumber})}">
+                          <a th:href="@{'/video/archive/'(page=${paginationInfo.nextPageNumber})}">
                             <i class="fa-icon-angle-right"/>
                           </a>
                         </li>
                       </ul>
                     </div>
                   </nav>
-                </div>
 
               </div>
             </div>

@@ -52,7 +52,7 @@ public class AdminController {
     return "/admin/index";
   }
 
-  @RequestMapping(value= {"/newarticle"}, method = RequestMethod.GET)
+  @RequestMapping(value= {"/blog/newarticle"}, method = RequestMethod.GET)
   public String showArticle(Model model){
 
     model.addAttribute("article", new Post());
@@ -60,10 +60,10 @@ public class AdminController {
     List<CategoryPost> categories = adminService.getAllCategoriesPost();
 
    model.addAttribute("postcategories", categories);
-    return "admin/newarticle";
+    return "admin/blog/newarticle";
   }
 
-  @RequestMapping(value = "/allarticles", method = RequestMethod.GET)
+  @RequestMapping(value = "/blog/allarticles", method = RequestMethod.GET)
   public String allArticles(Model model, @RequestParam(defaultValue = "1") int page){
   //  model.addAttribute("articles", adminService.getAllArticles());
     PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "createdAt");
@@ -78,7 +78,7 @@ public class AdminController {
     return renderLists(result, model);
   }
 
-  @RequestMapping(value="/addarticle", method = RequestMethod.POST)
+  @RequestMapping(value="/blog/addarticle", method = RequestMethod.POST)
   public String addArticle( @Valid Post post, BindingResult bindingResult, Model model){
     //model.addAttribute("categories", categoryService.getAllArticles());
     System.out.println("AdminController.addArticle");
@@ -91,10 +91,10 @@ public class AdminController {
         System.out.println("error ->" + error);
     }
 
-    return "redirect:/admin/allarticles";
+    return "redirect:/admin/blog/allarticles";
   }
 
-  @RequestMapping(value = "/allarchivevideo", method = RequestMethod.GET)
+  @RequestMapping(value = "/video/allarchivevideo", method = RequestMethod.GET)
   public String allArchive(Model model, @RequestParam(defaultValue = "1") int page){
     PageRequest pageNum = new PageRequest(page - 1, 10, Sort.Direction.DESC, "createdAt");
     Page<Archive> result = adminService.getAllArchive(pageNum);
@@ -102,18 +102,18 @@ public class AdminController {
     model.addAttribute("archivevideo", result);
     model.addAttribute("paginationInfo", new PaginationInfo(result));
 
-    return "admin/allarchivevideo";
+    return "admin/video/allarchivevideo";
   }
 
-  @RequestMapping(value= {"/addarchivevideo"}, method = RequestMethod.GET)
+  @RequestMapping(value= {"/video/addarchivevideo"}, method = RequestMethod.GET)
   public String newArhiveVideo(Model model){
 
     model.addAttribute("video", new Archive());
 
-    return "admin/addarchivevideo";
+    return "admin/video/addarchivevideo";
   }
 
-  @RequestMapping(value = "/addarchivevideo", method = RequestMethod.POST)
+  @RequestMapping(value = "/video/addarchivevideo", method = RequestMethod.POST)
   public String addArchiveVideo(@Valid Archive archive, BindingResult bindingResult, Model model){
     if (!bindingResult.hasErrors()){
       adminService.addArchiveVideo(archive);
@@ -121,7 +121,7 @@ public class AdminController {
       List<ObjectError> errors = bindingResult.getAllErrors();
     }
 
-    return "redirect:/admin/addarchivevideo";
+    return "redirect:/admin/video/addarchivevideo";
   }
 
   @RequestMapping(value = "/allanswers", method = RequestMethod.GET)
@@ -220,14 +220,14 @@ public class AdminController {
     return "redirect:/admin/allquestions";
   }
 
-  @RequestMapping(value = "/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})
+  @RequestMapping(value = "/blog/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})
   public String findPost(@PathVariable Long id, Model model){
     Post post = adminService.getPost(id);
     model.addAttribute("post", post);
-    return "admin/editpost";
+    return "admin/blog/editpost";
   }
 
-  @RequestMapping(value = "/post/{id:[0-9]+}/edit", method = {RequestMethod.POST})
+  @RequestMapping(value = "/blog/post/{id:[0-9]+}/edit", method = {RequestMethod.POST})
   public String editPost(@PathVariable Long id, @ModelAttribute @Valid Post post, BindingResult bindingResult, Model model){
     Post p = adminService.getPost(id);
     if (!bindingResult.hasErrors()){
@@ -239,25 +239,25 @@ public class AdminController {
     }
 
     //allArticles(model, 1);
-    return "redirect:/admin/allarticles";
+    return "redirect:/admin/blog/allarticles";
   }
 
-  @RequestMapping(value = "/post/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  @RequestMapping(value = "/blog/post/{id:[0-9]+}/delete", method = {RequestMethod.GET})
   public String deletePost(@PathVariable Long id, Model model){
 
     Post post = adminService.getPost(id);
     adminService.deletePost(post);
-    return "redirect:/admin/allarticles";
+    return "redirect:/admin/blog/allarticles";
   }
-  @RequestMapping(value = "/archivevideo/{id:[0-9]+}/edit", method = {RequestMethod.GET})
+  @RequestMapping(value = "/video/archivevideo/{id:[0-9]+}/edit", method = {RequestMethod.GET})
   public String findArchiveVideo(@PathVariable Long id, Model model) {
     System.out.println("admin/editarchivevideo");
     Archive archive = adminService.getArchiveVideo(id);
     model.addAttribute("arhivevideo", archive);
-    return "admin/editarchivevideo";
+    return "admin/video/editarchivevideo";
   }
 
-  @RequestMapping(value = "/archivevideo/{id:[0-9]+}/edit", method = {RequestMethod.POST})
+  @RequestMapping(value = "/video/archivevideo/{id:[0-9]+}/edit", method = {RequestMethod.POST})
   public String editArchiveVideo(@PathVariable Long id,@ModelAttribute @Valid Archive archive, BindingResult bindingResult, Model model) {
     Archive a = adminService.getArchiveVideo(id);
     if (!bindingResult.hasErrors()){
@@ -268,14 +268,14 @@ public class AdminController {
       adminService.updateArchiveVideo(a);
     }
 
-    return "redirect:/admin/allarchivevideo";
+    return "redirect:/admin/video/allarchivevideo";
   }
 
-  @RequestMapping(value = "/archivevideo/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  @RequestMapping(value = "/video/archivevideo/{id:[0-9]+}/delete", method = {RequestMethod.GET})
   public String deleteArchiveVideo(@PathVariable Long id, Model model){
     Archive archive = adminService.getArchiveVideo(id);
     adminService.deleteArchiveVideo(archive);
-    return "redirect:/admin/allarchivevideo";
+    return "redirect:/admin/video/allarchivevideo";
   }
 
   private String renderLists(Page<Post> page, Model model){
@@ -285,6 +285,6 @@ public class AdminController {
     model.addAttribute("articles", page);
     model.addAttribute("paginationInfo", new PaginationInfo(page));
 
-    return "admin/allarticles";
+    return "admin/blog/allarticles";
   }
 }

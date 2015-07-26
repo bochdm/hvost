@@ -19,7 +19,7 @@
     <nav>
       <ul class="pagination pagination-sm">
           <li th:if="${paginationInfo.previousVisible}">
-            <a th:href="@{'/admin/allarticles/'(page=${paginationInfo.previousPageNumber})}" >
+            <a th:href="@{'/admin/video/allarchivevideo/'(page=${paginationInfo.previousPageNumber})}" >
               <i class="glyphicon glyphicon-menu-left"/>
             </a>
           </li>
@@ -27,7 +27,7 @@
           <li th:each="element : ${paginationInfo.pageElement}" >
 
           <li  th:if="${element.navigable}">
-            <a th:href="@{'/admin/allarticles/'(page=${element.label})}" th:text="${element.label}" />
+            <a th:href="@{'/admin/video/allarchivevideo/'(page=${element.label})}" th:text="${element.label}" />
           </li>
           <li th:if="${!element.navigable and element.currentPage}" class="active">
             <a class="disabled" th:text="${element.label}" />
@@ -37,7 +37,7 @@
           </li>
           </li>
           <li th:if="${paginationInfo.nextVisible}">
-            <a th:href="@{'/admin/allarticles/'(page=${paginationInfo.nextPageNumber})}">
+            <a th:href="@{'/admin/video/allarchivevideo/'(page=${paginationInfo.nextPageNumber})}">
               <i class="glyphicon glyphicon-menu-right"/>
             </a>
           </li>
@@ -52,30 +52,30 @@
               <tr>
                 <th th:text="Название"/>
                 <th th:text="Описание"/>
-                <th th:text="Автор"/>
+                <th th:text="Ссылка"/>
                 <th th:text="Дата"/>
                 <th th:text="Действия"/>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="article : ${articles}">
+              <tr th:each="video : ${archivevideo}">
                 <td class="col-md-3">
-                  <small th:text="${article.title}"/>
+                  <small th:text="${video.title}"/>
                 </td>
                 <td class="col-md-5">
-                  <small th:utext="${article.summary}"/>
+                  <small th:utext="${video.summary}"/>
                 </td>
                 <td class="col-md-1">
-                  <small th:text="${article.author}"/>
+                  <small th:text="${video.url}"/>
                 </td>
                 <td  class="col-md-2">
                   <small>
-                    <time th:datetime-local="ru" th:datetime="${article.createdAt}" th:text='${#dates.format(article.createdAt, "dd MMMM yyyy HH:mm")}'/>
+                    <time th:datetime-local="ru" th:datetime="${video.createdAt}" th:text='${#dates.format(video.createdAt, "dd MMMM yyyy HH:mm")}'/>
                   </small>
                 </td>
                 <td class="col-md-1">
-                  <small><a id="edit" th:href="@{'/admin/post/'+${article.id}+'/edit'}" th:text="Редактировать"/></small>
-                  <small><a id="delete" th:href="@{'/admin/post/'+${article.id}+'/delete'}" th:text="Удалить"/></small>
+                  <small><a id="edit" th:href="@{'/admin/video/archivevideo/'+${video.id}+'/edit'}" th:text="Редактировать"/></small>
+                  <small><a id="delete" th:href="@{'/admin/video/archivevideo/'+${video.id}+'/delete'}" th:text="Удалить"/></small>
                 </td>
               </tr>
             </tbody>
@@ -88,7 +88,7 @@
     <nav>
       <ul class="pagination pagination-sm">
         <li th:if="${paginationInfo.previousVisible}">
-          <a th:href="@{'/admin/allarticles/'(page=${paginationInfo.previousPageNumber})}" >
+          <a th:href="@{'/admin/video/allarchivevideo/'(page=${paginationInfo.previousPageNumber})}" >
             <i class="glyphicon glyphicon-menu-left"/>
           </a>
         </li>
@@ -96,7 +96,7 @@
         <li th:each="element : ${paginationInfo.pageElement}" >
 
         <li  th:if="${element.navigable}">
-          <a th:href="@{'/admin/allarticles/'(page=${element.label})}" th:text="${element.label}" />
+          <a th:href="@{'/admin/video/allarchivevideo/'(page=${element.label})}" th:text="${element.label}" />
         </li>
         <li th:if="${!element.navigable and element.currentPage}" class="active">
           <a class="disabled" th:text="${element.label}" />
@@ -106,7 +106,7 @@
         </li>
         </li>
         <li th:if="${paginationInfo.nextVisible}">
-          <a th:href="@{'/admin/allarticles/'(page=${paginationInfo.nextPageNumber})}">
+          <a th:href="@{'/admin/video/allarchivevideo/'(page=${paginationInfo.nextPageNumber})}">
             <i class="glyphicon glyphicon-menu-right"/>
           </a>
         </li>

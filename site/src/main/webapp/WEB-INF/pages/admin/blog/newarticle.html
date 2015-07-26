@@ -13,8 +13,6 @@
 </head>
 <body>
 
-
-
 <main layout:fragment="content">
 
   <div class='page-header page-header-with-icon'>
@@ -22,10 +20,9 @@
     <h3>Новая статья</h3>
   </div>
 
-
   <div class="row row-centered">
     <div class="col-md-10 col-centered" role="main">
-      <form th:with="create=1" th:action="@{/admin/addarticle}" th:object="${article}" method="post">
+      <form th:with="create=1" th:action="@{/admin/blog/addarticle}" th:object="${article}" method="post">
         <div class="form-group">
           <label for="title">Название</label>
           <input id="title" class="form-control" type="text" name="title" maxlength="100" th:field="*{title}"/>
@@ -62,7 +59,6 @@
             </ul>
           </div>
         </div>
-
 
         <div class="form-group">
           <label for="summary" th:text="Краткое_описание"/>

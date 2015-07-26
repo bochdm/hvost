@@ -46,7 +46,7 @@ public class Post implements Serializable {
     this.categoryPost = categoryPost;
   }
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "CP_CP_ID")
   private CategoryPost categoryPost;
 

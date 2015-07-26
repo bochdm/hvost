@@ -17,6 +17,8 @@
       <property name="hibernate.encoding" value="UTF-8"/>
       <property name="hibernate.show_sql" value="false"/>
       <property name="hibernate.format_sql" value="true"/>
+        <property name="hibernate.search.default.directory-provider" value="filesystem"/>
+        <property name="hibernate.search.default.indexBase" value="/var/lucene/indexes"/>
     </properties>
   </persistence-unit>
 </persistence>

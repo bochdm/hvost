@@ -3,13 +3,21 @@ package com.hvost.blog.support;
 
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import javax.transaction.Transactional;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -23,6 +31,9 @@ import java.util.List;
 public class PostService {
 
     private int size = 25;
+
+  @PersistenceContext
+  private EntityManager em;
 
     @Autowired
     PostRepository postRepository;
@@ -83,4 +94,35 @@ public class PostService {
         return null;*/
     }
 
+
+  @Transactional
+  public List<Post> getPostBySearch(String queryString) {
+
+    System.out.println("getPostBySearch::" + queryString);
+
+    FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
+
+    try {
+      fullTextEntityManager.createIndexer().startAndWait();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+ //   em.getTransaction().begin();
+
+    QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Post.class).get();
+
+    Query luceneQuery = qb.keyword()
+        .onFields("summary", "author", "content")
+        .matching(queryString)
+        .createQuery();
+
+    javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Post.class);
+
+    List<Post> result = jpaQuery.getResultList();
+
+    for (Post post : result) {
+      System.out.println(post);
+    }
+    return result;
+  }
 }

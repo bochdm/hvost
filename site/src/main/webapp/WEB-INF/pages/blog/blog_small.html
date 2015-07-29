@@ -46,11 +46,11 @@
                   <div>
                     <div class="box">
                       <h3 class='title'>Поиск</h3>
-                      <form action='http://jednotka.bublinastudio.com/blog_large.html' method='get'>
+                      <form th:action="@{/blog/search}" method='get'>
                         <div class='input-group'>
-                          <input class='form-control' placeholder='Поиск...' type='text'/>
+                          <input id="q" name="q" class='form-control' placeholder='Поиск...' type='text'/>
                           <span class='input-group-btn'>
-                            <button class='btn btn-contrast' type='button'>
+                            <button class='btn btn-contrast' type='submit'>
                               <i class='fa-icon-search'></i>
                             </button>
                           </span>

@@ -132,6 +132,15 @@ public class PostController {
     return renderListPosts(result, model);
   }
 
+  @RequestMapping(value = "/search", method = {GET})
+  public String search(Model model, @RequestParam String q){
+    System.out.println("PostController:search -> " + q);
+
+    List<Post> result = postService.getPostBySearch(q);
+
+    return "/blog/blog_small";
+  }
+
 
   private String renderListPosts(Page<Post> page, Model model) {
 

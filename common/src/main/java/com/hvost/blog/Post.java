@@ -1,6 +1,8 @@
 package com.hvost.blog;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +17,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "POST")
+@Indexed
 public class Post implements Serializable {
 
   @Id
@@ -22,19 +25,23 @@ public class Post implements Serializable {
   private Long id;
 
   @Column
+  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
   private  String author;
 
   @Column
+  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
   private String title;
 
   @Column
   @Type(type="text")
+  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
   private String content;
 
   @Column
   private Date createdAt;
 
   @Column(length = 350)
+  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
   private String summary;
 
 

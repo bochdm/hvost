@@ -1,8 +1,13 @@
 package com.hvost.blog;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.ru.RussianAnalyzer;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Parameter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +23,14 @@ import java.util.Date;
 @Entity
 @Table(name = "POST")
 @Indexed
+@AnalyzerDef(name = "ru",
+    tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+    filters = {
+        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+        @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+            @Parameter(name = "language", value = "Russian")
+        })
+    })
 public class Post implements Serializable {
 
   @Id
@@ -25,23 +38,28 @@ public class Post implements Serializable {
   private Long id;
 
   @Column
-  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+ // @Field(index = Index., analyze = Analyze.YES, store = Store.NO)
+  @Field
+  @Analyzer(definition = "ru")
   private  String author;
 
   @Column
-  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+  @Field
+  @Analyzer(definition = "ru")
   private String title;
 
   @Column
   @Type(type="text")
-  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+  @Field
+  @Analyzer(definition = "ru")
   private String content;
 
   @Column
   private Date createdAt;
 
   @Column(length = 350)
-  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+  @Field
+  @Analyzer(definition = "ru")
   private String summary;
 
 
@@ -60,6 +78,16 @@ public class Post implements Serializable {
   public Post() {
   }
 
+  public Post(Post post){
+    this.id     = post.getId();
+    this.author = post.getAuthor();
+    this.title = post.getTitle();
+    this.content = post.getContent();
+    this.createdAt = post.getCreatedAt();
+    this.summary = post.getSummary();
+    this.categoryPost = post.getCategoryPost();
+  }
+
   public Post(String author, String title, String content, Date createdAt, String summary, CategoryPost categoryPost) {
     this.author = author;
     this.title = title;
@@ -74,15 +102,17 @@ public class Post implements Serializable {
   }
 
   public void setSummary(String summary) {
-    try {
-      int size = getClass().getDeclaredField("summary").getAnnotation(Column.class).length();
-      int inLength = summary.length();
-      if (inLength>=size)
-        summary = summary.substring(0, size-1);
+   /* if (summary.isEmpty()) {
+      try {
+        int size = getClass().getDeclaredField("summary").getAnnotation(Column.class).length();
+        int inLength = summary.length();
+        if (inLength >= size)
+          summary = summary.substring(0, size - 1);
 
-    } catch (NoSuchFieldException ex) {
-    } catch (SecurityException ex) {
-    }
+      } catch (NoSuchFieldException ex) {
+      } catch (SecurityException ex) {
+      }
+    }*/
     this.summary = summary;
   }
 

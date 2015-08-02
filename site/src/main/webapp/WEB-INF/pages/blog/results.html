@@ -100,10 +100,10 @@
 
               <!-- Статьи-->
               <div class="col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9">
-                <div th:each="article : ${articles}" class="text-boxes">
+                <div th:each="article : ${search_results}" class="text-boxes">
                   <div class='row text-box text-box-title-above'>
                     <div class='col-sm-12'>
-                      <h2 class="title"><a th:href="@{'/blog/'+${article.id}}" th:text="${article.title}"/></h2>
+                      <h2 class="title"><a th:href="@{'/blog/'+${article.id}}" th:utext="${article.title}"/></h2>
                       <div class="toolbar">
                         <a class='btn btn-link' th:href="@{/}">
                           <i class="fa-icon-calendar-empty"></i>
@@ -134,7 +134,7 @@
                   <hr class='hr-half'/>
                 </div>
 
-                <!-- Paging -->
+                <!-- Paging
                 <nav>
                   <div class="text-center">
                     <ul class="pagination">
@@ -163,7 +163,7 @@
                       </li>
                     </ul>
                   </div>
-                </nav>
+                </nav>-->
               </div>
 
 

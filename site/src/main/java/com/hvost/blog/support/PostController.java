@@ -7,6 +7,8 @@ import com.hvost.support.PaginationInfo;
 import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
 import com.twitter.Autolink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
@@ -48,6 +50,8 @@ public class PostController {
 
   @Autowired
   private PostService postService;
+
+  private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
 
   @Autowired
@@ -132,13 +136,17 @@ public class PostController {
     return renderListPosts(result, model);
   }
 
-  @RequestMapping(value = "/search", method = {GET})
-  public String search(Model model, @RequestParam String q){
+  @RequestMapping(value = "/search", method = {POST})
+  public String search(Model model,
+                       @RequestParam String q,
+                       @RequestParam(defaultValue = "1") int page){
     System.out.println("PostController:search -> " + q);
 
-    List<Post> result = postService.getPostBySearch(q);
+    List<Post> result = postService.getPostBySearch(q, page);
 
-    return "/blog/blog_small";
+    model.addAttribute("search_results", result);
+
+    return "/blog/results";
   }
 
 
@@ -161,7 +169,7 @@ public class PostController {
 
       Autolink autolink = new Autolink();
       autolink.setUrlTarget("_blank");
-      System.out.println("autolink -> " + autolink.autoLink(tweet.getUnmodifiedText()));
+      logger.info("autolink -> " + autolink.autoLink(tweet.getUnmodifiedText()));
      // System.out.println("tweet.id -> " + tweet;
       tweetList.put(tweet.getId(), autolink.autoLink(tweet.getUnmodifiedText()));
 

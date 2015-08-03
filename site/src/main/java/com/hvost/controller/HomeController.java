@@ -3,6 +3,7 @@ package com.hvost.controller;
 import com.hvost.blog.support.PostService;
 import com.hvost.model.Category;
 import com.hvost.service.CategoryService;
+import com.hvost.startpage.support.CarouselService;
 import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
 import com.twitter.Autolink;
@@ -32,18 +33,21 @@ import java.util.regex.Pattern;
 @Navigation(Section.MAIN)
 public class HomeController {
 
-    @Autowired
-    private CategoryService categoryService;
+  @Autowired
+  private CategoryService categoryService;
 
-    @Autowired
-    private PostService postService;
+  @Autowired
+  private PostService postService;
 
-    @Autowired
-    private Twitter twitter;
+  @Autowired
+  private CarouselService carouselService;
 
-    @Autowired
-    private TwitterTemplate tt;
- //   private ConnectionRepository connectionRepository;
+  @Autowired
+  private Twitter twitter;
+
+  @Autowired
+  private TwitterTemplate tt;
+  //   private ConnectionRepository connectionRepository;
 
    /* @Inject
     public HomeController(Twitter twitter, ConnectionRepository connectionRepository){
@@ -51,94 +55,96 @@ public class HomeController {
         this.connectionRepository=connectionRepository;
     }*/
 
-    @RequestMapping(value="/test", method = RequestMethod.GET)
-    public String listAll(Model model){
-      model.addAttribute("categories", categoryService.getAll());
-      model.addAttribute("newest_posts", postService.getNewPosts());
+  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  public String listAll(Model model) {
+    model.addAttribute("categories", categoryService.getAll());
+    model.addAttribute("newest_posts", postService.getNewPosts());
 
       /*  if (connectionRepository.findPrimaryConnection(Twitter.class) != null){
             CursoredList<TwitterProfile> twitts = twitter.friendOperations().getFriends();
 */
-        
-        List<Tweet> twitts = tt.timelineOperations().getUserTimeline("Alexey_Pushkov");
 
-        for(Tweet tw : twitts){
-            System.out.println("tw->" + tw.getUnmodifiedText());
-            System.out.println("tw->" + tw.getFromUser());
-            System.out.println("tw->" + tw.getLanguageCode());
-        }
+    List<Tweet> twitts = tt.timelineOperations().getUserTimeline("Alexey_Pushkov");
 
-        model.addAttribute("tweets", twitts);
-
-
-      return "home";
+    for (Tweet tw : twitts) {
+      System.out.println("tw->" + tw.getUnmodifiedText());
+      System.out.println("tw->" + tw.getFromUser());
+      System.out.println("tw->" + tw.getLanguageCode());
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String startPage(Model model){
-        model.addAttribute("newest_posts", postService.getNewPosts());
-        List<Tweet> twitts = tt.timelineOperations().getUserTimeline("K_Tkhostov", 4);
+    model.addAttribute("tweets", twitts);
 
-      List<String> tweets = new ArrayList<String>(4);
 
-        for (Tweet tweet : twitts){
-          String regex = "((https?):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
-          Pattern p = Pattern.compile(regex);
-          Matcher m = p.matcher(tweet.getUnmodifiedText());
-          System.out.println("tweet before ->" + tweet.getUnmodifiedText());
-          StringBuffer result = new StringBuffer();
-          while (m.find()){
-            String url = m.group();
-            m.appendReplacement(result, getReplacement(m));
-          }
-          m.appendTail(result);
+    return "home";
+  }
+
+  @RequestMapping(method = RequestMethod.GET)
+  public String startPage(Model model) {
+
+    model.addAttribute("carousel", carouselService.getAll());
+    model.addAttribute("newest_posts", postService.getNewPosts());
+    List<Tweet> twitts = tt.timelineOperations().getUserTimeline("K_Tkhostov", 4);
+
+    List<String> tweets = new ArrayList<String>(4);
+
+    for (Tweet tweet : twitts) {
+      String regex = "((https?):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+      Pattern p = Pattern.compile(regex);
+      Matcher m = p.matcher(tweet.getUnmodifiedText());
+      System.out.println("tweet before ->" + tweet.getUnmodifiedText());
+      StringBuffer result = new StringBuffer();
+      while (m.find()) {
+        String url = m.group();
+        m.appendReplacement(result, getReplacement(m));
+      }
+      m.appendTail(result);
 
        /*    System.out.println("tweet after ->" + result.toString());
 
          Map<String,Object> map = tweet.getExtraData();
           for (Map.Entry<String,Object> mm :  map.entrySet())
-            System.out.println("getExtraData - > " + mm.toString())*/;
+            System.out.println("getExtraData - > " + mm.toString())*/
+      ;
 
-          Entities e =  tweet.getEntities();
-          System.out.println("e.toString ->" +  e.getMentions().toString());
-          List<UrlEntity> listUrl = e.getUrls();
-          for (UrlEntity ue: listUrl)
-            System.out.println("ue ->" + ue.getDisplayUrl());
+      Entities e = tweet.getEntities();
+      System.out.println("e.toString ->" + e.getMentions().toString());
+      List<UrlEntity> listUrl = e.getUrls();
+      for (UrlEntity ue : listUrl)
+        System.out.println("ue ->" + ue.getDisplayUrl());
 
-          Autolink autolink = new Autolink();
-          autolink.setUrlTarget("_blank");
-          System.out.println("autolink -> " + autolink.autoLink(tweet.getUnmodifiedText()));
+      Autolink autolink = new Autolink();
+      autolink.setUrlTarget("_blank");
+      System.out.println("autolink -> " + autolink.autoLink(tweet.getUnmodifiedText()));
 
-          tweets.add(autolink.autoLink(tweet.getUnmodifiedText()));
+      tweets.add(autolink.autoLink(tweet.getUnmodifiedText()));
 
-        }
-
-
-
-     //   model.addAttribute("tweets", twitts);
-        model.addAttribute("tweets", tweets);
-        return "/index";
     }
 
 
-  private  String getReplacement(Matcher matcher){
-    String prefix  = "<a target=\"_blank\" href=\"";
+    //   model.addAttribute("tweets", twitts);
+    model.addAttribute("tweets", tweets);
+    return "/index";
+  }
+
+
+  private String getReplacement(Matcher matcher) {
+    String prefix = "<a target=\"_blank\" href=\"";
     String postfix = "\">" + matcher.group() + "</a>";
     String replace = prefix + matcher.group() + postfix;
 
     return replace;
   }
 
-  @RequestMapping(value="/articles", method = RequestMethod.GET)
-  public String listArticles(Model model){
+  @RequestMapping(value = "/articles", method = RequestMethod.GET)
+  public String listArticles(Model model) {
     model.addAttribute("articles", categoryService.getAll());
 
     return "home";
   }
 
-    @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
-    public String addCategory(@ModelAttribute Category category){
-        categoryService.add(category);
-        return "redirect:/";
-    }
+  @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
+  public String addCategory(@ModelAttribute Category category) {
+    categoryService.add(category);
+    return "redirect:/";
+  }
 }

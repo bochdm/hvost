@@ -60,23 +60,41 @@
 
 <div id="main-content" >
 <div class="container">
-<div class="row">
-  <div class="col-sm-12">
-    <p class="lead text-center" th:text="#{main.site.about}"></p>
-  </div>
-</div>
-  <div class="row panels">
+  <div class="row vertical-center">
     <div class="col-sm-6">
+      <p class="lead text-center" th:utext="#{main.site.about}"/>
+    </div>
+    <div class="col-sm-6">
+<!--      <h3 class="lead text-center">Здравствуйте!</h3>
+      <p th:text="#{main.site.hello}"/>-->
+      <h4 class="text-center">Здравствуйте!</h4>
+      <blockquote>
+        <p class="text-justify" th:text="#{main.site.hello}"/>
+        <small>
+          С уважением К.Э. Тхостов
+        </small>
+      </blockquote>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
       <div class='page-header page-header-with-icon'>
         <i class='fa-icon-ok-sign'></i>
-        <h2>Ответы на Ваши вопросы</h2>
+        <h3 class="lead">Общественная интернет-приемная<br/>"Активный гражданин"</h3>
       </div>
+    </div>
+  </div>
+
+  <div class="row panels">
+    <div class="col-sm-6">
+        <p class="lead text-center">Ответы на Ваши вопросы</p>
       <div class='row text-boxes'>
         <div class='col-sm-12 text-box' th:each="answer : ${newest_answers}">
           <div class="row">
           <h3 class='title' th:text="${answer.question.questionText}"/>
 
-          <div class="toolbar">
+          <!--<div class="toolbar">
             <a class='btn btn-link' th:href="@{/}">
               <i class="fa-icon-calendar-empty"></i>
               <time th:datetime-local="ru" th:datetime="${answer.question.date}" th:text='${#dates.format(answer.question.date, "dd MMMM yyyy HH:mm")}'/>
@@ -88,22 +106,25 @@
             <a class='btn btn-link btn-xs' th:href="@{/}">
               <span>Категория: <span th:text="${answer.question.category.name}"/></span>
             </a>
-          </div>
+          </div>-->
+            <blockquote>
+              <p th:utext="${answer.answerText}"/>
+              <small>
+                <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
+              </small>
+            </blockquote>
           <hr class="hr-half"/>
-          <div class="toolbar">
+          <!--<div class="toolbar">
             <span class="title"><b>Ответ опубликован:</b></span>
             <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
           </div>
-            <p th:utext="${answer.answerText}"/>
+            <p th:utext="${answer.answerText}"/>-->
           </div>
         </div>
       </div>
     </div>
     <div class="col-sm-6">
-      <div class='page-header page-header-with-icon'>
-        <i class='fa-icon-question-sign'></i>
-        <h2>Не смогли найти ответ? Задайте&nbsp;свой&nbsp;вопрос!</h2>
-      </div>
+        <p class="lead text-center">Задайте&nbsp;свой&nbsp;вопрос!</p>
       <form id="send_question" th:action="@{/activepeople/addquestion}" th:object="${question}" class='form' method='post'>
         <fieldset>
           <div class='row'>

@@ -10,6 +10,10 @@ import java.sql.Blob;
 @Table(name = "START_CAROUSEL")
 public class Carousel {
 
+  public int getId() {
+    return id;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/admin/layout">
+<head>
+  <title></title>
+</head>
+<body>
+<main layout:fragment="content">
+
+  <div class='page-header page-header-with-icon'>
+    <i class='fa-icon-table'></i>
+    <h3>Тексты для стартовой траницы</h3>
+  </div>
+
+  <div class="row">
+    <div class='col-sm-12'>
+      <div class="table-responsive">
+        <table class='table table-striped'>
+          <thead>
+            <tr>
+              <th th:text="Текст"/>
+              <th th:text="Картинка"/>
+              <th th:text="Показывать"/>
+              <th th:text="Действия"/>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="crsl : ${carousel}">
+              <td class="col-md-3">
+                <small th:text="${crsl.content}"/>
+              </td>
+              <td class="col-md-3">
+                <small th:text="${crsl.image}"/>
+              </td>
+              <td class="col-md-1">
+                <small th:text="${crsl.content}"/>
+              </td>
+              <td class="col-md-1">
+                <small><a id="edit" th:href="@{'/admin/startpage/carousel/'+${crsl.id}+'/edit'}" th:text="Редактировать"/></small>
+                <small><a id="delete" th:href="@{'/admin/startpage/carousel/'+${crsl.id}+'/delete'}" th:text="Удалить"/></small>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<th:block layout:fragment="script">
+  <script th:src="@{/resources/js/pages/allquestions.js}" type="text/javascript"></script>
+</th:block>
+</body>
+</html>

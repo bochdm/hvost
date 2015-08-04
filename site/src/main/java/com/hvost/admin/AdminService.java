@@ -10,6 +10,8 @@ import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.blog.support.CategoryPostRepository;
 import com.hvost.blog.support.PostRepository;
+import com.hvost.startpage.Carousel;
+import com.hvost.startpage.support.CarouselRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,8 +36,8 @@ public class AdminService {
 
   private int size = 25;
 
-    @PersistenceContext
-    EntityManager em;
+  @PersistenceContext
+  EntityManager em;
 
   @Autowired
   PostRepository postRepository;
@@ -51,6 +53,9 @@ public class AdminService {
 
   @Autowired
   ArchiveRepository archiveRepository;
+
+  @Autowired
+  CarouselRepository carouselRepository;
 
     @Transactional
     public void addArticle(Post a){
@@ -118,7 +123,6 @@ public class AdminService {
 
 
   public Page<Question> getAllUnansweredQuestions(Pageable pageRequest){
-
     return questionRepository.findAllUnswered(pageRequest);
   }
 
@@ -145,6 +149,29 @@ public class AdminService {
 
   public Question getQuestion(Long id){
     return questionRepository.findOne(id);
+  }
+
+  public List<Carousel> getAllCarousel(){
+    return carouselRepository.findAll();
+  }
+
+  public Carousel getCarousel(Long carouselID){
+    return carouselRepository.findOne(carouselID);
+  }
+
+  @Transactional
+  public void addCarousel(Carousel a){
+    em.merge(a);
+  }
+
+  @Transactional
+  public void updateCarousel(Carousel a){
+    em.merge(a);
+  }
+
+  @Transactional
+  public void deleteCarousel(Carousel a){
+    em.remove(em.contains(a) ? a :em.merge(a));
   }
 
   public List<CategoryPost> getAllCategoriesPost(){

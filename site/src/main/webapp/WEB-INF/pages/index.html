@@ -62,10 +62,81 @@
 <div class="container">
 <div class="row">
   <div class="col-sm-12">
-    <p class="lead lead-lg text-center" th:text="#{main.site.about}"></p>
+    <p class="lead text-center" th:text="#{main.site.about}"></p>
   </div>
 </div>
-<div class="row panels">
+  <div class="row panels">
+    <div class="col-sm-6">
+      <div class='page-header page-header-with-icon'>
+        <i class='fa-icon-ok-sign'></i>
+        <h2>Ответы на Ваши вопросы</h2>
+      </div>
+      <div class='row text-boxes'>
+        <div class='col-sm-12 text-box' th:each="answer : ${newest_answers}">
+          <div class="row">
+          <h3 class='title' th:text="${answer.question.questionText}"/>
+
+          <div class="toolbar">
+            <a class='btn btn-link' th:href="@{/}">
+              <i class="fa-icon-calendar-empty"></i>
+              <time th:datetime-local="ru" th:datetime="${answer.question.date}" th:text='${#dates.format(answer.question.date, "dd MMMM yyyy HH:mm")}'/>
+            </a>
+            <a class='btn btn-link' href='#'>
+              <i class='fa-icon-user'></i>
+              <span th:text="${answer.question.author}"/>
+            </a>
+            <a class='btn btn-link btn-xs' th:href="@{/}">
+              <span>Категория: <span th:text="${answer.question.category.name}"/></span>
+            </a>
+          </div>
+          <hr class="hr-half"/>
+          <div class="toolbar">
+            <span class="title"><b>Ответ опубликован:</b></span>
+            <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
+          </div>
+            <p th:utext="${answer.answerText}"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class='page-header page-header-with-icon'>
+        <i class='fa-icon-question-sign'></i>
+        <h2>Не смогли найти ответ? Задайте&nbsp;свой&nbsp;вопрос!</h2>
+      </div>
+      <form id="send_question" th:action="@{/activepeople/addquestion}" th:object="${question}" class='form' method='post'>
+        <fieldset>
+          <div class='row'>
+            <div class='col-sm-6'>
+              <div class='form-group control-group'>
+                <input class='form-control' th:field="*{author}" data-rule-required='false' id='author' name='author' placeholder='Ваше имя' type='text'/>
+              </div>
+            </div>
+            <div class='col-sm-6'>
+              <div class='form-group control-group'>
+                <input class='form-control' data-rule-email='false' data-rule-required='false' id='contact_email' name='contact_email' placeholder='Ваш E-Mail' type='text'/>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-sm-12'>
+              <div class='form-group control-group'>
+                <textarea class='form-control' id='questionText' name='text_question' placeholder='Ваш вопрос...' rows='10' th:field="*{questionText}"/>
+                <td th:if="${#fields.hasErrors('questionText')}" th:errors="*{questionText}">Name Error</td>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-sm-12'>
+              <button id="newQuestion" class='btn btn-contrast btn-block' type="submit">Задать вопрос</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+<!--<div class="row panels">
   <div class="col-sm-4 panel-item">
     <a class="panel panel-image" th:href="home">
       <div class="panel-icon">
@@ -108,7 +179,7 @@
       </div>
     </a>
   </div>
-</div>
+</div>-->
 
 
   <div class='row panels'>

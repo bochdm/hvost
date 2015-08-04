@@ -5,6 +5,7 @@ import com.hvost.activepeople.Question;
 import com.hvost.archive.Archive;
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
+import com.hvost.startpage.Carousel;
 import com.hvost.support.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -286,5 +287,52 @@ public class AdminController {
     model.addAttribute("paginationInfo", new PaginationInfo(page));
 
     return "admin/blog/allarticles";
+  }
+
+  @RequestMapping(value = "/startpage/allcarousel", method = RequestMethod.GET)
+  public String allCarousel(Model model){
+    List<Carousel> result = adminService.getAllCarousel();
+
+    model.addAttribute("carousel", result);
+
+    return "admin/startpage/allcarousel";
+  }
+
+  @RequestMapping(value= "/startpage/newcarousel", method = RequestMethod.GET)
+  public String newCarousel(Model model){
+
+    model.addAttribute("carousel", new Carousel());
+
+    return "admin/startpage/newcarousel";
+  }
+
+  @RequestMapping(value = "/startpage/addcarousel", method = RequestMethod.POST)
+  public String addCarousel(@Valid Carousel carousel, BindingResult bindingResult, Model model){
+    if (!bindingResult.hasErrors()){
+      adminService.addCarousel(carousel);
+    } else {
+      List<ObjectError> errors = bindingResult.getAllErrors();
+    }
+
+    return "redirect:/admin/startpage/allcarousel";
+  }
+
+  @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/edit", method = {RequestMethod.POST})
+  public String editCarousel(@PathVariable Long id,@ModelAttribute @Valid Carousel archive, BindingResult bindingResult, Model model) {
+    Carousel carousel = adminService.getCarousel(id);
+    if (!bindingResult.hasErrors()){
+      carousel.setContent(archive.getContent());
+      adminService.updateCarousel(carousel);
+    }
+
+    return "redirect:/admin/video/allarchivevideo";
+  }
+
+
+  @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  public String deleteCarousel(@PathVariable Long id, Model model){
+    Carousel carousel = adminService.getCarousel(id);
+    adminService.deleteCarousel(carousel);
+    return "redirect:/admin/startpage/allcarousel";
   }
 }

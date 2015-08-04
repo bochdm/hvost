@@ -1,5 +1,8 @@
 package com.hvost.controller;
 
+import com.hvost.activepeople.Answer;
+import com.hvost.activepeople.Question;
+import com.hvost.activepeople.support.ActivePeopleService;
 import com.hvost.blog.support.PostService;
 import com.hvost.model.Category;
 import com.hvost.service.CategoryService;
@@ -8,6 +11,7 @@ import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
 import com.twitter.Autolink;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.twitter.api.*;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
@@ -47,6 +51,9 @@ public class HomeController {
 
   @Autowired
   private TwitterTemplate tt;
+
+  @Autowired
+  private ActivePeopleService activePeopleService;
   //   private ConnectionRepository connectionRepository;
 
    /* @Inject
@@ -55,34 +62,19 @@ public class HomeController {
         this.connectionRepository=connectionRepository;
     }*/
 
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
-  public String listAll(Model model) {
-    model.addAttribute("categories", categoryService.getAll());
-    model.addAttribute("newest_posts", postService.getNewPosts());
-
-      /*  if (connectionRepository.findPrimaryConnection(Twitter.class) != null){
-            CursoredList<TwitterProfile> twitts = twitter.friendOperations().getFriends();
-*/
-
-    List<Tweet> twitts = tt.timelineOperations().getUserTimeline("Alexey_Pushkov");
-
-    for (Tweet tw : twitts) {
-      System.out.println("tw->" + tw.getUnmodifiedText());
-      System.out.println("tw->" + tw.getFromUser());
-      System.out.println("tw->" + tw.getLanguageCode());
-    }
-
-    model.addAttribute("tweets", twitts);
-
-
-    return "home";
-  }
-
   @RequestMapping(method = RequestMethod.GET)
   public String startPage(Model model) {
 
     model.addAttribute("carousel", carouselService.getAll());
     model.addAttribute("newest_posts", postService.getNewPosts());
+
+    Page<Answer> lap = activePeopleService.getLatestPublished();
+    for(Answer a:lap){
+      System.out.println("getLatestPublished -> " + a);
+    }
+    model.addAttribute("newest_answers", activePeopleService.getLatestPublished());
+    model.addAttribute("question", new Question());
+
     List<Tweet> twitts = tt.timelineOperations().getUserTimeline("K_Tkhostov", 4);
 
     List<String> tweets = new ArrayList<String>(4);
@@ -98,13 +90,6 @@ public class HomeController {
         m.appendReplacement(result, getReplacement(m));
       }
       m.appendTail(result);
-
-       /*    System.out.println("tweet after ->" + result.toString());
-
-         Map<String,Object> map = tweet.getExtraData();
-          for (Map.Entry<String,Object> mm :  map.entrySet())
-            System.out.println("getExtraData - > " + mm.toString())*/
-      ;
 
       Entities e = tweet.getEntities();
       System.out.println("e.toString ->" + e.getMentions().toString());
@@ -146,5 +131,28 @@ public class HomeController {
   public String addCategory(@ModelAttribute Category category) {
     categoryService.add(category);
     return "redirect:/";
+  }
+
+  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  public String listAll(Model model) {
+    model.addAttribute("categories", categoryService.getAll());
+    model.addAttribute("newest_posts", postService.getNewPosts());
+
+      /*  if (connectionRepository.findPrimaryConnection(Twitter.class) != null){
+            CursoredList<TwitterProfile> twitts = twitter.friendOperations().getFriends();
+*/
+
+    List<Tweet> twitts = tt.timelineOperations().getUserTimeline("Alexey_Pushkov");
+
+    for (Tweet tw : twitts) {
+      System.out.println("tw->" + tw.getUnmodifiedText());
+      System.out.println("tw->" + tw.getFromUser());
+      System.out.println("tw->" + tw.getLanguageCode());
+    }
+
+    model.addAttribute("tweets", twitts);
+
+
+    return "home";
   }
 }

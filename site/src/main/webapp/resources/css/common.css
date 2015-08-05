@@ -72,3 +72,7 @@
     -webkit-justify-content : center;
     justify-content : center;
 }
+
+.blockquote{
+  font-size: 85%!important;
+}

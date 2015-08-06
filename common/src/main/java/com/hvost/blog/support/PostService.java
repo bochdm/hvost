@@ -117,7 +117,7 @@ public class PostService {
 @Transactional
   public List<Post> getPostBySearch(String queryString, int page) {
 
-  List<Post> posts = new ArrayList<>();
+  List<Post> posts = new ArrayList<Post>();
 
 
     FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
@@ -147,7 +147,7 @@ public class PostService {
 
 
 
-    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<b><font color=\"red\">", "</font></b>");
+    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<code>", "</code>");
     QueryScorer qs = new QueryScorer(luceneQuery);
 
     Highlighter highlighter = new Highlighter(formatter, qs);

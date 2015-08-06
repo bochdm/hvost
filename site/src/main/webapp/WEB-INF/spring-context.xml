@@ -5,7 +5,6 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/data/jpa
@@ -15,8 +14,7 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.2.xsd
-        http://www.springframework.org/schema/aop">
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
   <mvc:annotation-driven conversion-service="conversionService"/>
 
@@ -82,9 +80,11 @@
 
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8&amp;autoReconnect=true"/>
-    <property name="username" value="root"/>
-    <property name="password" value=""/>
+    <!--<property name="url" value="jdbc:mysql://198.38.82.101:3306/bochdm_tkhostov?characterEncoding=UTF-8&amp;autoReconnect=true"/>
+    <property name="username" value="bochdm_main"/>-->
+      <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8&amp;autoReconnect=true"/>
+      <property name="username" value="root"/>
+      <property name="password" value=""/>
     <property name="testOnBorrow" value="true"/>
     <property name="validationQuery" value="select 1"/>
   </bean>

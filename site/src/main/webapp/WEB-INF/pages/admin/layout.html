@@ -32,6 +32,11 @@
         <div class="navbar nav_title" style="border: 0;">
           <a class="site_title"><i class="fa fa-paw"></i><span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></a>
         </div>
+        <div>
+          <form class="form-inline" th:action="@{/logout}">
+            <button type="submit" class="btn btn-link text-danger">Выйти</button>
+          </form>
+        </div>
         <div class="clearfix"/>
 
         <hr class="hr-half"/>
@@ -44,10 +49,10 @@
               <li><a><i class="fa fa-home"></i> Стартовая страница <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li>
-                    <a href="index.html">Список текстов</a>
+                    <a th:href="@{/admin/startpage/allcarousel}">Список текстов</a>
                   </li>
                   <li>
-                    <a href="index2.html">Новый текст</a>
+                    <a th:href="@{/admin/startpage/newcarousel}">Новый блок</a>
                   </li>
                 </ul>
               </li>
@@ -171,6 +176,7 @@
   <script th:src="@{/resources/js/bootstrap/bootstrap.js}" type="text/javascript"></script>
   <script th:src="@{/resources/js/admin/jquery.nicescroll.min.js}" type="text/javascript"></script>
   <script th:src="@{/resources/js/admin/icheck.min.js}" type="text/javascript"></script>
+  <script th:src="@{/resources/js/admin/custom.js}" type="text/javascript"></script>
 
 </footer>
 

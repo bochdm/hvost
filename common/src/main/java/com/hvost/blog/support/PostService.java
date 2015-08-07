@@ -123,11 +123,7 @@ public class PostService {
     FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
 
 
-/*    try {
-      fullTextEntityManager.createIndexer().startAndWait();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }*/
+
 
   //  em.getTransaction().begin();
 

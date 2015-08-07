@@ -1,6 +1,10 @@
 package com.hvost.activepeople;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,6 +14,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "ANSWER")
+@Indexed
 public class Answer {
 
   @Id
@@ -19,6 +24,8 @@ public class Answer {
 
   @Column(name = "ANSWER_TEXT")
   @Type(type="text")
+  @Field
+  @Analyzer(definition = "ru")
   private String answerText;
 
   @Column(name = "DATE", insertable = false)
@@ -29,9 +36,12 @@ public class Answer {
 
   @OneToOne
   @JoinColumn(name = "QST_QST_ID", referencedColumnName = "QST_ID")
+  @IndexedEmbedded
   private Question question;
 
   @Column(name = "AUTHOR")
+  @Field
+  @Analyzer(definition = "ru")
   private String author;
 
   public String getAuthor() {

@@ -1,6 +1,10 @@
 package com.hvost.archive;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "ARCHIVE")
+@Indexed
 public class Archive implements Serializable {
 
   @Id
@@ -19,12 +24,16 @@ public class Archive implements Serializable {
 
   @Column
   @Type(type = "text")
+  @Field
+  @Analyzer(definition = "ru")
   private String content;
 
   @Column
   private Date createdAt;
 
   @Column(length = 1000)
+  @Field
+  @Analyzer(definition = "ru")
   private String summary;
 
   @Column(length = 100)

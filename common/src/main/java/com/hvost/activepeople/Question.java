@@ -3,9 +3,14 @@ package com.hvost.activepeople;
 
 
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.Parameter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -17,6 +22,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="QUESTIONS")
+@Indexed
 public class Question implements Serializable {
 
   @Id
@@ -27,6 +33,8 @@ public class Question implements Serializable {
   @NotNull
   @NotEmpty
   @Column(name = "QUESTION_TEXT")
+  @Field
+  @Analyzer(definition = "ru")
   private String questionText;
 
 /*  @Column(name = "CQ_CQ_ID")
@@ -36,6 +44,8 @@ public class Question implements Serializable {
   private Date date;
 
   @Column
+  @Field
+  @Analyzer(definition = "ru")
   private String author;
 
   @ManyToOne

@@ -76,10 +76,10 @@
 
         <div class="modal-footer">
           <div class="btn-toolbar" role="toolbar" aria-label="...">
-            <a th:if="${answer.isPublic == false}" class="btn btn-success btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/publish'}" th:text="Опубликовать"/>
-            <a th:if="${answer.isPublic == true}"  class="btn btn-success btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/unpublish'}" th:text="Отменить_публикацию"/>
-            <a class="btn btn-primary btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/edit'}"    th:text="Редактировать"/>
-            <a class="btn btn-danger  btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/delete'}"  th:text="Удалить"/>
+            <a class="btn btn-success btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/publish'}"   th:text="Опубликовать"        th:if="${answer.isPublic == false}" />
+            <a class="btn btn-success btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/unpublish'}" th:text="Отменить_публикацию" th:if="${answer.isPublic == true}"  />
+            <a class="btn btn-primary btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/edit'}"      th:text="Редактировать"/>
+            <a class="btn btn-danger  btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/delete'}"    th:text="Удалить"/>
            </div>
         </div>
 

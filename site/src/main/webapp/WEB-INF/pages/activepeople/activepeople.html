@@ -41,14 +41,10 @@
         <div id='main-content'>
           <div class='container'>
             <div class='row'>
-              <div class='col-sm-12'>
-                <p class='lead lead-sm text-center no-mg-b'>Умение задавать вопросы как качество личности – способность посредством  правильно заданных вопросов  достигнуть взаимопонимания, добиться исполнения своих желаний,  добраться до истины, получить информацию, выразить сомнения, проявить собственную позицию, выказать доверие и заинтересованность в сказанном.</p>
-
-                <p class="lead-md text-center" >
-                  <a th:href="@{'#askme'}">
-                  <span>Задать вопрос</span>
-                </a>
-                </p>
+              <div class='col-sm-12 text-center'>
+                <p class='lead lead-sm no-mg-b'>Умение задавать вопросы как качество личности – способность посредством правильно заданных вопросов достигнуть взаимопонимания, добиться исполнения своих желаний, добраться до истины, получить информацию, выразить сомнения, проявить собственную позицию, выказать доверие и заинтересованность в сказанном.</p>
+                <br/>
+                <a class="btn btn-primary btn-sm" th:href="@{'#askme'}" th:text="Задать_вопрос"/>
               </div>
             </div>
             <div class='row'>
@@ -68,6 +64,41 @@
                     </form>
                   </div>
                 </div>
+
+                <div th:each="answer : ${answers}" class="row" >
+                  <div class="col-sm-4">
+                    <p class='dropcap-contrast'><span class='first-letter'>В</span></p>
+
+                      <p class='text-justify' th:text="${answer.question.questionText}"/>
+                      <small>
+                        <div class="toolbar">
+                          <a  th:href="@{/}">
+                            <i class="fa-icon-calendar-empty"></i>
+                            <time th:datetime-local="ru" th:datetime="${answer.question.date}" th:text='${#dates.format(answer.question.date, "dd MMMM yyyy HH:mm")}'/>
+                          </a>
+                          <a  href='#'>
+                            <i class='fa-icon-user'></i>
+                            <span th:text="${answer.question.author}"/>
+                          </a>
+                          <a   th:href="@{/}">
+                            <span>Категория: <span th:text="${answer.question.category.name}"/></span>
+                          </a>
+                        </div>
+                      </small>
+
+                  </div>
+                  <div class="col-sm-8">
+                    <blockquote>
+                      <p class="text-justify" th:utext="${answer.answerText}"/>
+                      <small>
+                        <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
+                      </small>
+                    </blockquote>
+                  </div>
+
+                </div>
+
+
                 <div class='panel-group accordion accordion-bordered' id='accordion'>
 
                   <div th:each="answer : ${answers}" class='panel panel-default'>

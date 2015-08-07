@@ -138,9 +138,12 @@ public class AdminService {
     return postRepository.findOne(postID);
   }
 
-
   public Page<Archive> getAllArchive(Pageable pageRequest){
    return archiveRepository.findAll(pageRequest);
+  }
+
+  public void deleteQuestion(Question q) {
+    em.remove(em.contains(q) ? q :em.merge(q));
   }
 
   public Archive getArchiveVideo(Long videoID){

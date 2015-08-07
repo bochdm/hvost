@@ -34,18 +34,6 @@ public class AdminController {
   @Autowired
   private AdminService adminService;
 
-/*  @RequestMapping(value = {"/", "/login", "/index"}, method = RequestMethod.GET)
-  public String getIndex(){
-      System.out.println("AdminController.getIndex");
-     return "login";
-  }*/
-
-/*  @RequestMapping(method = RequestMethod.GET)
-  public String index(Model model){
-    model.addAttribute("article", new Post());
-    return "admin/articles";
-  }*/
-
   @RequestMapping(method = RequestMethod.GET)
   //@RequestMapping(value = {"/"}, method = RequestMethod.GET)
   public String index(){
@@ -151,6 +139,14 @@ public class AdminController {
     return "admin/reply";
   }
 
+  @RequestMapping(value = "/question/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  public String deleteQuestion(@PathVariable Long id, Model model){
+
+    Question q = adminService.getQuestion(id);
+    adminService.deleteQuestion(q);
+    return "redirect:/admin/blog/allarticles";
+  }
+
   @RequestMapping(value = "/newreply/{id:[0-9]+}", method = RequestMethod.POST)
   public String newReply(@ModelAttribute Answer answer, @PathVariable Long id){
     Question q = adminService.getQuestion(id);
@@ -221,7 +217,7 @@ public class AdminController {
     return "redirect:/admin/allquestions";
   }
 
-  @RequestMapping(value = "/blog/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})
+  @RequestMapping(value = "/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})
   public String findPost(@PathVariable Long id, Model model){
     Post post = adminService.getPost(id);
     model.addAttribute("post", post);
@@ -243,7 +239,7 @@ public class AdminController {
     return "redirect:/admin/blog/allarticles";
   }
 
-  @RequestMapping(value = "/blog/post/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  @RequestMapping(value = "/post/{id:[0-9]+}/delete", method = {RequestMethod.GET})
   public String deletePost(@PathVariable Long id, Model model){
 
     Post post = adminService.getPost(id);

@@ -52,11 +52,11 @@
                 <hr class='hr-half'/>
                 <div class='row'>
                   <div class='col-sm-12'>
-                    <form action='#' class='mg-b' method='get'>
+                    <form th:action="@{/activepeople/search}" class='mg-b' method='post'>
                       <div class='input-group'>
-                        <input class='form-control' placeholder='Поиск по вопросам и ответам...' type='text'/>
+                        <input id="q" name="q" class='form-control' placeholder='Поиск по вопросам и ответам...' type='text'/>
                         <span class='input-group-btn'>
-                          <button class='btn btn-contrast' type='button'>
+                          <button class='btn btn-contrast' type="submit">
                             <i class='fa-icon-search'></i>
                           </button>
                         </span>
@@ -66,21 +66,22 @@
                 </div>
 
                 <div th:each="answer : ${answers}" class="row" >
+                  <hr class='hr-half'/>
                   <div class="col-sm-4">
-                    <p class='dropcap-contrast'><span class='first-letter'>В</span></p>
+                    <!--<p class='dropcap-contrast'><span class='first-letter'>В</span></p>-->
 
                       <p class='text-justify' th:text="${answer.question.questionText}"/>
                       <small>
                         <div class="toolbar">
-                          <a  th:href="@{/}">
+                          <a class='' th:href="@{/}">
                             <i class="fa-icon-calendar-empty"></i>
                             <time th:datetime-local="ru" th:datetime="${answer.question.date}" th:text='${#dates.format(answer.question.date, "dd MMMM yyyy HH:mm")}'/>
                           </a>
-                          <a  href='#'>
+                          <a class='' href='#'>
                             <i class='fa-icon-user'></i>
                             <span th:text="${answer.question.author}"/>
                           </a>
-                          <a   th:href="@{/}">
+                          <a  class='' th:href="@{/}">
                             <span>Категория: <span th:text="${answer.question.category.name}"/></span>
                           </a>
                         </div>

@@ -270,28 +270,12 @@
 
       <h2 th:text="${#strings.capitalize('__#{latest.twitts}__')}" ></h2>
     </div>
-    <div class="row">
-      <div class="carousel carousel-default slide carousel-auto" id="carousel-testimonials">
-        <div class="carousel-inner">
-          <div th:each="tweet,idTweet : ${tweets}" class="item quote" th:classappend="${idTweet.index == 0}? active">
-              <div class="col-sm-12 text-center">
-                <p class="lead" th:utext="${tweet}"/>
-                <!--<p class="lead" th:utext="${tweet.getText()}"/>
-                <div class="author-wrapper">
-                  <time th:datetime-local="ru" th:datetime="${tweet.getCreatedAt()}" th:text='${#dates.format(tweet.getCreatedAt(), "dd MMMM yyyy HH:mm")}'/>
-                </div>-->
-              </div>
-          </div>
 
-        </div>
-        <ol class="carousel-indicators">
-          <li class="active" data-slide-to="0" data-target="#carousel-testimonials"></li>
-          <li data-slide-to="1" data-target="#carousel-testimonials"></li>
-          <li data-slide-to="2" data-target="#carousel-testimonials"></li>
-          <li data-slide-to="3" data-target="#carousel-testimonials"></li>
-        </ol>
-      </div>
+
+    <div class="row">
+      <div id="tweets" layout:include="/home/tweets :: tweet"/>
     </div>
+
   </div>
 </div>
 </div>
@@ -299,6 +283,7 @@
 <div class="fade" id="scroll-to-top">
   <i class="fa-icon-chevron-up"></i>
 </div>
+
 </div>
 </main>
 
@@ -326,5 +311,36 @@
     ga("create", "UA-44249116-1", "bublinastudio.com");
     ga("send", "pageview");
 </script>
+
+<th:block layout:fragment="script">
+  <script>
+    var timer = setInterval(function (){
+      console.log("ajax setInterval");
+      $.ajax({
+        type: "GET",
+        url:'tweets',
+//        dataType: 'text',
+        beforeSend: function(){
+          $('#tweets').html('<p class="text-center"><img th:src="@{/resources/img/ajax-loader.gif}"/></p>');
+        },
+
+        success: function(data){
+      //    $('#tweets').html(data);
+      //    $('#dataTEST').html(data);
+         // window.location.reload(true);
+        //  clearInterval(timer);
+        //  console.log("data-> " + data);
+          if (data.length > 0){
+            $('#tweets').html(data);
+            console.log("ajax COMPLETE");
+            clearInterval(timer);
+          }
+        }
+      });
+    }, 4000);
+
+  </script>
+</th:block>
+
 </body>
 </html>

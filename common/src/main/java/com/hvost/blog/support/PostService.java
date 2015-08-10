@@ -141,8 +141,6 @@ public class PostService {
     List<Post> result = jpaQuery.getResultList();
     System.out.println("search count ->" + jpaQuery.getResultList().size());
 
-
-
     SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<code>", "</code>");
     QueryScorer qs = new QueryScorer(luceneQuery);
 

@@ -4,12 +4,15 @@ import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.ActivePeopleService;
 import com.hvost.blog.support.PostService;
+import com.hvost.home.TwitterService;
 import com.hvost.model.Category;
 import com.hvost.service.CategoryService;
 import com.hvost.startpage.support.CarouselService;
 import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
 import com.twitter.Autolink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.social.connect.ConnectionRepository;
@@ -20,11 +23,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 //import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,8 +70,14 @@ public class HomeController {
         this.connectionRepository=connectionRepository;
     }*/
 
+  private static final Logger logger = LoggerFactory.getLogger(PostService.class);
+
+
+  @Autowired
+  private TwitterService twitterService;
+
   @RequestMapping(method = RequestMethod.GET)
-  public String startPage(Model model) {
+  public String startPage(Model model, HttpSession session) {
 
     model.addAttribute("carousel", carouselService.getAll());
     model.addAttribute("newest_posts", postService.getNewPosts());
@@ -75,6 +89,26 @@ public class HomeController {
     model.addAttribute("newest_answers", activePeopleService.getLatestPublished());
     model.addAttribute("question", new Question());
 
+
+    Future<List<String>> asyncResult = twitterService.getTweets();
+
+    session.setAttribute("tweets", asyncResult);
+
+   /* List<String> tweets = null;
+    try {
+      Thread.sleep(10000);
+      tweets = asyncResult.get();
+      for(String s: tweets){
+        System.out.println("asyncResult->" + s);
+      }
+ //     model.addAttribute("tweets", tweets);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }*/
+
+/*
     List<Tweet> twitts = tt.timelineOperations().getUserTimeline("K_Tkhostov", 4);
 
     List<String> tweets = new ArrayList<String>(4);
@@ -104,11 +138,45 @@ public class HomeController {
       tweets.add(autolink.autoLink(tweet.getUnmodifiedText()));
 
     }
-
+*/
 
     //   model.addAttribute("tweets", twitts);
-    model.addAttribute("tweets", tweets);
+
     return "/index";
+  }
+
+  @RequestMapping(method = RequestMethod.GET,value = "/tweets")
+  @ResponseBody
+//  public String statusTwitter(Model model, HttpSession session){
+  public ModelAndView statusTwitter(Model model, HttpSession session){
+    Future<List<String>> asyncResult = (Future<List<String>>) session.getAttribute("tweets");
+
+    if (asyncResult.isDone()){
+      System.out.println("tweet is done");
+      logger.info("legger::tweet is done");
+      List<String> tweets = null;
+      try {
+        Thread.sleep(10000);
+        tweets = asyncResult.get();
+        for(String s: tweets){
+          System.out.println("asyncResult->" + s);
+        }
+        //     model.addAttribute("tweets", tweets);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } catch (ExecutionException e) {
+        e.printStackTrace();
+      }
+      model.addAttribute("tweets", tweets);
+    //  return "COMPLETE";
+      return new ModelAndView("/home/tweets");
+   //   return "/home/tweets";
+    }else {
+      System.out.println("tweet is working");
+  //    return "WORKING";
+    }
+    return new ModelAndView();
+
   }
 
 

@@ -17,6 +17,17 @@ import java.util.Date;
 @Indexed
 public class Answer {
 
+  public Answer() {
+  }
+
+  public Answer(Answer a){
+    this.id = a.getId();
+    this.answerText = a.getAnswerText();
+    this.author = a.getAuthor();
+    this.date = a.getDate();
+    this.question = a.getQuestion();
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ASW_ID")

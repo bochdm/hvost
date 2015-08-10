@@ -3,6 +3,7 @@ package com.hvost.controller;
 import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.ActivePeopleService;
+import com.hvost.search.SearchResult;
 import com.hvost.support.PaginationInfo;
 import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
@@ -78,6 +79,7 @@ public class ActivePeopleController {
     service.addNewQuestion(question);
 
     SimpleMailMessage email = new SimpleMailMessage();
+    email.setFrom("bochdm@tkhostov.com");
     email.setTo("bochkanov.dm@gmail.com");
     email.setSubject("новый вопрос");
     email.setText("Новый вопрос от проекта Активный гражданин " + System.lineSeparator() + question.getQuestionText());
@@ -85,6 +87,19 @@ public class ActivePeopleController {
     mailSender.send(email);
 
     return "redirect:/activepeople";
+  }
+
+  @RequestMapping(value = "/search", method = RequestMethod.POST)
+  public String search(Model model,
+                       @RequestParam String q,
+                       @RequestParam(defaultValue = "1") int page){
+
+    List<Answer> result = service.getAnswerBySearch(q, page);
+    model.addAttribute("search_results", result);
+    model.addAttribute("searchCount", result.size());
+    model.addAttribute("queryString", q);
+
+    return "/activepeople/search_results";
   }
 
   private String renderList(Page<Answer> page, Model model){

@@ -25,7 +25,7 @@ public class Answer {
     this.answerText = a.getAnswerText();
     this.author = a.getAuthor();
     this.date = a.getDate();
-    this.question = a.getQuestion();
+    this.question = new Question(a.getQuestion());
   }
 
   @Id

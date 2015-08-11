@@ -1,5 +1,7 @@
 package com.hvost.search;
 
+import java.util.Date;
+
 /**
  * Created by kseniaselezneva on 09/08/15.
  */
@@ -9,6 +11,16 @@ public class SearchResult {
   private String title;
   private String content;
   private String author;
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  private Date createdAt;
 
   public SearchResult(long id) {
     this.id = id;
@@ -44,5 +56,16 @@ public class SearchResult {
 
   public void setAuthor(String author) {
     this.author = author;
+  }
+
+  @Override
+  public String toString() {
+    return "SearchResult{" +
+        "id=" + id +
+        ", title='" + title + '\'' +
+        ", content='" + content + '\'' +
+        ", author='" + author + '\'' +
+        ", createdAt=" + createdAt +
+        '}';
   }
 }

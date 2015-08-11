@@ -18,6 +18,13 @@ import java.util.Date;
 @Indexed
 public class Archive implements Serializable {
 
+  public Archive(Archive a){
+    this.id = a.getId();
+    this.summary = a.getSummary();
+    this.content = a.getContent();
+    this.url = a.getUrl();
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -36,7 +43,9 @@ public class Archive implements Serializable {
   @Analyzer(definition = "ru")
   private String summary;
 
-  @Column(length = 100)
+  @Column(length = 250)
+  @Field
+  @Analyzer(definition = "ru")
   private String title;
 
   @Column

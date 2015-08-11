@@ -39,6 +39,23 @@
         <div class='container'>
           <div class="row">
             <div class='col-sm-12'>
+              
+              <hr class='hr-half'/>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <form th:action="@{/video/archive/search}" class='mg-b' method='post'>
+                    <div class='input-group'>
+                      <input id="q" name="q" class='form-control' placeholder='Поиск по вопросам и ответам...' type='text'/>
+                        <span class='input-group-btn'>
+                          <button class='btn btn-contrast' type="submit">
+                            <i class='fa-icon-search'></i>
+                          </button>
+                        </span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
               <div class='page-header page-header-with-icon no-mg-t'>
 
                 <!-- Видео архив-->

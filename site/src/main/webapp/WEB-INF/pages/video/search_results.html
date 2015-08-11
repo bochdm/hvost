@@ -23,7 +23,7 @@
             <div class='row'>
               <div class='col-sm-12'>
                 <h1 class='title'>
-                  Статьи
+                  Видео архив
                 </h1>
                 <ol class='breadcrumb'>
                   <li>
@@ -41,87 +41,37 @@
         <div id="main-content">
           <div class="container">
             <div class="row">
-              <hr class='hr-half'/>
-              <div class='row'>
-                <div class='col-sm-12'>
-                  <form th:action="@{/activepeople/search}" class='mg-b' method='post'>
-                    <div class='input-group'>
-                      <input id="q" name="q" class='form-control' th:value="${queryString}" placeholder='Поиск по вопросам и ответам...' type='text'/>
-                        <span class='input-group-btn'>
-                          <button class='btn btn-contrast' type="submit">
-                            <i class='fa-icon-search'></i>
-                          </button>
-                        </span>
-                    </div>
-                  </form>
-                </div>
+              <div class="col-sm-12">
+                <form th:action="@{/video/archive/search}" method='post'>
+                  <div class='input-group'>
+                    <input id="q" name="q" class='form-control' placeholder='Поиск...' type='text'/>
+                    <span class='input-group-btn'>
+                      <button class='btn btn-contrast' type='submit'>
+                        <i class='fa-icon-search'></i>
+                      </button>
+                    </span>
+                  </div>
+                </form>
               </div>
 
               <h3>Результатов поиска: <span th:text="${searchCount}"/></h3>
 
-              <div th:each="result : ${search_results}" class="row" >
-                <hr class='hr-half'/>
-                <div class="col-sm-4">
-                  <p class='text-justify' th:utext="${result.question.questionText}"/>
-                  <small>
-                    <div class="toolbar">
-                      <a class='' th:href="@{/}">
-                        <i class="fa-icon-calendar-empty"></i>
-                        <time th:datetime-local="ru" th:datetime="${result.question.date}" th:text='${#dates.format(result.question.date, "dd MMMM yyyy HH:mm")}'/>
-                      </a>
-                      <a class='' href='#'>
-                        <i class='fa-icon-user'></i>
-                        <span th:text="${result.question.author}"/>
-                      </a>
-                      <a  class='' th:href="@{/}">
-                        <span>Категория: <span th:text="${result.question.category.name}"/></span>
-                      </a>
-                    </div>
-                  </small>
-
-                </div>
-                <div class="col-sm-8">
-                  <blockquote>
-                    <p class="text-justify" th:utext="${result.answerText}"/>
-                    <small>
-                      <time th:datetime-local="ru" th:datetime="${result.date}" th:text='${#dates.format(result.date, "dd MMMM yyyy HH:mm")}'/>
-                    </small>
-                  </blockquote>
-                </div>
-
-              </div>
-
-
-
-              <!-- Статьи-->
-              <!--<div class="col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9">
+              <!-- Видео архив-->
+              <div class="col-sm-12">
                 <div th:each="result : ${search_results}" class="text-boxes">
                   <div class='row text-box text-box-title-above'>
                     <div class='col-sm-12'>
-                      <h2 class="title"><a th:href="@{'/blog/'+${result.id}}" th:utext="${result}"/></h2>
+                      <h2 class="title"><a th:href="@{'/video/archive/'+${result.id}}" th:utext="${result.title}"/></h2>
                       <div class="toolbar">
                         <a class='btn btn-link' th:href="@{/}">
                           <i class="fa-icon-calendar-empty"></i>
-                          &lt;!&ndash;<time th:datetime-local="ru" th:datetime="${result.createdAt}" th:text='${#dates.format(result.createdAt, "dd MMMM yyyy HH:mm")}'/>&ndash;&gt;
-                        </a>
-                        <a class='btn btn-link' href='#'>
-                          <i class='fa-icon-user'></i>
-                          <span th:text="${result.author}"/>
+                          <time th:datetime-local="ru" th:datetime="${result.createdAt}" th:text='${#dates.format(result.createdAt, "dd MMMM yyyy HH:mm")}'/>
                         </a>
                       </div>
                       <div class='row'>
-                        &lt;!&ndash;TODO вставить фотки&ndash;&gt;
-                        &lt;!&ndash;<div class='col-sm-3'>
-                          <a href='blog_single_post.html'>
-                            <img class="img-responsive center-block img-rounded-half" alt="Cras tempus ligula a tempor adipiscing" width="189" height="129" src="assets/images/demo/blog/1.jpg" />
-                          </a>
-                        </div>&ndash;&gt;
                         <div class='col-sm-12'>
                           <p class="text-justify" th:utext="${result.content}"/>
-                          <a class="btn btn-contrast btn-bordered btn-xs" th:href="@{'/blog/'+${result.id}}">Читать</a>
-                        &lt;!&ndash;  <a class="btn btn-contrast btn-bordered btn-xs" th:href="@{'/blog/tweet/'+${article.id}}">Твитнуть</a>&ndash;&gt;
-
-
+                          <a class="btn btn-contrast btn-bordered btn-xs" th:href="@{'/video/archive/'+${result.id}}">Смотреть</a>
                         </div>
                       </div>
                     </div>
@@ -129,7 +79,7 @@
                   <hr class='hr-half'/>
                 </div>
 
-                &lt;!&ndash; Paging
+                <!-- Paging
                 <nav>
                   <div class="text-center">
                     <ul class="pagination">
@@ -158,8 +108,8 @@
                       </li>
                     </ul>
                   </div>
-                </nav>&ndash;&gt;
-              </div>-->
+                </nav>-->
+              </div>
 
 
 

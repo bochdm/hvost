@@ -25,6 +25,14 @@ import java.util.Date;
 @Indexed
 public class Question implements Serializable {
 
+  public Question(Question q){
+    this.id = q.getId();
+    this.author = q.getAuthor();
+    this.category = q.getCategory();
+    this.date = q.getDate();
+    this.questionText = q.getQuestionText();
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "QST_ID")

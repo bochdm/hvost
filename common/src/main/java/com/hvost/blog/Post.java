@@ -1,5 +1,6 @@
 package com.hvost.blog;
 
+import com.hvost.images.Image;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
@@ -10,6 +11,7 @@ import org.hibernate.search.annotations.Parameter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -60,6 +62,17 @@ public class Post implements Serializable {
   @Analyzer(definition = "ru")
   private String summary;
 
+  public Set<Image> getImages() {
+    return images;
+  }
+
+  public void setImages(Set<Image> images) {
+    this.images = images;
+  }
+
+  @OneToMany(fetch = FetchType.LAZY ,mappedBy = "idEntity")
+  private Set<Image> images;
+
 
   public CategoryPost getCategoryPost() {
     return categoryPost;
@@ -75,6 +88,7 @@ public class Post implements Serializable {
 
   public Post() {
   }
+
 
   public Post(Post post){
     this.id     = post.getId();

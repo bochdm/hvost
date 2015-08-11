@@ -5,6 +5,7 @@ import com.hvost.activepeople.Question;
 import com.hvost.archive.Archive;
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
+import com.hvost.images.Image;
 import com.hvost.startpage.Carousel;
 import com.hvost.support.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,20 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -68,12 +77,28 @@ public class AdminController {
   }
 
   @RequestMapping(value="/blog/addarticle", method = RequestMethod.POST)
-  public String addArticle( @Valid Post post, BindingResult bindingResult, Model model){
+  @ResponseBody
+  public String addArticle(@Valid Post post, BindingResult bindingResult,
+                           MultipartHttpServletRequest request,
+                           HttpServletResponse response, Model model){
     //model.addAttribute("categories", categoryService.getAllArticles());
     System.out.println("AdminController.addArticle");
       System.out.println(post);
+
     if (!bindingResult.hasErrors()) {
       adminService.addArticle(post);
+
+      Map<String, MultipartFile> fileMap = request.getFileMap();
+
+      List<Image> uploadImages = new ArrayList<Image>();
+
+      for (MultipartFile multipartFile : fileMap.values()){
+        saveFileToLocalDisk(multipartFile);
+
+        Image imageInfo = getUploadImageInfo(multipartFile);
+
+      }
+
     } else {
       List<ObjectError> errors = bindingResult.getAllErrors();
       for(ObjectError error : errors)
@@ -81,6 +106,29 @@ public class AdminController {
     }
 
     return "redirect:/admin/blog/allarticles";
+  }
+
+  private Image getUploadImageInfo(MultipartFile multipartFile) {
+    Image imageInfo =  new Image();
+    imageInfo.setName(multipartFile.getName());
+    imageInfo.setSize(multipartFile.getSize());
+    imageInfo.setType(multipartFile.getContentType());
+
+    return imageInfo;
+  }
+
+  private void saveFileToLocalDisk(MultipartFile multipartFile) {
+
+    try {
+      String outputFile = getOutputFileName(multipartFile);
+      FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(outputFile));
+    } catch (IOException e) {
+      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+    }
+  }
+
+  private String getOutputFileName(MultipartFile multipartFile) {
+    return "/var/images/blog/" + multipartFile.getOriginalFilename();
   }
 
   @RequestMapping(value = "/video/allarchivevideo", method = RequestMethod.GET)

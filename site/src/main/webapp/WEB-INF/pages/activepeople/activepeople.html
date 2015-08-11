@@ -44,7 +44,7 @@
               <div class='col-sm-12 text-center'>
                 <p class='lead lead-sm no-mg-b'>Умение задавать вопросы как качество личности – способность посредством правильно заданных вопросов достигнуть взаимопонимания, добиться исполнения своих желаний, добраться до истины, получить информацию, выразить сомнения, проявить собственную позицию, выказать доверие и заинтересованность в сказанном.</p>
                 <br/>
-                <a class="btn btn-primary btn-sm" th:href="@{'#askme'}" th:text="Задать_вопрос"/>
+                <a class="btn btn-primary btn-sm" th:href="@{'#askme'}" th:text="#{ask.question}"/>
               </div>
             </div>
             <div class='row'>
@@ -197,7 +197,7 @@
                     </div>
                     <div class='row'>
                       <div class='col-sm-12'>
-                          <button id="newQuestion" class='btn btn-contrast btn-block' type="submit">Задать вопрос</button>
+                          <button id="newQuestion" class='btn btn-contrast btn-block' type="submit" th:text="#{ask.question}"/>
                       </div>
                     </div>
                   </fieldset>

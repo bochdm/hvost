@@ -100,6 +100,7 @@
 
               <!-- Статьи-->
               <div class="col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9">
+                <h3>Результатов поиска: <span th:text="${searchCount}"/></h3>
                 <div th:each="article : ${search_results}" class="text-boxes">
                   <div class='row text-box text-box-title-above'>
                     <div class='col-sm-12'>

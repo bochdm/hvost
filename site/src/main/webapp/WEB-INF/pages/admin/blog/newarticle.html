@@ -22,7 +22,8 @@
 
   <div class="row row-centered">
     <div class="col-md-10 col-centered" role="main">
-      <form th:with="create=1" th:action="@{/admin/blog/addarticle}" th:object="${article}" method="post" class="dropzone">
+      <form th:with="create=1" th:action="@{/admin/blog/addarticle}" th:object="${article}" method="post" enctype="multipart/form-data">
+
         <div class="form-group">
           <label for="title">Название</label>
           <input id="title" class="form-control" type="text" name="title" maxlength="100" th:field="*{title}"/>
@@ -72,8 +73,6 @@
                     th:field="*{content}" style="width: 810px; height: 250px" />
         </div>
 
-
-
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -99,8 +98,7 @@
               <div class="x_content">
 
                 <p>Drag multiple files to the box below for multi upload or click to select files. This is for demonstration purposes only, the files are not uploaded to any server.</p>
-               <!--<form th:action="@{/}" class="dropzone" style="border: 1px solid #e5e5e5; height: 300px; ">-->
-                  <div class="dropzone-previews"></div>
+                <div id="my-dropzone" class="dropzone" style="border: 1px solid #e5e5e5; height: 300px; "/>
 
                 <br />
                 <br />
@@ -111,8 +109,52 @@
           </div>
         </div>
 
+
+
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
+
+
+<!--      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Dropzone multiple file uploader</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Settings 1</a>
+                    </li>
+                    <li><a href="#">Settings 2</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <p>Drag multiple files to the box below for multi upload or click to select files. This is for demonstration purposes only, the files are not uploaded to any server.</p>
+              <form id="my-awesome-dropzone" th:action="@{/}" class="dropzone" style="border: 1px solid #e5e5e5; height: 300px; ">
+                <div class="dropzone-previews"></div>
+                <div class="fallback"> &lt;!&ndash; this is the fallback if JS isn't working &ndash;&gt;
+                  <input name="file" type="file" multiple="true" />
+                </div>
+              </form>
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>-->
+
 
     </div>
   </div>
@@ -135,6 +177,13 @@
   </script>
 
   <script th:inline="javascript">
+    //$("div#my-dropzone").dropzone({ url: "/admin/blog/addarticle", maxFilesize: 8 });
+
+  </script>
+
+
+  <script>
+    $(document).ready(function () {
     Dropzone.options.myAwesomeDropzone = { // The camelized version of the ID of the form element
 
       // The configuration we've talked about above
@@ -172,6 +221,7 @@
       }
 
     }
+    });
   </script>
 </th:block>
 

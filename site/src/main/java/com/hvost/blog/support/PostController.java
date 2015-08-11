@@ -145,6 +145,7 @@ public class PostController {
     List<Post> result = postService.getPostBySearch(q, page);
 
     model.addAttribute("search_results", result);
+    model.addAttribute("searchCount", result.size());
 
     return "/blog/results";
   }

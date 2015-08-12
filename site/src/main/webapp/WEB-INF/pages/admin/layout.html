@@ -87,17 +87,14 @@
 
 </div>
 
-
-
-
-
-<header id="header" layout:fragment="header">
+<!-- Старая  версия-->
+<!--<header id="header" layout:fragment="header">
   <div class="row bg-success">
     <div class="col-md-12">
       <form class="form-inline pull-right" th:action="@{/logout}">
         <div class="form-group">
           <h4 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
-         <!-- <p th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</p>-->
+         &lt;!&ndash; <p th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</p>&ndash;&gt;
         </div>
         <button type="submit" class="btn btn-link text-danger">Выйти</button>
       </form>
@@ -106,7 +103,7 @@
 
 </header>
 
-<!--Меню-->
+&lt;!&ndash;Меню&ndash;&gt;
 <div class="row">
   <div class="col-sm-2">
     <div class="sidebar-nav">
@@ -156,7 +153,7 @@
             <li><a href="#">Menu Item 4</a></li>
             <li><a href="#">Reviews <span class="badge">1,118</span></a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>&lt;!&ndash;/.nav-collapse &ndash;&gt;
       </div>
     </div>
   </div>
@@ -165,7 +162,7 @@
       <main layout:fragment="content">Main part</main>
     </div>
   </div>
-</div>
+</div>-->
 
 <footer id="footer" layout:fragment="footer">
   <div class="center-block">

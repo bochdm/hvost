@@ -86,7 +86,7 @@ public class ActivePeopleService {
       System.out.println("answer search -> " + a);
     }
 //    List<SearchResult> searchResults = new ArrayList<>();
-    List<Answer> searchResults = new ArrayList<>();
+    List<Answer> searchResults = new ArrayList<Answer>();
 
     SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<code>", "</code>");
     QueryScorer qs = new QueryScorer(luceneQuery);

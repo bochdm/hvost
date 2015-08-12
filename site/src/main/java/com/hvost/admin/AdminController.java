@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -77,12 +80,17 @@ public class AdminController {
   }
 
   @RequestMapping(value="/blog/addarticle", method = RequestMethod.POST)
+  @ResponseStatus(value = HttpStatus.OK)
   public String addArticle(@Valid Post post, BindingResult bindingResult,
                            MultipartHttpServletRequest request,
                            HttpServletResponse response, Model model){
     //model.addAttribute("categories", categoryService.getAllArticles());
     System.out.println("AdminController.addArticle");
       System.out.println(post);
+
+    String dir = request.getSession().getServletContext().getRealPath("/");
+
+    dir += "\\resources\\images\\blog\\";
 
     if (!bindingResult.hasErrors()) {
       Post p = adminService.addArticle(post);
@@ -95,7 +103,7 @@ public class AdminController {
 
       for (MultipartFile multipartFile : fileMap.values()){
         Image imageInfo = getUploadImageInfo(multipartFile, p);
-        saveFileToLocalDisk(multipartFile);
+        saveFileToLocalDisk(multipartFile, dir);
 
         saveFileInfoToDataBase(imageInfo);
         System.out.println(imageInfo);
@@ -108,7 +116,11 @@ public class AdminController {
         System.out.println("error ->" + error);
     }
 
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Location", "/admin/blog/allarticles");
+
     return "redirect:/admin/blog/allarticles";
+  //  return new ResponseEntity<byte[]>(null, headers, HttpStatus.OK);
   }
 
   private Image getUploadImageInfo(MultipartFile multipartFile,Post p) {
@@ -127,10 +139,10 @@ public class AdminController {
 
   }
 
-  private void saveFileToLocalDisk(MultipartFile multipartFile) {
+  private void saveFileToLocalDisk(MultipartFile multipartFile, String outputFile) {
 
     try {
-      String outputFile = getOutputFileName(multipartFile);
+//      String outputFile = getOutputFileName(multipartFile);
       FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(outputFile));
     } catch (IOException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

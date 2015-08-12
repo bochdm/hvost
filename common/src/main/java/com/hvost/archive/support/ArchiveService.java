@@ -70,7 +70,7 @@ public class ArchiveService {
 
     Highlighter highlighter = new Highlighter(formatter, qs);
 
-    List<SearchResult> searchResults = new ArrayList<>();
+    List<SearchResult> searchResults = new ArrayList<SearchResult>();
 
     for (Archive video : result) {
 //      System.out.println("search video -> " + video);

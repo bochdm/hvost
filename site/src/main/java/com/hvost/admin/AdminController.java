@@ -77,7 +77,6 @@ public class AdminController {
   }
 
   @RequestMapping(value="/blog/addarticle", method = RequestMethod.POST)
-  @ResponseBody
   public String addArticle(@Valid Post post, BindingResult bindingResult,
                            MultipartHttpServletRequest request,
                            HttpServletResponse response, Model model){
@@ -86,16 +85,20 @@ public class AdminController {
       System.out.println(post);
 
     if (!bindingResult.hasErrors()) {
-      adminService.addArticle(post);
+      Post p = adminService.addArticle(post);
 
       Map<String, MultipartFile> fileMap = request.getFileMap();
+
+      System.out.println("fileMap.size ->" + fileMap.size());
 
       List<Image> uploadImages = new ArrayList<Image>();
 
       for (MultipartFile multipartFile : fileMap.values()){
+        Image imageInfo = getUploadImageInfo(multipartFile, p);
         saveFileToLocalDisk(multipartFile);
 
-        Image imageInfo = getUploadImageInfo(multipartFile);
+        saveFileInfoToDataBase(imageInfo);
+        System.out.println(imageInfo);
 
       }
 
@@ -108,13 +111,20 @@ public class AdminController {
     return "redirect:/admin/blog/allarticles";
   }
 
-  private Image getUploadImageInfo(MultipartFile multipartFile) {
+  private Image getUploadImageInfo(MultipartFile multipartFile,Post p) {
     Image imageInfo =  new Image();
-    imageInfo.setName(multipartFile.getName());
+    imageInfo.setName(multipartFile.getOriginalFilename());
     imageInfo.setSize(multipartFile.getSize());
     imageInfo.setType(multipartFile.getContentType());
+    imageInfo.setCategory(1);
+    imageInfo.setIdEntity(p.getId());
 
     return imageInfo;
+  }
+
+  private void saveFileInfoToDataBase(Image uploadImage){
+    adminService.uploadFile(uploadImage);
+
   }
 
   private void saveFileToLocalDisk(MultipartFile multipartFile) {
@@ -265,7 +275,7 @@ public class AdminController {
     return "redirect:/admin/allquestions";
   }
 
-  @RequestMapping(value = "/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})
+  @RequestMapping(value = "/blog/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})
   public String findPost(@PathVariable Long id, Model model){
     Post post = adminService.getPost(id);
     model.addAttribute("post", post);
@@ -287,7 +297,7 @@ public class AdminController {
     return "redirect:/admin/blog/allarticles";
   }
 
-  @RequestMapping(value = "/post/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  @RequestMapping(value = "/blog/post/{id:[0-9]+}/delete", method = {RequestMethod.GET})
   public String deletePost(@PathVariable Long id, Model model){
 
     Post post = adminService.getPost(id);

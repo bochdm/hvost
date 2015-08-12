@@ -10,6 +10,7 @@
     <class>com.hvost.activepeople.Answer</class>
     <class>com.hvost.archive.Archive</class>
     <class>com.hvost.startpage.Carousel</class>
+    <class>com.hvost.images.Image</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
       <property name="hibernate.hbm2ddl.auto" value="validate" />
@@ -21,9 +22,7 @@
         <property name="hibernate.show_sql" value="false"/>
         <property name="hibernate.format_sql" value="true"/>
         <property name="hibernate.search.default.directory-provider" value="filesystem"/>
-<!--
-        <property name="hibernate.search.default.indexBase" value="/home/bochdm/var/lucene/indexes"/>
--->
+        <!--<property name="hibernate.search.default.indexBase" value="/home/bochdm/var/lucene/indexes"/>-->
         <property name="hibernate.search.default.indexBase" value="/var/lucene/indexes"/>
     </properties>
   </persistence-unit>

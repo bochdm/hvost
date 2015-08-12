@@ -10,6 +10,7 @@ import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.blog.support.CategoryPostRepository;
 import com.hvost.blog.support.PostRepository;
+import com.hvost.images.Image;
 import com.hvost.startpage.Carousel;
 import com.hvost.startpage.support.CarouselRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,9 @@ public class AdminService {
   CarouselRepository carouselRepository;
 
     @Transactional
-    public void addArticle(Post a){
+    public Post addArticle(Post a){
         //em.persist(a);
-      em.merge(a);
+      return em.merge(a);
     }
 
 
@@ -175,6 +176,11 @@ public class AdminService {
   @Transactional
   public void deleteCarousel(Carousel a){
     em.remove(em.contains(a) ? a :em.merge(a));
+  }
+
+  @Transactional
+  public void uploadFile(Image uploadImage){
+    em.persist(uploadImage);
   }
 
   public List<CategoryPost> getAllCategoriesPost(){

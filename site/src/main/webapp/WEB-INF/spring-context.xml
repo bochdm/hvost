@@ -20,15 +20,20 @@
   <mvc:annotation-driven conversion-service="conversionService"/>
 
   <mvc:view-controller path="/" view-name="index"/>
-    
-  <mvc:resources mapping="/resources/**" location="/resources/" />
 
-  <context:component-scan base-package="com.hvost"/>
 
-  <jpa:repositories base-package="com.hvost"/>
+    <context:component-scan base-package="com.hvost"/>
 
-  <task:annotation-driven/>
+    <jpa:repositories base-package="com.hvost"/>
 
+    <task:annotation-driven/>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="useTrailingSlashMatch" value="true"/>
+    </bean>
 
     <!-- Application Message Bundle -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -49,7 +54,7 @@
         <property name="messageSource" ref="messageSource"/>
     </bean>
 
-  <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
     <property name="validationMessageSource" ref="messageSource"/>
   </bean>
 
@@ -61,6 +66,7 @@
     <property name="characterEncoding" value="UTF8"/>
     <property name="cacheable" value="false"/>
   </bean>
+
 
   <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
     <property name="templateResolver" ref="templateResolver"/>
@@ -87,7 +93,7 @@
     <property name="username" value="bochdm_main"/>-->
       <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8&amp;autoReconnect=true"/>
       <property name="username" value="root"/>
-      <property name="password" value="together14"/>
+      <property name="password" value=""/>
     <property name="testOnBorrow" value="true"/>
     <property name="validationQuery" value="select 1"/>
   </bean>
@@ -132,9 +138,9 @@
   <bean id="uih" class="com.hvost.support.navigation.ViewRenderingHelper" scope="request"/>
 
   <!--GMAIL !!!-->
-  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+<!--  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
       <property name="host" value="smtp.gmail.com"/>
-      <property name="port" value="587"/>
+      <property name="port" value="465"/>
       <property name="username" value="bochkanov.dm@gmail.com"/>
       <property name="password" value="14together"/>
       <property name="defaultEncoding" value="UTF-8"/>
@@ -146,12 +152,12 @@
               <prop key="mail.debug">true</prop>
           </props>
       </property>
-  </bean>
+  </bean>-->
 
   <!--MOCHAHOST !!!-->
-<!--  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
       <property name="host" value="mail.tkhostov.com"/>
-      <property name="port" value="25"/>
+      <property name="port" value="2525"/>
       <property name="username" value="bochdm"/>
       <property name="password" value="together"/>
       <property name="defaultEncoding" value="UTF-8"/>
@@ -165,7 +171,7 @@
             <prop key="mail.debug">true</prop>
           </props>
       </property>
-  </bean>-->
+  </bean>
 
 
     <!-- Spring Social -->

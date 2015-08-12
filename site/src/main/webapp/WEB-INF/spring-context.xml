@@ -30,6 +30,8 @@
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    <!--<mvc:resources mapping="/images/**" location="file:/usr/local/apache-tomcat-7.0.57/images/" />-->
+    <mvc:resources mapping="/images/**" location="file:../images/" />
 
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
         <property name="useTrailingSlashMatch" value="true"/>

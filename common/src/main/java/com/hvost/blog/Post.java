@@ -4,6 +4,7 @@ import com.hvost.images.Image;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Parameter;
@@ -70,7 +71,8 @@ public class Post implements Serializable {
     this.images = images;
   }
 
-  @OneToMany(fetch = FetchType.LAZY ,mappedBy = "idEntity")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "idEntity", cascade = CascadeType.ALL)
+  @Filter(name="category", condition = "category=1")
   private Set<Image> images;
 
 
@@ -175,6 +177,7 @@ public class Post implements Serializable {
         ", content='" + content + '\'' +
         ", category='" + categoryPost + '\'' +
         ", createdAt=" + createdAt +
+        ", images=" + images +
         '}';
   }
 }

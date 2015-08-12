@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -101,9 +102,21 @@ public class AdminController {
 
       List<Image> uploadImages = new ArrayList<Image>();
 
+      String rootPath = System.getProperty("catalina.home");
+      File imagesDir = new File(rootPath + File.separator + "images");
+
       for (MultipartFile multipartFile : fileMap.values()){
         Image imageInfo = getUploadImageInfo(multipartFile, p);
-        saveFileToLocalDisk(multipartFile, dir);
+
+        if (!imagesDir.exists()){
+          imagesDir.mkdir();
+        }
+
+        System.out.println("imagesDir = " + imagesDir);
+
+        String location = saveFileToLocalDisk(multipartFile, imagesDir.getAbsolutePath());
+
+        imageInfo.setLocation(location);
 
         saveFileInfoToDataBase(imageInfo);
         System.out.println(imageInfo);
@@ -123,7 +136,7 @@ public class AdminController {
   //  return new ResponseEntity<byte[]>(null, headers, HttpStatus.OK);
   }
 
-  private Image getUploadImageInfo(MultipartFile multipartFile,Post p) {
+  private Image getUploadImageInfo(MultipartFile multipartFile, Post p) {
     Image imageInfo =  new Image();
     imageInfo.setName(multipartFile.getOriginalFilename());
     imageInfo.setSize(multipartFile.getSize());
@@ -139,14 +152,17 @@ public class AdminController {
 
   }
 
-  private void saveFileToLocalDisk(MultipartFile multipartFile, String outputFile) {
+  private String saveFileToLocalDisk(MultipartFile multipartFile, String outputFile) {
 
     try {
 //      String outputFile = getOutputFileName(multipartFile);
-      FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(outputFile));
+      FileCopyUtils.copy(multipartFile.getBytes(),
+          new FileOutputStream(outputFile + File.separator + multipartFile.getOriginalFilename()));
     } catch (IOException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
     }
+
+    return outputFile + File.separator + multipartFile.getOriginalFilename();
   }
 
   private String getOutputFileName(MultipartFile multipartFile) {

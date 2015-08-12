@@ -53,12 +53,82 @@
         <div class='container'>
           <div class='row'>
 
+            <div class='col-md-push-9 col-sm-push-8 col-sm-4 col-md-3'>
+              <nav class='sidebar'>
+                <button class='btn btn-block btn-contrast sidebar-toggle' data-target='.sidebar-collapse' data-toggle='collapse' type='button'>
+                  <span class='sr-only'>Toggle navigation</span>
+                  <span class='icon-bar'></span>
+                  <span class='icon-bar'></span>
+                  <span class='icon-bar'></span>
+                </button>
+                <div class='sidebar-collapse collapse'>
+                  <div class='box'>
+                    <h3 class='title'>О статье</h3>
+                    <ul class='list-unstyled list-padded'>
+                      <li>
+                        <i class='fa-icon-user text-contrast fa-icon-fixed-width'></i>
+                        <span th:text="${post.author}"/>
+                      </li>
+                      <li>
+                        <i class='fa-icon-calendar-empty text-contrast fa-icon-fixed-width'></i>
+                        <time th:datetime-local="ru" th:datetime="${post.createdAt}"
+                              th:text='${#dates.format(post.createdAt, "dd MMMM yyyy HH:mm")}'/>
+                      </li>
+                      <li>
+                        <a href='#mc-container'>
+                          <i class='fa-icon-comments'></i>
+                          <span>Комментариев:</span>
+                          <span id="count"></span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://twitter.com/share" style="vertical-align: middle" class="twitter-share-button" data-th-attr="data-url=${baseUrl}+'/blog/'+${post.id}, data-text=@{'/blog/'+${post.title}}" >My Tweet</a>
+                        <script>!function(d,s,id){
+                          var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                          if(!d.getElementById(id)){
+                            js=d.createElement(s);
+                            js.id=id;
+                            js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);
+                          }
+                        }
+                        (document, 'script', 'twitter-wjs');
+                        </script>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class='box'>
+                    <h3 class='title'>Services</h3>
+                    <ul class='list-unstyled list-padded'>
+                      <li>
+                        <i class='fa-icon-ok text-contrast fa-icon-fixed-width'></i>
+                        Webdesign
+                      </li>
+                      <li>
+                        <i class='fa-icon-ok text-contrast fa-icon-fixed-width'></i>
+                        HTML / CSS
+                      </li>
+                      <li>
+                        <i class='fa-icon-ok text-contrast fa-icon-fixed-width'></i>
+                        Marketing
+                      </li>
+                      <li>
+                        <i class='fa-icon-ok text-contrast fa-icon-fixed-width'></i>
+                        Identity
+                      </li>
+                    </ul>
+                  </div>
+                  <div class='box'><a class="btn btn-contrast btn-bordered btn-block" href="#">Show project</a></div>
+                </div>
+              </nav>
+            </div>
 
-                <div class='row text-box text-box-title-above text-box-big-image'>
+
+               <div class='col-md-pull-3 col-sm-pull-4 col-sm-8 col-md-9'>
+                 <div class="row">
                   <div class='col-sm-12'>
                     <h2 class='title' th:text="${post.title}"></h2>
 
-                    <div class='toolbar'>
+    <!--                <div class='toolbar'>
                       <a class='btn btn-link btn-sm' href='#'>
                         <i class='fa-icon-calendar-empty'></i>
                         <time th:datetime-local="ru" th:datetime="${post.createdAt}"
@@ -86,7 +156,7 @@
                         (document, 'script', 'twitter-wjs');
                         </script>
                       </div>
-                    </div>
+                    </div>-->
                     <!-- <div class='row'>
                        <div class='col-sm-12'>
                          <a href='blog_single_post.html'>
@@ -96,59 +166,58 @@
                      </div>-->
                     <hr class='hr-half'/>
                   </div>
+
+                   <div th:utext="${post.content}"/>
+
+                   <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                   <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+                     <div class="slides"></div>
+                     <h3 class="title"></h3>
+                     <a class="prev">‹</a>
+                     <a class="next">›</a>
+                     <a class="close">×</a>
+                     <a class="play-pause"></a>
+                     <ol class="indicator"></ol>
+                   </div>
+
+                   <br/>
+                   <br/>
+
+                   <div id="links">
+                     <a th:each="image : ${post.images}" th:href="${image.location}" th:title="${image.name}">
+                      <img th:src="${image.location}" sizes="75px"/>
+                     </a>
+                    <!-- <img th:src="@{${image.location}}" sizes="75px"/>-->
+                   </div>
+                 </div>
+
+                 <br/>
+                 <br/>
+                 <br/>
+
+                 <!-- Комментарии -->
+                 <div class="row">
+                   <div class="col-sm-12">
+                     <div id="mc-container"/>
+                     <script type="text/javascript">
+                       cackle_widget = window.cackle_widget || [];
+                       cackle_widget.push({widget: 'Comment', id: 35378, countContainer: 'count'});
+                       (function () {
+                         var mc = document.createElement('script');
+                         mc.type = 'text/javascript';
+                         mc.async = true;
+                         mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
+                         var s = document.getElementsByTagName('script')[0];
+                         s.parentNode.insertBefore(mc, s.nextSibling);
+                       })();
+                     </script>
+                   </div>
+                 </div>
                 </div>
-                <div th:utext="${post.content}"/>
-
-
-            <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-            <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-              <div class="slides"></div>
-              <h3 class="title"></h3>
-              <a class="prev">‹</a>
-              <a class="next">›</a>
-              <a class="close">×</a>
-              <a class="play-pause"></a>
-              <ol class="indicator"></ol>
-            </div>
-
-
-            <div id="links">
-              <a href="images/banana.jpg" title="Banana">
-                <img src="http://www.htmlcodetutorial.com/graphics/starflower.gif" alt="Apple"/>
-              </a>
-              <a href="images/apple.jpg" title="Apple">
-                <img src="http://www.site-do.ru/images/fish.gif" alt="Apple"/>
-              </a>
-              <a href="images/apple.jpg" title="Apple">
-                <img src="http://www.w3schools.com/images/w3schools_green.jpg" alt="Apple"/>
-              </a>
-              <a href="images/apple.jpg" title="Apple">
-                <img src="http://www.seoded.ru/beginner/img/kartinki-html.jpg" alt="Apple"/>
-              </a>
-
-
-            </div>
 
 
 
-                <!-- Комментарии -->
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div id="mc-container"/>
-                    <script type="text/javascript">
-                      cackle_widget = window.cackle_widget || [];
-                      cackle_widget.push({widget: 'Comment', id: 35378, countContainer: 'count'});
-                      (function () {
-                        var mc = document.createElement('script');
-                        mc.type = 'text/javascript';
-                        mc.async = true;
-                        mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
-                        var s = document.getElementsByTagName('script')[0];
-                        s.parentNode.insertBefore(mc, s.nextSibling);
-                      })();
-                    </script>
-                  </div>
-                </div>
+
 
           </div>
         </div>

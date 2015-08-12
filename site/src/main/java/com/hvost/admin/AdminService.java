@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class AdminService {
 
   private int size = 25;
 
-  @PersistenceContext
+  @PersistenceContext(type = PersistenceContextType.EXTENDED)
   EntityManager em;
 
   @Autowired

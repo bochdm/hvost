@@ -91,7 +91,7 @@
       <div class='row text-boxes'>
         <div class='col-sm-12 text-box' th:each="answer : ${newest_answers}">
           <div class="row">
-          <h3 class='title' th:text="${answer.question.questionText}"/>
+          <h5 class='title' th:text="${answer.question.questionText}"/>
 
           <!--<div class="toolbar">
             <a class='btn btn-link' th:href="@{/}">
@@ -107,7 +107,7 @@
             </a>
           </div>-->
             <blockquote>
-              <p th:utext="${answer.answerText}"/>
+              <p class="mg-b-lg" th:utext="${answer.answerText}"/>
               <small>
                 <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
               </small>
@@ -206,7 +206,7 @@
     <div class='col-sm-12'>
       <div class='page-header page-header-with-icon'>
         <i class='fa-icon-comment'></i>
-        <h2 th:text="#{newest.blog}">Новые статьи</h2>
+        <h2 th:text="#{newest.blog}">Новые статьи</h2>                5
       </div>
       <div class='row text-boxes'>
         <div class='col-sm-4 text-box' th:each="post : ${newest_posts}">
@@ -220,7 +220,7 @@
                   <time th:datetime-local="ru" th:datetime="${post.createdAt}" th:text='${#dates.format(post.createdAt, "dd MMMM yyyy HH:mm")}'/>
                 </a>
               </div>
-              <p th:utext="${post.summary}"/>
+              <div class="text-justify" th:utext="${post.summary}"/>
               <a class='btn btn-contrast btn-bordered btn-xs' th:href="@{'/blog/'+${post.id}}">Читать</a>
             </div>
           </div>

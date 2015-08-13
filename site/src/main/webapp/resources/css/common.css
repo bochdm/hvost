@@ -73,6 +73,11 @@
     justify-content : center;
 }
 
-.blockquote{
+/*.blockquote{
   font-size: 85%!important;
+}*/
+
+.blockquote .p{
+  font-size: 85%!important;
+  font-style: normal;
 }

@@ -114,11 +114,13 @@ public class AdminController {
 
         System.out.println("imagesDir = " + imagesDir);
 
-        String location = saveFileToLocalDisk(multipartFile, imagesDir.getAbsolutePath());
+      //  String location = saveFileToLocalDisk(multipartFile, imagesDir.getAbsolutePath());
 
-        imageInfo.setLocation(location);
+      //  imageInfo.setLocation(location);
 
         saveFileInfoToDataBase(imageInfo);
+
+        saveFileToLocalDisk(multipartFile, imagesDir.getAbsolutePath(), imageInfo);
         System.out.println(imageInfo);
 
       }
@@ -143,6 +145,7 @@ public class AdminController {
     imageInfo.setType(multipartFile.getContentType());
     imageInfo.setCategory(1);
     imageInfo.setIdEntity(p.getId());
+    imageInfo.setLocation(".." + File.separator + "images" + File.separator + "blog" + File.separator + multipartFile.getOriginalFilename());
 
     return imageInfo;
   }
@@ -152,12 +155,12 @@ public class AdminController {
 
   }
 
-  private String saveFileToLocalDisk(MultipartFile multipartFile, String outputFile) {
+  private String saveFileToLocalDisk(MultipartFile multipartFile, String outputFile, Image imageInfo) {
 
     try {
 //      String outputFile = getOutputFileName(multipartFile);
-      FileCopyUtils.copy(multipartFile.getBytes(),
-          new FileOutputStream(outputFile + File.separator + multipartFile.getOriginalFilename()));
+//      FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(outputFile + File.separator + multipartFile.getOriginalFilename()));
+      FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(imageInfo.getLocation()));
     } catch (IOException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
     }

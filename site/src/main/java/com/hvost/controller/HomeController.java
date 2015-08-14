@@ -156,7 +156,6 @@ public class HomeController {
       logger.info("legger::tweet is done");
       List<String> tweets = null;
       try {
-        Thread.sleep(10000);
         tweets = asyncResult.get();
         for(String s: tweets){
           System.out.println("asyncResult->" + s);

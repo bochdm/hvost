@@ -83,8 +83,7 @@ public class AdminController {
   @RequestMapping(value="/blog/addarticle", method = RequestMethod.POST)
   @ResponseStatus(value = HttpStatus.OK)
   public String addArticle(@Valid Post post, BindingResult bindingResult,
-                           MultipartHttpServletRequest request,
-                           HttpServletResponse response, Model model){
+                           MultipartHttpServletRequest request){
     //model.addAttribute("categories", categoryService.getAllArticles());
     System.out.println("AdminController.addArticle");
       System.out.println(post);
@@ -149,7 +148,10 @@ public class AdminController {
     imageInfo.setType(multipartFile.getContentType());
     imageInfo.setCategory(1);
     imageInfo.setIdEntity(p.getId());
-    imageInfo.setLocation(imagesDir + File.separator + multipartFile.getOriginalFilename());
+    //imageInfo.setLocation(imagesDir + File.separator + multipartFile.getOriginalFilename());
+    imageInfo.setLocation("/images/blog/" + multipartFile.getOriginalFilename());
+
+
 //    imageInfo.setLocation(".." + File.separator + ".." + File.separator + "images" + File.separator + "blog" + File.separator + multipartFile.getOriginalFilename());
 //    imageInfo.setLocation("/home/bochdm/images/blog/"  + multipartFile.getOriginalFilename());
 
@@ -164,7 +166,10 @@ public class AdminController {
   private String saveFileToLocalDisk(MultipartFile multipartFile, String outputFile, Image imageInfo) {
 
     try {
-      FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(imageInfo.getLocation()));
+      String rootPath = System.getProperty("catalina.home");
+      File imagesDir = new File(rootPath + File.separator + "domain" + File.separator + "tkhostov.com" + File.separator + "images" + File.separator + "blog");
+
+      FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(imagesDir + File.separator + imageInfo.getName()));
     } catch (IOException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
     }

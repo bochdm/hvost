@@ -38,7 +38,7 @@ public class AdminService {
 
   private int size = 25;
 
-  @PersistenceContext(type = PersistenceContextType.EXTENDED)
+  @PersistenceContext()
   EntityManager em;
 
   @Autowired
@@ -165,18 +165,18 @@ public class AdminService {
   }
 
   @Transactional
-  public void addCarousel(Carousel a){
-    em.merge(a);
+  public void addCarousel(Carousel c){
+    em.merge(c);
   }
 
   @Transactional
-  public void updateCarousel(Carousel a){
-    em.merge(a);
+  public void updateCarousel(Carousel c){
+    em.merge(c);
   }
 
   @Transactional
-  public void deleteCarousel(Carousel a){
-    em.remove(em.contains(a) ? a :em.merge(a));
+  public void deleteCarousel(Carousel c){
+    em.remove(em.contains(c) ? c :em.merge(c));
   }
 
   @Transactional

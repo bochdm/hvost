@@ -106,18 +106,13 @@
               <span>Категория: <span th:text="${answer.question.category.name}"/></span>
             </a>
           </div>-->
-            <blockquote>
-              <p class="mg-b-lg" th:utext="${answer.answerText}"/>
+            <blockquote class="mg-b-lg">
+              <p class="mg-b-lg text-justify" th:utext="${answer.answerText}"/>
               <small>
                 <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
               </small>
             </blockquote>
-          <hr class="hr-half"/>
-          <!--<div class="toolbar">
-            <span class="title"><b>Ответ опубликован:</b></span>
-            <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
-          </div>
-            <p th:utext="${answer.answerText}"/>-->
+          <!--<hr class="hr-half"/>-->
           </div>
         </div>
       </div>
@@ -206,7 +201,7 @@
     <div class='col-sm-12'>
       <div class='page-header page-header-with-icon'>
         <i class='fa-icon-comment'></i>
-        <h2 th:text="#{newest.blog}">Новые статьи</h2>                5
+        <h2 th:text="#{newest.blog}">Новые статьи</h2>
       </div>
       <div class='row text-boxes'>
         <div class='col-sm-4 text-box' th:each="post : ${newest_posts}">
@@ -226,39 +221,6 @@
           </div>
         </div>
 
-<!--        <div class='col-sm-6 text-box'>
-          <div class='row'>
-            <div class='col-sm-4'><img class="img-responsive center-block" alt="Lorem ipsum dolor sit amet" width="340" height="188" src="assets/images/demo/common/devices.jpg" /></div>
-            <div class='col-sm-8'>
-              <h3 class='title'><a href="#">Lorem ipsum dolor sit amet</a></h3>
-              <div class='toolbar'>
-                <a class='btn btn-link' href='#'>
-                  <i class='fa-icon-calendar-empty'></i>
-                  <span>April 19, 2013</span>
-                </a>
-              </div>
-              <p>Nullam rhoncus, eros a commodo convallis, purus orci consectetur arcu, a euismod magna augue eu mi. Nunc tempus, lorem eu semper commodo, ipsum urna lobortis ligula.</p>
-              <a class='btn btn-contrast btn-bordered btn-xs' href='#'>Read more</a>
-            </div>
-          </div>
-        </div>
-        <div class='col-sm-6 text-box'>
-          <hr class='visible-xs'/>
-          <div class='row'>
-            <div class='col-sm-4'><img class="img-responsive center-block" alt="Praesent vitae adipiscing nunc" width="330" height="183" src="assets/images/demo/common/chart.png" /></div>
-            <div class='col-sm-8'>
-              <h3 class='title'><a href="#">Praesent vitae adipiscing nunc</a></h3>
-              <div class='toolbar'>
-                <a class='btn btn-link' href='#'>
-                  <i class='fa-icon-calendar-empty'></i>
-                  <span>March 3, 2013</span>
-                </a>
-              </div>
-              <p>Mauris at ultricies eros. Morbi vel dui nec arcu suscipit euismod. Phasellus pellentesque lectus eget quam ullamcorper consectetur. Vestibulum vitae risus a erat mollis.</p>
-              <a class='btn btn-contrast btn-bordered btn-xs' href='#'>Read more</a>
-            </div>
-          </div>
-        </div>-->
       </div>
     </div>
   </div>
@@ -286,21 +248,6 @@
 
 </div>
 </main>
-
-<!--<script th:src="@{/resources/js/plugins/modernizr/modernizr.custom.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/hover_dropdown/twitter-bootstrap-hover-dropdown.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/retina/retina.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/knob/jquery.knob.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/isotope/jquery.isotope.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/isotope/jquery.isotope.sloppy-masonry.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/validate/jquery.validate.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/flexslider/jquery.flexslider.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/countdown/countdown.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/lightbox/lightbox.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/plugins/cycle/jquery.cycle.all.min.js}" type="text/javascript"></script>
-<script th:src="@{/resources/js/jednotka.js}" type="text/javascript"></script>-->
-
-<!-- / not required javascripts -->
 
 <script>
     (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){

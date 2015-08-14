@@ -103,7 +103,8 @@ public class AdminController {
       List<Image> uploadImages = new ArrayList<Image>();
 
       String rootPath = System.getProperty("catalina.home");
-      File imagesDir = new File(rootPath + File.separator + "images");
+      File imagesDir = new File(rootPath + File.separator + "images" + File.separator + "blog" + File.separator);
+
 
       for (MultipartFile multipartFile : fileMap.values()){
         Image imageInfo = getUploadImageInfo(multipartFile, p);
@@ -139,13 +140,18 @@ public class AdminController {
   }
 
   private Image getUploadImageInfo(MultipartFile multipartFile, Post p) {
+    String rootPath = System.getProperty("catalina.home");
+    File imagesDir = new File(rootPath + File.separator + "images" + File.separator + "blog");
+
     Image imageInfo =  new Image();
     imageInfo.setName(multipartFile.getOriginalFilename());
     imageInfo.setSize(multipartFile.getSize());
     imageInfo.setType(multipartFile.getContentType());
     imageInfo.setCategory(1);
     imageInfo.setIdEntity(p.getId());
-    imageInfo.setLocation(".." + File.separator + "images" + File.separator + "blog" + File.separator + multipartFile.getOriginalFilename());
+    imageInfo.setLocation(imagesDir + File.separator + multipartFile.getOriginalFilename());
+//    imageInfo.setLocation(".." + File.separator + ".." + File.separator + "images" + File.separator + "blog" + File.separator + multipartFile.getOriginalFilename());
+//    imageInfo.setLocation("/home/bochdm/images/blog/"  + multipartFile.getOriginalFilename());
 
     return imageInfo;
   }
@@ -158,8 +164,6 @@ public class AdminController {
   private String saveFileToLocalDisk(MultipartFile multipartFile, String outputFile, Image imageInfo) {
 
     try {
-//      String outputFile = getOutputFileName(multipartFile);
-//      FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(outputFile + File.separator + multipartFile.getOriginalFilename()));
       FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(imageInfo.getLocation()));
     } catch (IOException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -402,17 +406,24 @@ public class AdminController {
     return "redirect:/admin/startpage/allcarousel";
   }
 
+  @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/edit", method = {RequestMethod.GET})
+  public String findCarousel(@PathVariable Long id, Model model){
+    Carousel carousel = adminService.getCarousel(id);
+    model.addAttribute("carousel", carousel);
+    return "admin/startpage/editcarousel";
+  }
+
   @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/edit", method = {RequestMethod.POST})
   public String editCarousel(@PathVariable Long id,@ModelAttribute @Valid Carousel archive, BindingResult bindingResult, Model model) {
     Carousel carousel = adminService.getCarousel(id);
+    System.out.println("edit carousel post ->" + carousel);
     if (!bindingResult.hasErrors()){
       carousel.setContent(archive.getContent());
       adminService.updateCarousel(carousel);
     }
 
-    return "redirect:/admin/video/allarchivevideo";
+    return "redirect:/admin/startpage/allcarousel";
   }
-
 
   @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/delete", method = {RequestMethod.GET})
   public String deleteCarousel(@PathVariable Long id, Model model){

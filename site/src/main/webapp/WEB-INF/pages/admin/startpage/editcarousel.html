@@ -24,23 +24,7 @@
 
   <div class="row row-centered">
     <div class="col-md-10 col-centered" role="main">
-      <form th:with="edit=1" th:action="@{'/admin/blog/post/'+${post.id}+'/edit'}" th:object="${post}" method="post">
-        <div class="form-group">
-          <label for="title">Название</label>
-          <input id="title" class="form-control" type="text" name="title" maxlength="100" th:field="*{title}"/>
-        </div>
-
-        <div class="form-group">
-          <label for="author">Автор</label>
-          <input id="author" class="form-control" type="text" name="author" maxlength="100" th:field="*{author}"/>
-        </div>
-
-        <div class="form-group">
-          <!--<label for="summary" th:value="Краткое описание"></label>-->
-          <label for="summary" th:value="Описание"></label>
-          <textarea id="summary" class="textarea form-control wysihtml5-editor placeholder" placeholder="Enter text ..."
-                    th:field="*{summary}" style="width: 810px; height: 250px" maxlength="350" rows="3"/>
-        </div>
+      <form th:with="edit=1" th:action="@{'/admin/startpage/carousel/'+${carousel.id}+'/edit'}" th:object="${carousel}" method="post">
 
         <div class="form-group">
           <label for="content" th:value="Содержание"></label>

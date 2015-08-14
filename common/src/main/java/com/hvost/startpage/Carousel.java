@@ -10,13 +10,13 @@ import java.sql.Blob;
 @Table(name = "START_CAROUSEL")
 public class Carousel {
 
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Long id;
 
   @Column
   private String content;

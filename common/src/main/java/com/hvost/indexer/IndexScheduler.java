@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class IndexScheduler {
   private static final long ONE_HOUR = 1000 * 60 * 60;
-  private static final long ONE_MINUTE = 1000 * 60 * 10;
+  private static final long ONE_MINUTE = 1000 * 60 * 25;
   private static final long ONE_DAY = ONE_HOUR * 24;
 
   @Autowired

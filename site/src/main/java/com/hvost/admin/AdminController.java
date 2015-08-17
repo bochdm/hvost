@@ -6,6 +6,7 @@ import com.hvost.archive.Archive;
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.images.Image;
+import com.hvost.images.support.ImageService;
 import com.hvost.startpage.Carousel;
 import com.hvost.support.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class AdminController {
 
   @Autowired
   private AdminService adminService;
+
+  @Autowired
+  private ImageService imageService;
 
   @RequestMapping(method = RequestMethod.GET)
   //@RequestMapping(value = {"/"}, method = RequestMethod.GET)
@@ -120,7 +124,7 @@ public class AdminController {
 
         saveFileInfoToDataBase(imageInfo);
 
-        saveFileToLocalDisk(multipartFile, imagesDir.getAbsolutePath(), imageInfo);
+    //    saveFileToLocalDisk(multipartFile, imagesDir.getAbsolutePath(), imageInfo);
         System.out.println(imageInfo);
 
       }
@@ -159,7 +163,7 @@ public class AdminController {
   }
 
   private void saveFileInfoToDataBase(Image uploadImage){
-    adminService.uploadFile(uploadImage);
+    imageService.uploadFileInfo(uploadImage);
 
   }
 
@@ -242,7 +246,7 @@ public class AdminController {
 
     Question q = adminService.getQuestion(id);
     adminService.deleteQuestion(q);
-    return "redirect:/admin/blog/allarticles";
+    return "redirect:/admin/unanswered";
   }
 
   @RequestMapping(value = "/newreply/{id:[0-9]+}", method = RequestMethod.POST)

@@ -112,14 +112,17 @@
                 <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
               </small>
             </blockquote>
-          <!--<hr class="hr-half"/>-->
+
+            <a class="btn btn-contrast btn-md mg-b-md" th:href="@{/activepeople}" th:text="Вопрос-Ответ"/>
+
+            <!--<hr class="hr-half"/>-->
           </div>
         </div>
       </div>
     </div>
     <div class="col-sm-6">
         <p class="lead text-center">Задайте&nbsp;свой&nbsp;вопрос!</p>
-      <form id="send_question" th:action="@{/activepeople/addquestion}" th:object="${question}" class='form' method='post'>
+      <form id="send-question" th:action="@{/activepeople/addquestion}" th:object="${question}" class='form' method='post'  enctype="multipart/form-data">
         <fieldset>
           <div class='row'>
             <div class='col-sm-6'>
@@ -143,7 +146,7 @@
           </div>
           <div class='row'>
             <div class='col-sm-12'>
-              <button id="newQuestion" class='btn btn-contrast btn-block' type="submit">Задать вопрос</button>
+              <button id="newQuestion" name="newQuestion" class='btn btn-contrast btn-block' type="button">Задать вопрос</button>
             </div>
           </div>
         </fieldset>
@@ -260,7 +263,39 @@
 </script>
 
 <th:block layout:fragment="script">
-  <script>
+  <script th:src="@{/resources/js/jquery/jquery.validate.min.js}" type="text/javascript"></script>
+  <script th:src="@{/resources/js/jquery/jquery.blockui.js}"      type="text/javascript"></script>
+  <script th:src="@{/resources/js/pages/activepeople.js}"         type="text/javascript"></script>
+
+  <script th:inline="javascript">
+    var submitForm = document.querySelector('#send-question');
+    $('#newQuestion').click(function(e){
+      var valid = $('#send-question').valid();
+      console.log('valid = ' + valid);
+      if (valid === true) {
+        e.preventDefault();
+        $.blockUI({
+          message: 'Пожалуйста, подождите',
+          baseZ: 99999999999999999,
+          css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .3,
+            color: '#fff'
+          }
+        });
+
+        setTimeout(function () {
+          submitForm.submit();
+        }, 300);
+      }
+    });
+  </script>
+
+  <script th:inline="javascript">
     var timer = setInterval(function (){
       console.log("ajax setInterval");
       $.ajax({

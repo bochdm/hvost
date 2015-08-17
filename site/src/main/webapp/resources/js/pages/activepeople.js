@@ -1,18 +1,21 @@
 $(document).ready(function(){
 
-    jQuery("#send_question").validate({
+    jQuery("#send-question").validate({
         rules: {
+            'author': {
+                required: true
+            },
             'questionText': {
                 required: true
             },
             'contact_email': {
                 email: true
-            }/*,
-            'author':{
-                required: true
-            }*/
+            }
         },
         messages: {
+            'author':  {
+                required: "Пожалуйста, укажите свое имя"
+            },
             'questionText':  {
                 required: "Пожалуйста, укажите вопрос"
             },
@@ -21,29 +24,12 @@ $(document).ready(function(){
             }
         },
         highlight: function(element) {
-            $(element).closest('.control-group').removeClass('success').addClass('error');
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
         },
         success: function(element) {
-
-            element
-              .closest('.control-group').removeClass('error').addClass('success');
-        },
-        submitHandler: showThanks
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+            $(element).remove();
+        }
     });
-
-
-/*    $("#newQuestion").click(function(){
-        bootbox.alert("Спасибо за Ваш вопрос! Мы постараемся ответить Вам в ближайшее время", function() {
-            console.log("Alert Callback");
-        });
-    });*/
 
 });
-
-function showThanks(form){
-    bootbox.alert("Спасибо за Ваш вопрос! Мы постараемся ответить Вам в ближайшее время", function() {
-        form.submit();
-    });
-
-
-}

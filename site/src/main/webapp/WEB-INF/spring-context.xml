@@ -28,14 +28,17 @@
 
     <task:annotation-driven/>
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+<!--    <context:property-placeholder />-->
+
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <!--<mvc:resources mapping="/images/**" location="file:/usr/local/apache-tomcat-7.0.57/images/" />-->
     <mvc:resources mapping="/images/**" location="file:../images/" />
 
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+<!--    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
         <property name="useTrailingSlashMatch" value="true"/>
-    </bean>
+    </bean>-->
 
     <!-- Application Message Bundle -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -69,7 +72,6 @@
     <property name="cacheable" value="false"/>
   </bean>
 
-
   <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
     <property name="templateResolver" ref="templateResolver"/>
       <property name="additionalDialects">
@@ -89,24 +91,29 @@
     <bean class="com.hvost.support.navigation.Navigable"  />
   </mvc:interceptors>
 
-  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
+    <!--hosting-->
+<!--  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-<!--    <property name="url" value="jdbc:mysql://mysql1001.mochahost.com:3306/bochdm_tkhostov?characterEncoding=UTF-8&amp;autoReconnect=true"/>
-    <property name="username" value="bochdm_main"/>-->
-      <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8&amp;autoReconnect=true"/>
-      <property name="username" value="root"/>
-      <property name="password" value=""/>
+    <property name="url" value="jdbc:mysql://mysql1001.mochahost.com:3306/bochdm_tkhostov?characterEncoding=UTF-8&amp;autoReconnect=true"/>
+    <property name="username" value="bochdm_main"/>
+&lt;!&ndash;      <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8&amp;autoReconnect=true"/>
+      <property name="username" value="root"/>&ndash;&gt;
+      <property name="password" value="together14"/>
     <property name="testOnBorrow" value="true"/>
     <property name="validationQuery" value="select 1"/>
-  </bean>
+  </bean>-->
 
-<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${jdbc.driver}" />
-        &lt;!&ndash;<property name="url" value="jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/${OPENSHIFT_APP_NAME}" />&ndash;&gt;
-        <property name="url" value="jdbc:mysql://127.6.253.2:3306/sitewar?characterEncoding=UTF-8&amp;autoReconnect=true"/>
-        <property name="username" value="${OPENSHIFT_MYSQL_DB_USERNAME}" />
-        <property name="password" value="${OPENSHIFT_MYSQL_DB_PASSWORD}" />
-    </bean>-->
+    <!--OPENSHIFT-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <!--<property name="url" value="jdbc:mysql://${OPENSHIFT_DB_HOST}:${OPENSHIFT_DB_PORT}/${OPENSHIFT_APP_NAME}?characterEncoding=UTF-8&amp;autoReconnect=true"/>-->
+        <property name="url" value="jdbc:mysql://127.11.61.2:3306/visitka?characterEncoding=UTF-8&amp;autoReconnect=true"/>
+        <property name="username" value="adminkSt5kTW"/>
+        <property name="password" value="UikUlvpRAQrm"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="validationQuery" value="select 1"/>
+    </bean>
+
 
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
     <property name="persistenceUnitName" value="persistenceUnit"/>
@@ -175,43 +182,6 @@
       </property>
   </bean>
 
-
-    <!-- Spring Social -->
-<!--   <bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
-        <property name="connectionFactories">
-            <list>
-                <bean class="org.springframework.social.twitter.connect.TwitterConnectionFactory">
-                    <constructor-arg value="${twitter.consumerKey}" />
-                    <constructor-arg value="${twitter.consumerSecret}" />
-                </bean>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
-          factory-method="noOpText" />
-
-    <bean id="usersConnectionRepository"
-          class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
-        <constructor-arg ref="dataSource" />
-        <constructor-arg ref="connectionFactoryLocator" />
-        <constructor-arg ref="textEncryptor" />
-    </bean>
-
-    <bean id="connectionRepository" factory-method="createConnectionRepository"
-          factory-bean="usersConnectionRepository" scope="request">
-        <constructor-arg value="#{request.userPrincipal.name}" />
-        <aop:scoped-proxy proxy-target-class="false" />
-    </bean>
-
-
-    <bean id="twitter" factory-method="findPrimaryConnection"
-          factory-bean="connectionRepository" scope="request" depends-on="connectionRepository">
-        <constructor-arg value="org.springframework.social.twitter.api.Twitter" />
-        <aop:scoped-proxy proxy-target-class="false" />
-    </bean>-->
-
-   <!-- <bean id="paginationInfo" class=""/>-->
 
     <import resource="spring-security.xml" />
 

@@ -50,6 +50,10 @@ public class ActivePeopleService {
     return questionRepository.findAll(pageRequest);
   }
 
+  public Page<Question> getAllUnansweredQuestions(Pageable pageRequest){
+    return questionRepository.findAllUnswered(pageRequest);
+  }
+
 /*  public Page<Questions> getPublished(Answer a, Pageable pageRequest){
 
      return questionRepository.findByAnswerId(pageRequest);
@@ -60,12 +64,12 @@ public class ActivePeopleService {
   }
 
   public Page<Answer> getLatestPublished(){
-    Pageable page = new PageRequest(0, 2, Sort.Direction.DESC, "date");
+    Pageable page = new PageRequest(0, 1, Sort.Direction.DESC, "date");
     return answerRepository.findByPublished(page);
   }
 
-  public void addNewQuestion(Question question) {
-    questionRepository.save(question);
+  public Question addNewQuestion(Question question) {
+    return questionRepository.save(question);
   }
 
   @Transactional

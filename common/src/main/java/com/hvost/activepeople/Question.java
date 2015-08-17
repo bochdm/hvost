@@ -3,9 +3,11 @@ package com.hvost.activepeople;
 
 
 
+import com.hvost.images.Image;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.annotations.Filter;
 import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -15,6 +17,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 
 /**
@@ -62,6 +65,19 @@ public class Question implements Serializable {
 
   public Question() {
   }
+
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "idEntity", cascade = CascadeType.ALL)
+  @Filter(name="category", condition = "category=2")
+  private Set<Image> images;
+
+  public Set<Image> getImages() {
+    return images;
+  }
+
+  public void setImages(Set<Image> images) {
+    this.images = images;
+  }
+
 
   /*
   public Answer getAnswerId() {

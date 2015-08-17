@@ -90,7 +90,6 @@
                   </div>
                 </div>
 
-
               </div>
             </div>
           </div>
@@ -112,9 +111,11 @@
 
 
   <script th:inline="javascript">
-    $('.textarea').wysihtml5({
-      html:true
+    /*<![CDATA[*/
+    $('#summary').wysihtml5({
+      html:true, stylesheets: /*[[@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.min.css}]]*/
     });
+    /*]]>*/
   </script>
 
   <script th:inline="javascript">

@@ -144,6 +144,7 @@ public class AdminService {
    return archiveRepository.findAll(pageRequest);
   }
 
+  @Transactional
   public void deleteQuestion(Question q) {
     em.remove(em.contains(q) ? q :em.merge(q));
   }
@@ -179,10 +180,6 @@ public class AdminService {
     em.remove(em.contains(c) ? c :em.merge(c));
   }
 
-  @Transactional
-  public void uploadFile(Image uploadImage){
-    em.persist(uploadImage);
-  }
 
   public List<CategoryPost> getAllCategoriesPost(){
     return categoryPostRepository.findAll();

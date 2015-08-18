@@ -97,7 +97,14 @@ public class AdminController {
     dir += "\\resources\\images\\blog\\";
 
     if (!bindingResult.hasErrors()) {
-      Post p = adminService.addArticle(post);
+      Post p = null;
+      try {
+        p = adminService.addArticle(post);
+      }catch(Exception e){
+        System.out.println("ERROR!!!! adminService.addArticle");
+        e.printStackTrace();
+      }
+
 
       Map<String, MultipartFile> fileMap = request.getFileMap();
 

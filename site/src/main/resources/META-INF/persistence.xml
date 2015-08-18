@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
-  <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <class>com.hvost.blog.Post</class>
-    <class>com.hvost.blog.CategoryPost</class>
-    <class>com.hvost.activepeople.Question</class>
-    <class>com.hvost.activepeople.CategoryQuestion</class>
-    <class>com.hvost.activepeople.Answer</class>
-    <class>com.hvost.archive.Archive</class>
-    <class>com.hvost.startpage.Carousel</class>
-    <class>com.hvost.images.Image</class>
-    <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="validate" />
-      <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
-      <property name="hibernate.connection.charSet" value="UTF-8"/>
-        <property name="hibernate.connection.useUnicode" value="true"/>
-        <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
-        <property name="hibernate.encoding" value="UTF-8"/>
-        <property name="hibernate.show_sql" value="false"/>
-        <property name="hibernate.format_sql" value="true"/>
-        <property name="hibernate.search.default.directory-provider" value="filesystem"/>
-        <!--<property name="hibernate.search.default.indexBase" value="/home/bochdm/var/lucene/indexes"/>-->
-        <!--<property name="hibernate.search.default.indexBase" value="/var/lucene/indexes"/>-->
-        <property name="hibernate.search.default.indexBase" value="${env.OPENSHIFT_DATA_DIR}"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.hvost.blog.Post</class>
+        <class>com.hvost.blog.CategoryPost</class>
+        <class>com.hvost.activepeople.Question</class>
+        <class>com.hvost.activepeople.CategoryQuestion</class>
+        <class>com.hvost.activepeople.Answer</class>
+        <class>com.hvost.archive.Archive</class>
+        <class>com.hvost.startpage.Carousel</class>
+        <class>com.hvost.images.Image</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+            <property name="hibernate.connection.useUnicode" value="true"/>
+            <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
+            <property name="hibernate.encoding" value="UTF-8"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.search.default.directory-provider" value="filesystem"/>
+            <!--<property name="hibernate.search.default.indexBase" value="/home/bochdm/var/lucene/indexes"/>-->
+            <property name="hibernate.search.default.indexBase" value="/var/lucene/indexes"/>
+            <!--<property name="hibernate.search.default.indexBase" value="${env.OPENSHIFT_DATA_DIR}"/>-->
+        </properties>
+    </persistence-unit>
+
+
 </persistence>

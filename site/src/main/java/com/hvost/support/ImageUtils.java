@@ -37,14 +37,13 @@ public class ImageUtils {
     return imageInfo;
   }
 
-  public static void saveFileToLocalDisk(MultipartFile file, Image imageInfo){
+  public static void saveFileToLocalDisk(MultipartFile file, Image imageInfo, FolderPath folder ){
     try {
-      StringBuilder path = new StringBuilder(System.getProperty("catalina.home"));
+      StringBuilder path = new StringBuilder(System.getProperty("image.path", ""));
       path.append(File.separator)
-          .append(System.getProperty("image.path"))
           .append("images")
           .append(File.separator)
-          .append("activepeople")
+          .append(folder.toString().toLowerCase())
           .append(File.separator);
           //.append(imageInfo.getName());
 //      File imagesDir = new File(rootPath + File.separator + "domain" + File.separator + "tkhostov.com" + File.separator + "images" + File.separator + "blog");

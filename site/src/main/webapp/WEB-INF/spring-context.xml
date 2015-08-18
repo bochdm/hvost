@@ -27,6 +27,7 @@
     <jpa:repositories base-package="com.hvost"/>
 
     <task:annotation-driven/>
+    <context:annotation-config/>
 
 <!--    <context:property-placeholder />-->
 
@@ -92,27 +93,27 @@
   </mvc:interceptors>
 
     <!--hosting-->
-<!--  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://mysql1001.mochahost.com:3306/bochdm_tkhostov?characterEncoding=UTF-8&amp;autoReconnect=true"/>
-    <property name="username" value="bochdm_main"/>
-&lt;!&ndash;      <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8&amp;autoReconnect=true"/>
-      <property name="username" value="root"/>&ndash;&gt;
-      <property name="password" value="together14"/>
+<!--    <property name="url" value="jdbc:mysql://mysql1001.mochahost.com:3306/bochdm_tkhostov?characterEncoding=UTF-8&amp;autoReconnect=true"/>
+    <property name="username" value="bochdm_main"/>-->
+      <property name="url" value="jdbc:mysql://localhost:3306/dbhvost?characterEncoding=UTF-8&amp;autoReconnect=true"/>
+      <property name="username" value="root"/>
+      <property name="password" value=""/>
     <property name="testOnBorrow" value="true"/>
     <property name="validationQuery" value="select 1"/>
-  </bean>-->
+  </bean>
 
     <!--OPENSHIFT-->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
+<!--    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <!--<property name="url" value="jdbc:mysql://${OPENSHIFT_DB_HOST}:${OPENSHIFT_DB_PORT}/${OPENSHIFT_APP_NAME}?characterEncoding=UTF-8&amp;autoReconnect=true"/>-->
+        &lt;!&ndash;<property name="url" value="jdbc:mysql://${OPENSHIFT_DB_HOST}:${OPENSHIFT_DB_PORT}/${OPENSHIFT_APP_NAME}?characterEncoding=UTF-8&amp;autoReconnect=true"/>&ndash;&gt;
         <property name="url" value="jdbc:mysql://127.11.61.2:3306/visitka?characterEncoding=UTF-8&amp;autoReconnect=true"/>
         <property name="username" value="adminkSt5kTW"/>
         <property name="password" value="UikUlvpRAQrm"/>
         <property name="testOnBorrow" value="true"/>
         <property name="validationQuery" value="select 1"/>
-    </bean>
+    </bean>-->
 
 
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
@@ -124,6 +125,9 @@
   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" >
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
   </bean>
+
+    <!-- Spring JPA support -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
     <context:property-placeholder location="classpath*:twitter.properties"/>
 

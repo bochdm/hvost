@@ -38,7 +38,7 @@ public class AdminService {
 
   private int size = 25;
 
-  @PersistenceContext()
+  @PersistenceContext(unitName = "persistenceUnit")
   EntityManager em;
 
   @Autowired

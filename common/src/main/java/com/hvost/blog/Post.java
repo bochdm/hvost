@@ -22,6 +22,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@EntityListeners(SummaryListener.class)
 @Table(name = "POST")
 @Indexed
 @AnalyzerDef(name = "ru",
@@ -58,7 +59,8 @@ public class Post implements Serializable {
   @Column
   private Date createdAt;
 
-  @Column(length = 350)
+  //@Column(length = 350)
+  @Column
   @Field
   @Analyzer(definition = "ru")
   private String summary;

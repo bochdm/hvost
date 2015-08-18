@@ -6,6 +6,7 @@ import com.hvost.activepeople.support.ActivePeopleService;
 import com.hvost.activepeople.EmailService;
 import com.hvost.images.Image;
 import com.hvost.images.support.ImageService;
+import com.hvost.support.FolderPath;
 import com.hvost.support.ImageUtils;
 import com.hvost.support.PaginationInfo;
 import com.hvost.support.navigation.Navigation;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.Folder;
 import javax.validation.Valid;
 import java.io.File;
 import java.util.List;
@@ -114,7 +116,7 @@ public class ActivePeopleController {
     for (MultipartFile multipartFile : fileMap.values()){
       Image imageInfo = ImageUtils.getUploadImageInfo(multipartFile, newQuestion);
       imageService.uploadFileInfo(imageInfo);
-      ImageUtils.saveFileToLocalDisk(multipartFile, imageInfo);
+      ImageUtils.saveFileToLocalDisk(multipartFile, imageInfo, FolderPath.ACTIVEPEOPLE);
 
     }
 

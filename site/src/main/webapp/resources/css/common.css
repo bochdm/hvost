@@ -21,10 +21,46 @@
 }
 
 .vcenter {
-    display: table-cell;
-    vertical-align: middle!important;
-    float: none;
+/*
+    display: flex;
+    align-items: center;
+*/
+
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
 }
+
+.row-xs-flex-center {
+  display:flex;
+  align-items:center;
+}
+@media ( min-width:768px ) {
+  .row-sm-flex-center {
+    display:flex;
+    align-items:center;
+  }
+}
+@media ( min-width: 992px ) {
+  .row-md-flex-center {
+    display:flex;
+    align-items:center;
+  }
+}
+@media ( min-width: 1200px ) {
+  .row-lg-flex-center {
+    display:flex;
+    align-items:center;
+  }
+}
+
+/*.vcenter > [class^="col-"],
+.vcenter > [class*=" col-"] {
+  display: flex;
+  align-items: center;     *//* Align the flex-items vertically *//*
+  justify-content: center; *//* Optional, to align inner flex-items
+                              horizontally within the column  *//*
+}*/
 
 .vertical-align {
     display: flex;

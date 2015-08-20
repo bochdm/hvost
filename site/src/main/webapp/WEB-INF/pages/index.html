@@ -4,6 +4,7 @@
       layout:decorator="layout">
 <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>START</title>
 </head>
 <body>
@@ -59,14 +60,14 @@
 
 <div id="main-content" >
 <div class="container">
-  <div class="row vertical-center">
-    <div class="col-sm-6">
+  <!--<div class="row vertical-center">-->
+  <div class="row">
+
+    <div class="col-xs-6 col-md-6 col-lg-6 vcenter">
       <p class="lead text-center" th:utext="#{main.site.about}"/>
-    </div>
-    <div class="col-sm-6">
-<!--      <h3 class="lead text-center">Здравствуйте!</h3>
-      <p th:text="#{main.site.hello}"/>-->
-      <h4 class="text-center">Приветствую вас на своем официальном сайте!</h4>
+    </div><!--
+--><div class="col-xs-6 col-md-6 col-lg-6 vcenter">
+      <h4 class="text-center">Приветствую Вас на своем официальном сайте!</h4>
       <blockquote>
         <p class="text-justify small" th:utext="#{main.site.hello}"/>
         <small>
@@ -74,6 +75,8 @@
         </small>
       </blockquote>
     </div>
+
+
   </div>
 
   <div class="row">

@@ -14,21 +14,35 @@
 
 <main layout:fragment="content">
 <div id="main" role="main">
-  <div class="carousel-blur flexslider" id="carousel-example-1">
+  <div class="carousel-image flexslider" id="carousel-example-1">
     <ul class="slides">
     <li class="item" th:each="crsl : ${carousel}">
+    <!--<li class="item" th:each="crsl : ${carousel}">-->
       <div class="container">
-        <div class="row">
-          <div class="col-lg-12 animate">
-            <div th:utext="${crsl.content}"/>
-          <!--  <h1 class="big fadeInUp animated" th:text="#{main.carusel.active}"/>
 
-            <p class="normal fadeInUp animated" th:text="#{main.carusel.active.about}"/>
-            <a class="btn btn-contrast btn-lg fadeInRight animated" th:href="@{/activepeople}" th:text="#{button.read}" />-->
+        <div class='row pos-rel'>
+          <div class='col-sm-12 col-md-8 animate'>
+            <h1 class='big fadeInDownBig animated'>Первое сентября</h1>
+            <p class='normal fadeInUpBig animated'>Лицей №369</p>
+            <div class='fadeInUpBig animated'/>
+            <a class='btn btn-bordered btn-white btn-lg fadeInUpBig animated' th:href="@{http://xn--369-qddohl3g.xn--p1ai/}">
+              Перейти
+            </a>
+          </div>
+          <div class='col-sm-4 animate pos-sta hidden-xs hidden-sm'>
+            <img class="img-responsive fadeInUpBig animated" style="position:absolute;bottom:0;right:15px;" alt="iPhone" width="436" height="370" th:src="@{/resources/img/demo/carousels/autumn.png}" />
           </div>
         </div>
+
+
+ <!--       <div class="row">
+          <div class="col-lg-12 animate">
+            <div th:utext="${crsl.content}"/>
+          </div>
+        </div>-->
       </div>
     </li>
+
     <!--<li class="item">
       <div class="container">
         <div class="row">

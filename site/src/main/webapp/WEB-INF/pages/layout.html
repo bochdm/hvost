@@ -38,9 +38,10 @@
   <link th:href="@{/resources/img/meta_icons/apple-touch-icon-152x152.png}" rel="apple-touch-icon-precomposed"
         sizes="144x144"/>
   <!-- / required stylesheets -->
-<!--
+
+
   <link th:href="@{/resources/css/bootstrap/bootstrap.css}" media="all" rel="stylesheet" type="text/css"/>
--->
+
   <link th:href="@{/resources/css/bootstrap/bootstrap.jednotka.css}" media="all" rel="stylesheet" type="text/css"/>
 
   <link th:href="@{/resources/css/jednotka_blue.css}" media="all" rel="stylesheet" type="text/css"/>
@@ -71,7 +72,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" th:href="@{/}">
+          <a class="navbar-brand" th:href="@{http://www.onf.ru}">
             <img alt="Единая Россия" height="85" th:src="@{/resources/img/Onf-logo.svg}"/>
           </a>
         </div>
@@ -89,22 +90,11 @@
               </a>
             </li>
 
-            <li th:class="${beans.uih.navClass(navSection?:'','projects')}" class="dropdown">
-              <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
-                    <span th:text="#{menu.projects}">Проекты
-                      <i class="fa-icon-angle-down"></i>
-                    </span>
+            <li th:class="${beans.uih.navClass(navSection?:'','straightline')}">
+              <a class="dropdown-toggle" th:href="@{/video/archive}">
+                    <span th:text="#{menu.videoline}">Прямая линия</span>
               </a>
-              <ul class='dropdown-menu' role='menu'>
-                <li >
-                  <a th:href="@{http://xn--369-qddohl3g.xn--p1ai/}" target="_blank">Лицей 369</a>
-                </li>
-                <li>
-                  <a th:href="@{http://www.onfspb.ru/}" target="_blank">ОНФ. Санкт-Петербург</a>
-                </li>
-              </ul>
             </li>
-
             <li th:class="${beans.uih.navClass(navSection?:'','activepeople')}">
               <a class="dropdown-toggle" th:href="@{/activepeople}">
                     <span th:text="#{menu.society}">Активный гражданин
@@ -139,7 +129,7 @@
                     </span>
               </a>
             </li>
-            <li class="dropdown" th:class="${beans.uih.navClass(navSection?:'', 'archive')}">
+<!--            <li class="dropdown" th:class="${beans.uih.navClass(navSection?:'', 'archive')}">
               <a class="dropdown-toggle" data-delay="50" data-hover="dropdown" data-toggle="dropdown" href="">
                     <span th:text="#{menu.video}">Видео
                       <i class="fa-icon-angle-down"></i>
@@ -153,7 +143,7 @@
                   <a th:href="@{/video/archive}">Архив</a>
                 </li>
               </ul>
-            </li>
+            </li>-->
             <li  th:class="${beans.uih.navClass(navSection?:'','contacts')}">
               <a class="dropdown-toggle" th:href="@{/contacts}">
                     <span th:text="#{menu.contacts}">

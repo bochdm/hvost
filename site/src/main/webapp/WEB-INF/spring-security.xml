@@ -9,7 +9,8 @@
 
 <http auto-config="true">
     <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
-    <form-login login-page="/login.html" default-target-url="/pages/index"
+    <!--<form-login login-page="/login.html" default-target-url="/pages/index"-->
+    <form-login login-page="/login.html" always-use-default-target="true" default-target-url="/admin/unanswered"
                 authentication-failure-url="/login-error.html"/>
     <logout logout-url="/logout" />
 </http>

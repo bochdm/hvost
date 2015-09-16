@@ -23,11 +23,23 @@
   <div class="row row-centered">
     <div class="col-md-10 col-centered" role="main">
       <form th:with="create=1" th:action="@{/admin/startpage/addcarousel}" th:object="${carousel}" method="post">
+        <div class="form-group">
+          <label for="title" th:text="Заголовок"/>
+          <input id="title" th:field="*{title}" maxlength="50" placeholder="Заголовок"/>
+          <label class="radio-inline"><input type="radio" name="titleClassAnimate"/></label>
+          <label class="radio-inline"><input type="radio" name="titleClassAnimate"/></label>
+          <label class="radio-inline"><input type="radio" name="titleClassAnimate"/></label>
+        </div>
 
         <div class="form-group">
           <label for="summary" th:text="Текст"/>
           <textarea id="summary" class="textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."
                     th:field="*{content}" style="width: 810px; height: 250px" maxlength="350"/>
+        </div>
+
+        <div class="form-group">
+          <label for="link" th:text="Ссылка"/>
+          <input id="link" th:field="*{link}" maxlength="50" placeholder="Заголовок"/>
         </div>
 
         <button type="submit" class="btn btn-default">Submit</button>

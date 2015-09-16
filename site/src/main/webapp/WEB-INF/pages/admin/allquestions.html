@@ -75,12 +75,12 @@
         </div>
 
         <div class="modal-footer">
-          <div class="btn-toolbar" role="toolbar" aria-label="...">
+          <div class="btn-group pull-right" role="toolbar" aria-label="...">
             <a class="btn btn-success btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/publish'}"   th:text="Опубликовать"        th:if="${answer.isPublic == false}" />
             <a class="btn btn-success btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/unpublish'}" th:text="Отменить_публикацию" th:if="${answer.isPublic == true}"  />
             <a class="btn btn-primary btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/edit'}"      th:text="Редактировать"/>
             <a class="btn btn-danger  btn-sm" th:href="@{'/admin/answer/'+${answer.id}+'/delete'}"    th:text="Удалить"/>
-           </div>
+          </div>
         </div>
 
       </div>

@@ -29,9 +29,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @Controller
 @RequestMapping("/video/archive")
-@Navigation(Section.ARCHIVE)
+@Navigation(Section.STRAIGHTLINE)
 public class ArchiveController {
-
 
   @Autowired
   private ArchiveService archiveService;

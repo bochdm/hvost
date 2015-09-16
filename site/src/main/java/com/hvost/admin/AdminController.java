@@ -15,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -24,8 +23,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -290,7 +290,7 @@ public class AdminController {
     Answer answer = adminService.getAnswer(id);
     System.out.println("AdminController:showAnswer = " + answer);
     model.addAttribute("answer", answer);
-    return "redirect:/admin/allquestions";
+    return "redirect:/admin/allanswers";
   }
 
   @RequestMapping(value = "/answer/{id:[0-9]+}/edit", method = {RequestMethod.POST})
@@ -303,27 +303,39 @@ public class AdminController {
       adminService.updateAnswer(ans);
     }
 
-    return "redirect:/admin/allquestions";
+    return "redirect:/admin/allanswers";
+  }
+
+  @RequestMapping(value = "/answer/{id:[0-9]+}/delete", method = {RequestMethod.GET})
+  public String deleteAnswer(@PathVariable Long id, Model model){
+
+    Answer answer = adminService.getAnswer(id);
+    adminService.deleteAnswer(answer);
+
+    return "redirect:/admin/allanswers";
   }
 
   @RequestMapping(value = "/answer/{id:[0-9]+}/publish", method = {RequestMethod.GET})
   public String publishAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
     Answer ans = adminService.getAnswer(id);
+    System.out.println( "publishAnswer ->" + ans);
+
     if (!bindingResult.hasErrors()) {
       ans.setIsPublic(true);
       adminService.updateAnswer(ans);
     }
-    return "redirect:/admin/allquestions";
+    return "redirect:/admin/allanswers";
   }
 
   @RequestMapping(value = "/answer/{id:[0-9]+}/unpublish", method = {RequestMethod.GET})
   public String unPublishAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
     Answer ans = adminService.getAnswer(id);
+    System.out.println( "unPublishAnswer ->" + ans);
     if (!bindingResult.hasErrors()) {
       ans.setIsPublic(false);
       adminService.updateAnswer(ans);
     }
-    return "redirect:/admin/allquestions";
+    return "redirect:/admin/allanswers";
   }
 
   @RequestMapping(value = "/blog/post/{id:[0-9]+}/edit", method = {RequestMethod.GET})
@@ -430,7 +442,7 @@ public class AdminController {
   }
 
   @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/edit", method = {RequestMethod.POST})
-  public String editCarousel(@PathVariable Long id,@ModelAttribute @Valid Carousel archive, BindingResult bindingResult, Model model) {
+  public String editCarousel(@PathVariable Long id, @ModelAttribute @Valid Carousel archive, BindingResult bindingResult, Model model) {
     Carousel carousel = adminService.getCarousel(id);
     System.out.println("edit carousel post ->" + carousel);
     if (!bindingResult.hasErrors()){
@@ -446,5 +458,26 @@ public class AdminController {
     Carousel carousel = adminService.getCarousel(id);
     adminService.deleteCarousel(carousel);
     return "redirect:/admin/startpage/allcarousel";
+  }
+
+  @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/changeshow", method = {RequestMethod.POST})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public String changeShowCarousel(@PathVariable Long id, @ModelAttribute @Valid Carousel carousel, HttpSession session){
+    System.out.println("changeShowCarousel");
+//    System.out.println("id = " + id);
+    Carousel c = adminService.getCarousel(id);
+    System.out.println("before " + c);
+    if (carousel != null) {
+//      c.setShow(carousel.getShow() ? false : true);
+      c.setActive(carousel.getActive());
+      adminService.updateCarousel(c);
+      System.out.println("after " + c);
+      return "ok";
+    }
+
+    return "error";
+ //   return new ResponseEntity<Object>(carousel, HttpStatus.OK);
+
   }
 }

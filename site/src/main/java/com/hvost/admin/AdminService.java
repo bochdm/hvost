@@ -145,6 +145,11 @@ public class AdminService {
   }
 
   @Transactional
+  public void deleteAnswer(Answer answer){
+    em.remove((em.contains(answer) ? answer : em.merge(answer)));
+  }
+
+  @Transactional
   public void deleteQuestion(Question q) {
     em.remove(em.contains(q) ? q :em.merge(q));
   }

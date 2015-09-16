@@ -15,9 +15,9 @@ public class SummaryListener {
   @PreUpdate
   @PrePersist
   void prePersist(Post p){
-    System.out.println("before getSummary -> "+p.getSummary());
-    p.setSummary(p.getSummary().substring(0, 499));
-    System.out.println("after getSummary -> " + p.getSummary());
-
+    String summary = p.getSummary();
+    if (summary.length() > 500) {
+      p.setSummary(summary.substring(0, 499));
+    }
   }
 }

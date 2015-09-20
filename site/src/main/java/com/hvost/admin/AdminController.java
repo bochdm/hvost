@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,6 +83,25 @@ public class AdminController {
     model.addAttribute("post_count", result.getTotalElements());
 
     return renderLists(result, model);
+  }
+
+  @RequestMapping(value = "/blog/allarticles1", method = RequestMethod.GET)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<Post> allArticleTest(){
+    PageRequest pageNum = new PageRequest(1-1, 10, Sort.Direction.DESC, "createdAt");
+    Page<Post> result = adminService.getAllPosts(pageNum);
+
+    List<Post> posts = result.getContent();
+
+    List<String> res = new ArrayList<String>();
+
+    for (Post p: posts){
+      res.add(p.getTitle());
+    }
+
+    return posts;
+
   }
 
   @RequestMapping(value="/blog/addarticle", method = RequestMethod.POST)
@@ -417,6 +437,21 @@ public class AdminController {
 
   @RequestMapping(value= "/startpage/newcarousel", method = RequestMethod.GET)
   public String newCarousel(Model model){
+    Map<String, String> animateClasses = new HashMap<String, String>();
+
+    animateClasses.put("fadeInLeftBig", "fadeInLeftBig");
+    animateClasses.put("fadeInRightBig", "fadeInRightBig");
+    animateClasses.put("fadeInUpBig", "fadeInUpBig");
+    animateClasses.put("fadeInDownBig", "fadeInDownBig");
+
+    model.addAttribute("animateClasses", animateClasses);
+
+    List<String> linkTypes = new ArrayList<String>();
+    linkTypes.add("Внешняя ссылка");
+    linkTypes.add("Статья");
+    linkTypes.add("Прямая линия");
+
+    model.addAttribute("linkTypes", linkTypes);
 
     model.addAttribute("carousel", new Carousel());
 
@@ -436,8 +471,10 @@ public class AdminController {
 
   @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/edit", method = {RequestMethod.GET})
   public String findCarousel(@PathVariable Long id, Model model){
+
     Carousel carousel = adminService.getCarousel(id);
     model.addAttribute("carousel", carousel);
+
     return "admin/startpage/editcarousel";
   }
 

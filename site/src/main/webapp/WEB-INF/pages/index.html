@@ -21,20 +21,23 @@
       <div class="container">
 
 
-        <div class='row'>
+      <!--  <div class='row'>
           <div class='col-sm-12 col-md-8 animate'>
             <h1 class='fadeInDownBig animated' style='font-size:46px; color:white; line-height:60px;'>Новые стандарты в новом учебном году</h1>
             <blockquote class='blockquote-reverse fadeInUpBig animated'><p style="color:white; font-size:21px; line-height:38px; font-style:italic">"...Мы вошли в череду очень интересных событий. Каждый последующий год будет сильно отличаться от года предыдущего введением новых федеральных государственных образовательных стандартов для следующей параллели детей..."</p>
               </blockquote>
           </div>
           <a class='btn btn-bordered btn-white btn-lg fadeInUpBig animated'>Читать</a>
-</div>
-
-        <!--<div class="row">
-          <div class="col-lg-12 animate">
-            <div th:utext="${crsl.content}"/>
-          </div>
         </div>-->
+
+
+        <div class="row" >
+          <div class="col-sm-12 animate">
+            <h1 th:utext="${crsl.title}" class="animated" style="font-size:46px;color:white;" th:classappend="${crsl.titleClass}"/>
+            <p th:utext="${crsl.content}" class="animated" style="font-size:21px; color:white;" th:classappend="${crsl.contentClass}"/>
+          </div>
+          <a class="btn btn-bordered btn-white btn-lg animated">Читать</a>
+        </div>
 
 
       </div>
@@ -312,7 +315,7 @@
     var timer = setInterval(function (){
       console.log("ajax setInterval");
       $.ajax({
-        type: "GET",
+        type: 'GET',
         url:'tweets',
 //        dataType: 'text',
         beforeSend: function(){

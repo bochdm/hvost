@@ -20,4 +20,8 @@ public class CarouselService {
   public List<Carousel> getAll(){
     return carouselRepository.findAll();
   }
+
+  public List<Carousel> getVisible(){
+    return carouselRepository.findByActive();
+  }
 }

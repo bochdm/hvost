@@ -9,6 +9,8 @@
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap/font-awesome.min.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/select2/select2.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/select2/select2-bootstrap.css}"/>
 
 </head>
 <body>
@@ -21,15 +23,94 @@
   </div>
 
   <div class="row row-centered">
-    <div class="col-md-10 col-centered" role="main">
-      <form th:with="create=1" th:action="@{/admin/startpage/addcarousel}" th:object="${carousel}" method="post">
-        <div class="form-group">
-          <label for="title" th:text="Заголовок"/>
-          <input id="title" th:field="*{title}" maxlength="50" placeholder="Заголовок"/>
-          <label class="radio-inline"><input type="radio" name="titleClassAnimate"/></label>
-          <label class="radio-inline"><input type="radio" name="titleClassAnimate"/></label>
-          <label class="radio-inline"><input type="radio" name="titleClassAnimate"/></label>
+    <div class="col-md-12 col-centered" role="main">
+      <form th:with="create=1" th:action="@{/admin/startpage/addcarousel}" th:object="${carousel}" method="post" class="form-horizontal form-label-left">
+
+        <div class="col-md-6 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Заголовок<small>different form elements</small></h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <br />
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Заголовок <span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" id="title" required="required" th:field="*{title}" class="form-control col-md-7 col-xs-12" placeholder="Заголовок"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="titleAnimate" class="control-label col-md-3 col-sm-3 col-xs-12">Select</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <select class="form-control" id="titleAnimate" th:field="*{titleClass}">
+                    <option th:each="animate : ${animateClasses.entrySet()}"
+                            th:value="${animate.key}"
+                            th:text="${animate.value}"/>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
+
+
+        <div class="col-md-6 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Основной текст <small>different form elements</small></h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <br />
+              <div class="form-group">
+                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="content">Текст <span class="required">*</span></label>
+                <div class="col-md-9 col-xs-12">
+                  <textarea type="text" id="content" required="required" th:field="*{content}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contentAnimate" class="control-label col-md-2 col-sm-2 col-xs-12">Select</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <select class="form-control" id="contentAnimate" th:field="*{titleClass}">
+                    <option th:each="animate : ${animateClasses.entrySet()}"
+                            th:value="${animate.key}"
+                            th:text="${animate.value}"/>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Ссылка</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <br/>
+              <div class="form-group">
+                <label class="control-label col-md-1 col-sm1 col-xs-12" for="linkType">Ссылка</label>
+                <div class="col-md-4 col-xs-12">
+                    <select class="form-control" id="linkType" th:field="*{contentClass}">
+                      <option th:each="linkType : ${linkTypes}"
+                              th:value="${linkType}"
+                              th:text="${linkType}"/>
+                    </select>
+                </div>
+                <div id="test" class="col-md-4 col-xs-12"/>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        
 
         <div class="form-group">
           <label for="summary" th:text="Текст"/>
@@ -38,9 +119,43 @@
         </div>
 
         <div class="form-group">
+          <label for="contentAnimate">Анимация заголовка</label>
+          <div class="dropdown">
+            <select id="contentAnimate" th:field="*{contentClass}">
+              <option th:each="animate : ${animateClasses.entrySet()}"
+                      th:value="${animate.key}"
+                      th:text="${animate.value}"/>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="link" th:text="Ссылка"/>
           <input id="link" th:field="*{link}" maxlength="50" placeholder="Заголовок"/>
         </div>
+
+        <div class="form-group">
+          <label for="contentAnimate">Анимация заголовка</label>
+          <div class="dropdown">
+            <select id="linkType" th:field="*{contentClass}">
+              <option th:each="linkType : ${linkTypes}"
+                      th:value="${linkType}"
+                      th:text="${linkType}"/>
+            </select>
+          </div>
+        </div>
+
+        <div id="testtest" class="form-group">
+          <label for="article">Анимация заголовка</label>
+          <div class="dropdown">
+            <select id="article" th:field="*{contentClass}">
+              <option th:each="linkType : ${linkTypes}"
+                      th:value="${linkType}"
+                      th:text="${linkType}"/>
+            </select>
+          </div>
+        </div>
+
 
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -53,6 +168,11 @@
 
   <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}"></script>
   <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.js}"></script>
+  <script th:src="@{/resources/js/select2/select2.min.js}"></script>
+
+  <script th:inline="javascript">
+    $(".select2_single").select2();
+  </script>
 
   <script th:inline="javascript">
     /*<![CDATA[*/
@@ -61,6 +181,46 @@
     });
     /*]]>*/
   </script>
+
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#linkType').change( function(eventObject){
+      $.ajax({
+        type: 'GET',
+        url: /*[[@{/admin/blog/allarticles1}]]*/,
+        headers:{
+          Accept: "application/json; charset=utf-8",
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        beforeSend: function(){
+          $('#test').html('<p class="text-center"><img th:src="@{/resources/img/ajax-loader.gif}"/></p>');
+        },
+        success: function(data){
+          console.log("data -> " + data);
+
+          var result = "<select class='select2_single form-control' tabindex='-1'>";
+          for (var i = 0; i < data.length; i++){
+            result += "<option value='" + data[i].title + "'>" + data[i].title + "</option>"
+            console.log(data[i].title);
+          }
+          result += "</select>"
+      //    var obj = JSON.parse(data);
+          $('#test').html(result);
+
+          $(".select2_single").select2({
+            placeholder: "Select a state",
+            allowClear: true
+          });
+
+        }
+      });
+//      console.log(eventObject);
+
+    });
+
+    /*]]>*/
+  </script>
+
 </th:block>
 
 </body>

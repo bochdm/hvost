@@ -39,7 +39,6 @@
           <label for="categoryPost">Выберите категорию</label>
           <div class="dropdown">
             <select id="categoryPost" name="categoryPost" th:field="*{categoryPost}">
-
               <option th:each="category : ${postcategories}"
                       th:value="${category.id}"
                       th:text="${category.name}">Category</option>

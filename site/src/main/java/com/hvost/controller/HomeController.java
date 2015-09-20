@@ -79,7 +79,7 @@ public class HomeController {
   @RequestMapping(method = RequestMethod.GET)
   public String startPage(Model model, HttpSession session) {
 
-    model.addAttribute("carousel", carouselService.getAll());
+    model.addAttribute("carousel", carouselService.getVisible());
     model.addAttribute("newest_posts", postService.getNewPosts());
 
     Page<Answer> lap = activePeopleService.getLatestPublished();

@@ -20,20 +20,20 @@
         <table class='table table-striped'>
           <thead>
             <tr>
+              <th th:text="Заголовок"/>
               <th th:text="Текст"/>
-              <!--              <th th:text="Картинка"/>-->
               <th th:text="Показывать"/>
               <th th:text="Действия"/>
             </tr>
           </thead>
           <tbody>
             <tr th:each="crsl : ${carousel}">
-              <td class="col-md-3">
+              <td class="col-md-2">
+                <small th:text="${crsl.title}"/>
+              </td>
+              <td class="col-md-4">
                 <small th:text="${crsl.content}"/>
               </td>
-              <!--              <td class="col-md-3">
-                              <small th:text="${crsl.image}"/>
-                        </td>-->
               <td class="col-md-1">
                 <input th:name="${crsl.id}" type="checkbox" th:checked="${crsl.active}" />
               </td>

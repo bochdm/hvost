@@ -107,10 +107,14 @@ public class AdminController {
 
   }
 
-  @RequestMapping(value = "/blog/findarticles", method = RequestMethod.GET)
+  @RequestMapping(value = "/blog/search", method = RequestMethod.POST)
+//  @RequestMapping(value = "/blog/search", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public List<Post> remoteFindArticleAjax(@RequestParam String q){
+//  public List<Post> remoteFindArticleAjax(@RequestBody String q){
+
+    System.out.println("remoteFindArticleAjax -> " + q);
 
     List<Post> result = postService.getPostBySearch(q, 1);
 

@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap/font-awesome.min.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5.css}"/>
-  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/select2/select2.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/select2/select2.min.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/select2/select2-bootstrap.css}"/>
 
 </head>
@@ -103,14 +103,22 @@
                               th:value="${linkType}"
                               th:text="${linkType}"/>
                     </select>
+
                 </div>
+
+                <div class="col-md-4 col-xs-12">
+                  <select class="form-control js-data-example-ajax">
+                    <option value="3620194" selected="selected">select2/select2</option>
+                  </select>
+                </div>
+
                 <div id="test" class="col-md-4 col-xs-12"/>
               </div>
 
             </div>
           </div>
         </div>
-        
+
 
         <div class="form-group">
           <label for="summary" th:text="Текст"/>
@@ -118,32 +126,12 @@
                     th:field="*{content}" style="width: 810px; height: 250px" maxlength="350"/>
         </div>
 
-        <div class="form-group">
-          <label for="contentAnimate">Анимация заголовка</label>
-          <div class="dropdown">
-            <select id="contentAnimate" th:field="*{contentClass}">
-              <option th:each="animate : ${animateClasses.entrySet()}"
-                      th:value="${animate.key}"
-                      th:text="${animate.value}"/>
-            </select>
-          </div>
-        </div>
 
         <div class="form-group">
           <label for="link" th:text="Ссылка"/>
           <input id="link" th:field="*{link}" maxlength="50" placeholder="Заголовок"/>
         </div>
 
-        <div class="form-group">
-          <label for="contentAnimate">Анимация заголовка</label>
-          <div class="dropdown">
-            <select id="linkType" th:field="*{contentClass}">
-              <option th:each="linkType : ${linkTypes}"
-                      th:value="${linkType}"
-                      th:text="${linkType}"/>
-            </select>
-          </div>
-        </div>
 
         <div id="testtest" class="form-group">
           <label for="article">Анимация заголовка</label>
@@ -168,10 +156,84 @@
 
   <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}"></script>
   <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.js}"></script>
-  <script th:src="@{/resources/js/select2/select2.min.js}"></script>
+  <script th:src="@{/resources/js/select2/select2.full.js}"></script>
 
   <script th:inline="javascript">
-    $(".select2_single").select2();
+    /*<![CDATA[*/
+    function formatPost (post){
+      if (post.loading) return post.text;
+
+      var markup = '<div class="clearfix">' +
+              '<div class="col-sm-6">' + post.title + '</div>' +
+              '<div class="col-sm-6">' + post.summary + '</div>' +
+              '</div>';
+
+      console.log("markup = " + markup);
+      return markup;
+    }
+
+    function formatRepo (repo) {
+      if (repo.loading) return repo.text;
+
+      var markup = '<div class="clearfix">' +
+          '<div class="col-sm-1">' +
+          '<img src="' + repo.owner.avatar_url + '" style="max-width: 100%" />' +
+          '</div>' +
+          '<div clas="col-sm-10">' +
+          '<div class="clearfix">' +
+          '<div class="col-sm-6">' + repo.full_name + '</div>' +
+          '<div class="col-sm-3"><i class="fa fa-code-fork"></i> ' + repo.forks_count + '</div>' +
+          '<div class="col-sm-2"><i class="fa fa-star"></i> ' + repo.stargazers_count + '</div>' +
+          '</div>';
+
+      if (repo.description) {
+        markup += '<div>' + repo.description + '</div>';
+      }
+
+      markup += '</div></div>';
+
+      return markup;
+    }
+
+    function formatRepoSelection (repo) {
+      //        url: "https://api.github.com/search/repositories",
+//      url: /*[[@{/blog/search/remote}]]*/,
+      return repo.full_name || repo.text;
+    }
+
+
+    $(".js-data-example-ajax").select2({
+      ajax: {
+
+        type: 'POST',
+        url: /*[[@{/admin/blog/search}]]*/,
+
+/*        headers:{
+          Accept: "application/json; charset=utf-8",
+          "Content-Type": "application/json; charset=utf-8"
+        },*/
+//        contentType : 'application/json; charset=utf-8',
+        delay: 250,
+//        dataType: 'json',
+        data: function(param) {
+          return {
+            //search: JSON.stringify(param.term)
+            q: param.term
+          }
+        },
+        processResults: function (data) {
+          return {
+            results: data
+          };
+        },
+        cache: false
+      },
+      escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+      minimumInputLength: 1,
+      templateResult: formatPost // omitted for brevity, see the source of this page
+    //  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    });
+    /*]]>*/
   </script>
 
   <script th:inline="javascript">

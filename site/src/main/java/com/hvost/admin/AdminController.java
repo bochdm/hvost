@@ -5,6 +5,7 @@ import com.hvost.activepeople.Question;
 import com.hvost.archive.Archive;
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
+import com.hvost.blog.support.PostService;
 import com.hvost.images.Image;
 import com.hvost.images.support.ImageService;
 import com.hvost.startpage.Carousel;
@@ -48,6 +49,8 @@ public class AdminController {
 
   @Autowired
   private AdminService adminService;
+  @Autowired
+  private PostService postService;
 
   @Autowired
   private ImageService imageService;
@@ -102,6 +105,19 @@ public class AdminController {
 
     return posts;
 
+  }
+
+  @RequestMapping(value = "/blog/findarticles", method = RequestMethod.GET)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<Post> remoteFindArticleAjax(@RequestParam String q){
+
+    List<Post> result = postService.getPostBySearch(q, 1);
+
+    for (Post post : result) {
+      System.out.println("remoteFindArticleAjax -> " + post);
+    }
+    return result;
   }
 
   @RequestMapping(value="/blog/addarticle", method = RequestMethod.POST)

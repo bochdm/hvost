@@ -2,6 +2,7 @@ package com.hvost.startpage;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Created by kseniaselezneva on 04/08/15.
@@ -30,6 +31,9 @@ public class Carousel {
   @Column(name = "link")
   private String link;
 
+  @Column
+  private Date createdAt;
+
   @Column(name = "title_class")
   private String titleClass;
 
@@ -45,6 +49,14 @@ public class Carousel {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
   }
 
   public String getLink() {

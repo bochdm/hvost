@@ -163,7 +163,7 @@ public class AdminService {
   }
 
   public List<Carousel> getAllCarousel(){
-    return carouselRepository.findAll();
+    return carouselRepository.findAll(new Sort(Sort.Direction.DESC, "createdAt"));
   }
 
   public Carousel getCarousel(Long carouselID){

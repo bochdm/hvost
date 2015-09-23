@@ -3,11 +3,13 @@ package com.hvost.admin;
 import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.archive.Archive;
+import com.hvost.archive.support.ArchiveService;
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.blog.support.PostService;
 import com.hvost.images.Image;
 import com.hvost.images.support.ImageService;
+import com.hvost.search.SearchResult;
 import com.hvost.startpage.Carousel;
 import com.hvost.support.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +28,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,6 +51,9 @@ public class AdminController {
   private AdminService adminService;
   @Autowired
   private PostService postService;
+
+  @Autowired
+  private ArchiveService archiveService;
 
   @Autowired
   private ImageService imageService;
@@ -107,7 +110,23 @@ public class AdminController {
 
   }
 
-  @RequestMapping(value = "/blog/search", method = RequestMethod.POST)
+  @RequestMapping(value = "/lineOnLink/search", method = RequestMethod.POST)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<SearchResult> remoteFindArchiveAjax(@RequestParam String q){
+
+    System.out.println("remoteFindArchiveAjax -> " + q);
+
+
+    List<SearchResult> result = archiveService.getArchiveBySearch(q, 1);
+
+    for (SearchResult archive : result) {
+      System.out.println("remoteFindArticleAjax -> " + archive);
+    }
+    return result;
+  }
+
+  @RequestMapping(value = "/postsLink/search", method = RequestMethod.POST)
 //  @RequestMapping(value = "/blog/search", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -115,6 +134,7 @@ public class AdminController {
 //  public List<Post> remoteFindArticleAjax(@RequestBody String q){
 
     System.out.println("remoteFindArticleAjax -> " + q);
+
 
     List<Post> result = postService.getPostBySearch(q, 1);
 
@@ -466,10 +486,15 @@ public class AdminController {
 
     model.addAttribute("animateClasses", animateClasses);
 
-    List<String> linkTypes = new ArrayList<String>();
+/*    List<String> linkTypes = new ArrayList<String>();
     linkTypes.add("Внешняя ссылка");
     linkTypes.add("Статья");
-    linkTypes.add("Прямая линия");
+    linkTypes.add("Прямая линия");*/
+
+    Map<String, String> linkTypes = new HashMap<>();
+    linkTypes.put("extLink", "Внешняя ссылка");
+    linkTypes.put("postsLink", "Статья");
+    linkTypes.put("lineOnLink", "Прямая линия");
 
     model.addAttribute("linkTypes", linkTypes);
 
@@ -479,8 +504,41 @@ public class AdminController {
   }
 
   @RequestMapping(value = "/startpage/addcarousel", method = RequestMethod.POST)
-  public String addCarousel(@Valid Carousel carousel, BindingResult bindingResult, Model model){
+  public String addCarousel(@Valid Carousel carousel,
+                            BindingResult bindingResult,
+                            Model model,
+//                            @RequestParam String testCarousel,
+                            HttpServletRequest request){
+
+//    System.out.println("testCarousel -> " + testCarousel);
+    Map paramMap = request.getParameterMap();
+    Enumeration en = request.getParameterNames();
+
+    String contentClass = request.getParameter("contentClass");
+    System.out.println("contentClass -> " + contentClass);
+
+    while(en.hasMoreElements()){
+      String p = (String) en.nextElement();
+      System.out.println("param -> " + p);
+      System.out.println("value -> " + request.getParameter(p));
+    }
+    String resultLink = "";
+    switch (contentClass){
+      case "Внешняя ссылка":
+        break;
+      case "Статья":
+        long linkToPost = Long.parseLong(request.getParameter("linkToPost"));
+        System.out.println("linkToPost->" + linkToPost);
+        resultLink = "/blog/" + linkToPost;
+        break;
+      case "Прямая линия":
+        break;
+    }
+
+
+
     if (!bindingResult.hasErrors()){
+      carousel.setLink(resultLink);
       adminService.addCarousel(carousel);
     } else {
       List<ObjectError> errors = bindingResult.getAllErrors();

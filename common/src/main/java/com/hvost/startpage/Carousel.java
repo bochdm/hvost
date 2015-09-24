@@ -107,5 +107,18 @@ public class Carousel {
     this.content = content;
   }
 
-
+  @Override
+  public String toString() {
+    return "Carousel{" +
+        "id=" + id +
+        ", content='" + content + '\'' +
+        ", active=" + active +
+        ", title='" + title + '\'' +
+        ", link='" + link + '\'' +
+        ", createdAt=" + createdAt +
+        ", titleClass='" + titleClass + '\'' +
+        ", contentClass='" + contentClass + '\'' +
+        ", linkClass='" + linkClass + '\'' +
+        '}';
+  }
 }

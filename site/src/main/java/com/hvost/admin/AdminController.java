@@ -585,7 +585,8 @@ public class AdminController {
     System.out.println("before " + c);
     if (carousel != null) {
 //      c.setShow(carousel.getShow() ? false : true);
-      c.setActive(carousel.getActive());
+      System.out.println("carousel.getActive = " + carousel.getActive());
+      c.setActive(carousel.getActive()? false : true);
       adminService.updateCarousel(c);
       System.out.println("after " + c);
       return "ok";

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <title></title>
+</head>
+<body>
+<div layout:fragment="googlesearch">
+
+
+<div class="row">
+  <div class="carousel carousel-default slide carousel-auto" id="carouselForGoogle">
+    <div class="carousel-inner">
+      <div th:each="google,id : ${googleSearch}" class="item" th:classappend="${id.index == 0}? active" th:if="${googleSearch != null}">
+        <div class="col-sm-12 text-center">
+          <p class="lead" th:utext="${google.title}"/>
+          <p th:utext="${google.url}"/>
+        </div>
+      </div>
+
+    </div>
+    <ol class="carousel-indicators">
+      <li data-slide-to="0" data-target="#carouselForGoogle" class="active"></li>
+      <li data-slide-to="1" data-target="#carouselForGoogle"></li>
+      <li data-slide-to="2" data-target="#carouselForGoogle"></li>
+      <li data-slide-to="3" data-target="#carouselForGoogle"></li>
+    </ol>
+  </div>
+</div>
+</div>
+<th:block layout:fragment="script">
+  <script>
+    $('#carouselForGoogle').carousel({
+      interval:6000
+    });
+  </script>
+  </th:block>
+
+
+</body>
+</html>

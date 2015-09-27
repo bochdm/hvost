@@ -24,25 +24,28 @@
 
   <div class="row row-centered">
     <div class="col-md-12 col-centered" role="main">
-      <form th:with="create=1" th:action="@{/admin/startpage/addcarousel}" th:object="${carousel}" method="post" class="form-horizontal form-label-left">
+      <form id="new_carousel" name="new_carousel" th:with="create=1" th:action="@{/admin/startpage/addcarousel}" th:object="${carousel}" method="post" class="form-horizontal form-label-left">
 
         <div class="col-md-6 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Заголовок<small>different form elements</small></h2>
+              <h2>Заголовок<small></small></h2>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
               <br />
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Заголовок <span class="required">*</span></label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="title" required="required" th:field="*{title}" class="form-control col-md-7 col-xs-12" placeholder="Заголовок"/>
+                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="title">Заголовок <span class="required">*</span></label>
+                <div class="col-md-10 col-sm-10 col-xs-12">
+                  <!--<input type="text" id="title" required="required" th:field="*{title}" class="form-control col-md-7 col-xs-12" placeholder="Заголовок"/>-->
+                  <div class="col-md-12 col-xs-12">
+                    <textarea type="text" id="title" name="title" th:field="*{title}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                  </div>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="titleAnimate" class="control-label col-md-3 col-sm-3 col-xs-12">Select</label>
+                <label for="titleAnimate" class="control-label col-md-2 col-sm-2 col-xs-12">Стиль анимации</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" id="titleAnimate" th:field="*{titleClass}">
                     <option th:each="animate : ${animateClasses.entrySet()}"
@@ -59,20 +62,20 @@
         <div class="col-md-6 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Основной текст <small>different form elements</small></h2>
+              <h2>Основной текст <small></small></h2>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
               <br />
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="content">Текст <span class="required">*</span></label>
-                <div class="col-md-9 col-xs-12">
-                  <textarea type="text" id="content" required="required" th:field="*{content}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                <div class="col-md-10 col-xs-12">
+                  <textarea type="text" id="content" name="content" required="required" th:field="*{content}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="contentAnimate" class="control-label col-md-2 col-sm-2 col-xs-12">Select</label>
+                <label for="contentAnimate" class="control-label col-md-2 col-sm-2 col-xs-12">Стиль анимации</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" id="contentAnimate" th:field="*{contentClass}">
                     <option th:each="animate : ${animateClasses.entrySet()}"
@@ -94,39 +97,58 @@
             </div>
             <div class="x_content">
               <br/>
-              <div class="form-group">
-                <label class="control-label col-md-1 col-sm1 col-xs-12" for="linkType">Ссылка</label>
-                <div class="col-md-4 col-xs-12">
+
+              <div class="col-md-6 col-xs-12">
+
+                <div class="form-group">
+                  <label class="control-label col-md-2 col-sm2 col-xs-12" for="linkType">Тип ссылки</label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
                     <select class="form-control" id="linkType" name="linkType">
                       <option th:each="linkType : ${linkTypes.entrySet()}"
                               th:value="${linkType.key}"
                               th:text="${linkType.value}"/>
                     </select>
-
+                  </div>
                 </div>
 
-                <div class="col-md-4 col-xs-12">
+                <div class="form-group">
+                  <label for="linkAnimate" class="control-label col-md-2 col-sm-2 col-xs-12">Стиль анимации</label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select class="form-control" id="linkAnimate" th:field="*{linkClass}">
+                      <option th:each="animate : ${animateClasses.entrySet()}"
+                              th:value="${animate.key}"
+                              th:text="${animate.value}"/>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+
                   <div id="postsLinkDiv" class="col-xs-12 linkTypeClass">
+                    <label for="postsLink">Список статей</label>
                     <select id="postsLink" name="postsLink" class="form-control js-data-example-ajax">
                       <option value="3620194" selected="selected">select2/select2</option>
                     </select>
                   </div>
                   <div id="lineOnLinkDiv" class="col-xs-12 linkTypeClass">
+                    <label for="lineOnLink">Список видеопередач "Прямая линия"</label>
                     <select id="lineOnLink" name="lineOnLink" class="form-control js-data-example-ajax">
                       <option value="3620194" selected="selected">select2/select2</option>
                     </select>
                   </div>
                   <div id="extLinkDiv" class="col-xs-12 linkTypeClass">
+                    <label for="extLink">Ссылка на внешний ресурс (сайт)</label>
                     <input type="text" id="extLink" name="extLink" class="form-control col-md-7 col-xs-12"
                            placeholder="Внешняя ссылка"/>
                   </div>
 
                 </div>
-
-                <div id="test" class="col-md-4 col-xs-12"/>
               </div>
 
-            </div>
+             </div>
           </div>
         </div>
 
@@ -164,9 +186,11 @@
 
 <th:block layout:fragment="script">
 
-  <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}"></script>
-  <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.js}"></script>
-  <script th:src="@{/resources/js/select2/select2.full.js}"></script>
+  <script th:src="@{/resources/js/jquery/jquery.validate.min.js}"       type="text/javascript"></script>
+  <script th:src="@{/resources/js/pages/newcarousel.js}"                type="text/javascript"></script>
+  <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}" type="text/javascript"></script>
+  <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.js}"   type="text/javascript"></script>
+  <script th:src="@{/resources/js/select2/select2.full.js}"             type="text/javascript"></script>
 
   <script th:inline="javascript">
     /*<![CDATA[*/
@@ -174,11 +198,10 @@
       if (post.loading) return post.text;
 
       var markup = '<div class="clearfix">' +
-              '<div class="col-sm-6">' + post.title + '</div>' +
-              '<div class="col-sm-6">' + post.summary + '</div>' +
-              '</div>';
+                     '<div class="col-sm-6">' + post.title + '</div>' +
+                     '<div class="col-sm-6">' + post.summary + '</div>' +
+                   '</div>';
 
-      console.log("markup = " + markup);
       return markup;
     }
 
@@ -269,14 +292,37 @@
   <script th:inline="javascript">
     /*<![CDATA[*/
     $('.textarea').wysihtml5({
-      html:true, stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
+      "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+      "emphasis":    true, //Italics, bold, etc. Default true
+      "lists":       false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+      "html":        false, //Button which allows you to edit the generated HTML. Default false
+      "link":        false, //Button to insert a link. Default true
+      "image":       false, //Button to insert an image. Default true,
+      "color":       false, //Button to change color of font
+      "video":       false, //Button to change color of font
+      "html":        true,
+      stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
     });
     /*]]>*/
   </script>
 
   <script th:inline="javascript">
     /*<![CDATA[*/
-    $(".linkTypeClass").hide();
+
+    curVal = $('#linkType').val();
+    console.log("curVal = " + curVal);
+    $(".linkTypeClass").each(function (){
+      value = $(this).attr('id');
+      console.log("value = " + value);
+      console.log("indexOf = " + value.indexOf(curVal));
+
+      if (value.indexOf(curVal) != 0){
+        $(this).hide();
+      }
+    });
+    console.log("curVal = " + curVal);
+
+
     $('#linkType').change( function(eventObject){
       var val = $(this).val();
       $(".linkTypeClass").hide();
@@ -325,6 +371,8 @@
   </script>
 -->
 </th:block>
+
+
 
 </body>
 </html>

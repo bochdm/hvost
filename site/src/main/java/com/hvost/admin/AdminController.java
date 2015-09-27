@@ -486,11 +486,6 @@ public class AdminController {
 
     model.addAttribute("animateClasses", animateClasses);
 
-/*    List<String> linkTypes = new ArrayList<String>();
-    linkTypes.add("Внешняя ссылка");
-    linkTypes.add("Статья");
-    linkTypes.add("Прямая линия");*/
-
     Map<String, String> linkTypes = new HashMap<>();
     linkTypes.put("extLink", "Внешняя ссылка");
     linkTypes.put("postsLink", "Статья");
@@ -514,28 +509,32 @@ public class AdminController {
     Map paramMap = request.getParameterMap();
     Enumeration en = request.getParameterNames();
 
-    String contentClass = request.getParameter("contentClass");
-    System.out.println("contentClass -> " + contentClass);
+    String linkType = request.getParameter("linkType");
+    System.out.println("linkType -> " + linkType);
 
-    while(en.hasMoreElements()){
+/*    while(en.hasMoreElements()){
       String p = (String) en.nextElement();
       System.out.println("param -> " + p);
       System.out.println("value -> " + request.getParameter(p));
-    }
+    }*/
+
     String resultLink = "";
-    switch (contentClass){
-      case "Внешняя ссылка":
+    switch (linkType){
+      case "extLink":
+        resultLink = request.getParameter("extLink");
+        System.out.println("extLink->" + resultLink);
         break;
-      case "Статья":
+      case "postsLink":
         long linkToPost = Long.parseLong(request.getParameter("linkToPost"));
         System.out.println("linkToPost->" + linkToPost);
         resultLink = "/blog/" + linkToPost;
         break;
-      case "Прямая линия":
+      case "lineOnLink":
+        long lineOnLink = Long.parseLong(request.getParameter("lineOnLink"));
+        System.out.println("lineOnLink->" + lineOnLink);
+        resultLink = "/video/archive/" + lineOnLink;
         break;
     }
-
-
 
     if (!bindingResult.hasErrors()){
       carousel.setLink(resultLink);
@@ -550,18 +549,76 @@ public class AdminController {
   @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/edit", method = {RequestMethod.GET})
   public String findCarousel(@PathVariable Long id, Model model){
 
+    Map<String, String> animateClasses = new HashMap<String, String>();
+
+    animateClasses.put("fadeInLeftBig", "fadeInLeftBig");
+    animateClasses.put("fadeInRightBig", "fadeInRightBig");
+    animateClasses.put("fadeInUpBig", "fadeInUpBig");
+    animateClasses.put("fadeInDownBig", "fadeInDownBig");
+
+    model.addAttribute("animateClasses", animateClasses);
+
+    Map<String, String> linkTypes = new HashMap<>();
+    linkTypes.put("extLink", "Внешняя ссылка");
+    linkTypes.put("postsLink", "Статья");
+    linkTypes.put("lineOnLink", "Прямая линия");
+
+    model.addAttribute("linkTypes", linkTypes);
+
     Carousel carousel = adminService.getCarousel(id);
     model.addAttribute("carousel", carousel);
+
+    String carouselLink = carousel.getLink();
+    if (carouselLink != null) {
+      if (carouselLink.contains("blog")) {
+        model.addAttribute("carouselLinkType", "postsLink");
+      }
+      if (carouselLink.contains("video")) {
+        model.addAttribute("carouselLinkType", "lineOnLink");
+      }
+      if (carouselLink.contains("http")) {
+        model.addAttribute("carouselLinkType", "extLink");
+      }
+    }
+
 
     return "admin/startpage/editcarousel";
   }
 
   @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/edit", method = {RequestMethod.POST})
-  public String editCarousel(@PathVariable Long id, @ModelAttribute @Valid Carousel archive, BindingResult bindingResult, Model model) {
+  public String editCarousel(@PathVariable Long id, @ModelAttribute @Valid Carousel archive, BindingResult bindingResult, Model model, HttpServletRequest request) {
     Carousel carousel = adminService.getCarousel(id);
     System.out.println("edit carousel post ->" + carousel);
     if (!bindingResult.hasErrors()){
       carousel.setContent(archive.getContent());
+      carousel.setTitle(archive.getTitle());
+      carousel.setContentClass(archive.getContentClass());
+      carousel.setTitleClass(archive.getTitleClass());
+      carousel.setLinkClass(archive.getLinkClass());
+
+      String linkType = request.getParameter("linkType");
+      System.out.println("linkType -> " + linkType);
+
+      String resultLink = "";
+      switch (linkType){
+        case "extLink":
+          resultLink = request.getParameter("link");
+          System.out.println("extLink->" + resultLink);
+          break;
+        case "postsLink":
+          long linkToPost = Long.parseLong(request.getParameter("linkToPost"));
+          System.out.println("linkToPost->" + linkToPost);
+          resultLink = "/blog/" + linkToPost;
+          break;
+        case "lineOnLink":
+          long lineOnLink = Long.parseLong(request.getParameter("lineOnLink"));
+          System.out.println("lineOnLink->" + lineOnLink);
+          resultLink = "/video/archive/" + lineOnLink;
+          break;
+      }
+
+
+      carousel.setLink(resultLink);
       adminService.updateCarousel(carousel);
     }
 

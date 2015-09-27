@@ -4,6 +4,9 @@ import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.ActivePeopleService;
 import com.hvost.blog.support.PostService;
+import com.hvost.home.GoogleApiSearchService;
+import com.hvost.home.GoogleResults;
+import com.hvost.home.GoogleSearchResult;
 import com.hvost.home.TwitterService;
 import com.hvost.model.Category;
 import com.hvost.service.CategoryService;
@@ -76,6 +79,10 @@ public class HomeController {
   @Autowired
   private TwitterService twitterService;
 
+  @Autowired
+  private GoogleApiSearchService googleApiSearchService;
+
+
   @RequestMapping(method = RequestMethod.GET)
   public String startPage(Model model, HttpSession session) {
 
@@ -93,6 +100,12 @@ public class HomeController {
     Future<List<String>> asyncResult = twitterService.getTweets();
 
     session.setAttribute("tweets", asyncResult);
+
+//    Future<List<String>> asyncGoogle = googleApiSearchService.testData();
+    Future<List<GoogleSearchResult>> asyncGoogle = googleApiSearchService.testData();
+
+    session.setAttribute("google", asyncGoogle);
+
 
    /* List<String> tweets = null;
     try {
@@ -153,7 +166,7 @@ public class HomeController {
 
     if (asyncResult.isDone()){
       System.out.println("tweet is done");
-      logger.info("legger::tweet is done");
+      logger.info("logger::tweet is done");
       List<String> tweets = null;
       try {
         tweets = asyncResult.get();
@@ -174,6 +187,36 @@ public class HomeController {
       System.out.println("tweet is working");
   //    return "WORKING";
     }
+    return new ModelAndView();
+
+  }
+
+  @RequestMapping(method = RequestMethod.GET,value = "/googlesearch")
+  @ResponseBody
+  public ModelAndView statusGoogleSearch(Model model, HttpSession session){
+    Future<List<GoogleSearchResult>> asyncResult = (Future<List<GoogleSearchResult>>) session.getAttribute("google");
+    if (asyncResult.isDone()){
+      System.out.println("google is done");
+
+      List<GoogleSearchResult> googleResults = null;
+      try {
+        googleResults = asyncResult.get();
+        for(GoogleSearchResult g : googleResults){
+          System.out.println("google search -> " + g);
+        }
+
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } catch (ExecutionException e) {
+        e.printStackTrace();
+      }
+      model.addAttribute("googleSearch", googleResults);
+      return new ModelAndView("/home/googleapi");
+    }else{
+      System.out.println("google search is working");
+
+    }
+
     return new ModelAndView();
 
   }

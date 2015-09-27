@@ -34,11 +34,16 @@
         <div class="row" >
           <div class="col-sm-12 animate">
             <h1 th:utext="${crsl.title}" class="animated" style="font-size:46px;color:white;" th:classappend="${crsl.titleClass}"/>
-            <div th:utext="${crsl.content}" class="animated" style="font-size:21px; color:white;" th:classappend="${crsl.contentClass}"/>
+          <div th:utext="${crsl.content}" class="animated" style="font-size:21px; color:white;" th:classappend="${crsl.contentClass}"/>
           </div>
-          <a class="btn btn-bordered btn-white btn-lg animated">Читать</a>
-        </div>
+          <a class="btn btn-bordered btn-white btn-lg animated" th:classappend="${crsl.linkClass}" th:href="@{${crsl.link}}"
+              th:if="${(not #strings.isEmpty(crsl.link)) and (#strings.containsIgnoreCase(crsl.link, 'blog') )}">Читать</a>
+          <a class="btn btn-bordered btn-white btn-lg animated" th:classappend="${crsl.linkClass}" th:href="@{${crsl.link}}"
+              th:if="${(not #strings.isEmpty(crsl.link)) and (#strings.containsIgnoreCase(crsl.link, 'video') )}">Смотреть</a>
+          <a class="btn btn-bordered btn-white btn-lg animated" th:classappend="${crsl.linkClass}" th:href="@{${crsl.link}}"
+             th:if="${(not #strings.isEmpty(crsl.link)) and (#strings.containsIgnoreCase(crsl.link, 'http') )}">Перейти</a>
 
+        </div>
 
       </div>
     </li>
@@ -246,15 +251,25 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <div class="page-header page-header-with-icon">
-      <i class="fa-icon-quote-right"></i>
-
-      <h2 th:text="${#strings.capitalize('__#{latest.twitts}__')}" ></h2>
-    </div>
 
 
     <div class="row">
-      <div id="tweets" layout:include="/home/tweets :: tweet"/>
+      <div class="col-sm-6">
+        <div class="page-header page-header-with-icon">
+          <i class="fa-icon-quote-right"></i>
+
+          <h2 th:text="${#strings.capitalize('__#{latest.twitts}__')}" ></h2>
+        </div>
+        <div id="tweets" layout:include="/home/tweets :: tweet"/>
+      </div>
+      <div class="col-sm-6">
+        <div class="page-header page-header-with-icon">
+          <i class="fa-icon-quote-right"></i>
+
+          <h2 th:text="${#strings.capitalize('__#{latest.googlesearch}__')}" ></h2>
+        </div>
+        <div id="googleapi" layout:include="/home/googleapi :: googlesearch"/>
+      </div>
     </div>
 
   </div>
@@ -335,7 +350,35 @@
           }
         }
       });
-    }, 4000);
+    }, 2000);
+
+  </script>
+
+  <script th:inline="javascript">
+    var timerGoogle = setInterval(function (){
+      console.log("googlesearch setInterval");
+      $.ajax({
+        type: 'GET',
+        url:'googlesearch',
+//        dataType: 'text',
+        beforeSend: function(){
+          $('#googleapi').html('<p class="text-center"><img th:src="@{/resources/img/ajax-loader.gif}"/></p>');
+        },
+
+        success: function(data){
+          //    $('#tweets').html(data);
+          //    $('#dataTEST').html(data);
+          // window.location.reload(true);
+          //  clearInterval(timer);
+          //  console.log("data-> " + data);
+          if (data.length > 0){
+            $('#googleapi').html(data);
+            console.log("ajax google COMPLETE");
+            clearInterval(timerGoogle);
+          }
+        }
+      });
+    }, 3000);
 
   </script>
 </th:block>

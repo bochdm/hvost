@@ -521,11 +521,11 @@ public class AdminController {
     String resultLink = "";
     switch (linkType){
       case "extLink":
-        resultLink = request.getParameter("extLink");
+        resultLink = "http://" + request.getParameter("extLink");
         System.out.println("extLink->" + resultLink);
         break;
       case "postsLink":
-        long linkToPost = Long.parseLong(request.getParameter("linkToPost"));
+        long linkToPost = Long.parseLong(request.getParameter("postsLink"));
         System.out.println("linkToPost->" + linkToPost);
         resultLink = "/blog/" + linkToPost;
         break;
@@ -602,11 +602,11 @@ public class AdminController {
       String resultLink = "";
       switch (linkType){
         case "extLink":
-          resultLink = request.getParameter("link");
+          resultLink = "http://" + request.getParameter("link");
           System.out.println("extLink->" + resultLink);
           break;
         case "postsLink":
-          long linkToPost = Long.parseLong(request.getParameter("linkToPost"));
+          long linkToPost = Long.parseLong(request.getParameter("postsLink"));
           System.out.println("linkToPost->" + linkToPost);
           resultLink = "/blog/" + linkToPost;
           break;

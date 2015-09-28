@@ -5,7 +5,7 @@
       layout:decorator="/admin/layout"
       xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute">
 <head>
-  <title>Статьи</title>
+  <title>Редактирование</title>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap/font-awesome.min.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5.css}"/>
@@ -14,7 +14,6 @@
 
 </head>
 <body>
-
 
 <main layout:fragment="content">
 
@@ -147,8 +146,11 @@
                   <div id="extLinkDiv" class="col-md-12 col-xs-12 linkTypeClass">
                     <label for="extLink">Ссылка на внешний ресурс (сайт)</label>
                     <br/>
+                    <div class="input-group">
+                      <span class="input-group-addon">http://</span>
                       <input type="text" id="extLink" name="extLink" class="form-control col-md-7 col-xs-12" th:field="*{link}"
                            placeholder="Внешняя ссылка"/>
+                    </div>
                   </div>
 
                 </div>

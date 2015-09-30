@@ -208,37 +208,9 @@
       return markup;
     }
 
-    function formatRepo (repo) {
-      if (repo.loading) return repo.text;
-
-      var markup = '<div class="clearfix">' +
-          '<div class="col-sm-1">' +
-          '<img src="' + repo.owner.avatar_url + '" style="max-width: 100%" />' +
-          '</div>' +
-          '<div clas="col-sm-10">' +
-          '<div class="clearfix">' +
-          '<div class="col-sm-6">' + repo.full_name + '</div>' +
-          '<div class="col-sm-3"><i class="fa fa-code-fork"></i> ' + repo.forks_count + '</div>' +
-          '<div class="col-sm-2"><i class="fa fa-star"></i> ' + repo.stargazers_count + '</div>' +
-          '</div>';
-
-      if (repo.description) {
-        markup += '<div>' + repo.description + '</div>';
-      }
-
-      markup += '</div></div>';
-
-      return markup;
-    }
 
     function formatPostSelection(post){
       return post.title;
-    }
-
-    function formatRepoSelection (repo) {
-      //        url: "https://api.github.com/search/repositories",
-//      url: /*[[@{/blog/search/remote}]]*/,
-      return repo.full_name || repo.text;
     }
 
 
@@ -297,11 +269,11 @@
     $('.textarea').wysihtml5({
       "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
       "emphasis":    true, //Italics, bold, etc. Default true
+      "color":       true, //Button to change color of font
       "lists":       false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
       "html":        false, //Button which allows you to edit the generated HTML. Default false
       "link":        false, //Button to insert a link. Default true
       "image":       false, //Button to insert an image. Default true,
-      "color":       false, //Button to change color of font
       "video":       false, //Button to change color of font
       "html":        true,
       stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
@@ -312,14 +284,14 @@
   <script th:inline="javascript">
     /*<![CDATA[*/
 
-    curVal = $('#linkType').val();
+    var curVal = $('#linkType').val();
     console.log("curVal = " + curVal);
     $(".linkTypeClass").each(function (){
-      value = $(this).attr('id');
-      console.log("value = " + value);
-      console.log("indexOf = " + value.indexOf(curVal));
+      var idLinkType = $(this).attr('id');
+      console.log("value = " + idLinkType);
+      console.log("indexOf = " + idLinkType.indexOf(curVal));
 
-      if (value.indexOf(curVal) != 0){
+      if (idLinkType.indexOf(curVal) != 0){
         $(this).hide();
       }
     });

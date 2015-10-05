@@ -30,6 +30,7 @@
                         "<span class='current-color'>" + locale.colours.black + "</span>&nbsp;<b class='caret'></b>" +
                     "</a>" +
                     "<ul class='dropdown-menu'>" +
+                        "<li><div class='wysihtml5-colors' data-wysihtml5-command-value='white'></div><a class='wysihtml5-colors-title' data-wysihtml5-command='foreColor' data-wysihtml5-command-value='white'>" + locale.colours.white + "</a></li>" +
                         "<li><div class='wysihtml5-colors' data-wysihtml5-command-value='black'></div><a class='wysihtml5-colors-title' data-wysihtml5-command='foreColor' data-wysihtml5-command-value='black'>" + locale.colours.black + "</a></li>" +
                         "<li><div class='wysihtml5-colors' data-wysihtml5-command-value='silver'></div><a class='wysihtml5-colors-title' data-wysihtml5-command='foreColor' data-wysihtml5-command-value='silver'>" + locale.colours.silver + "</a></li>" +
                         "<li><div class='wysihtml5-colors' data-wysihtml5-command-value='gray'></div><a class='wysihtml5-colors-title' data-wysihtml5-command='foreColor' data-wysihtml5-command-value='gray'>" + locale.colours.gray + "</a></li>" +
@@ -983,6 +984,7 @@
                 edit: "Edit HTML"
             },
             colours: {
+                white: "White",
                 black: "Black",
                 silver: "Silver",
                 gray: "Grey",

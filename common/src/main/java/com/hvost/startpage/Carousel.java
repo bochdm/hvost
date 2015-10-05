@@ -9,6 +9,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "start_carousel")
+@EntityListeners(NewCarouselListener.class)
 public class Carousel {
 
   public Long getId() {

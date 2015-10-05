@@ -50,6 +50,9 @@ ul.wysihtml5-toolbar div.wysihtml5-colors {
 ul.wysihtml5-toolbar a.wysihtml5-colors-title {
     padding-left: 70px;
 }
+ul.wysihtml5-toolbar div[data-wysihtml5-command-value="white"] {
+    background: white !important;
+}
 ul.wysihtml5-toolbar div[data-wysihtml5-command-value="black"] {
     background: black !important;
 }

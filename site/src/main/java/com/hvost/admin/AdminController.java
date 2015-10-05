@@ -475,16 +475,22 @@ public class AdminController {
     return "admin/startpage/allcarousel";
   }
 
-  @RequestMapping(value= "/startpage/newcarousel", method = RequestMethod.GET)
-  public String newCarousel(Model model){
+  private Map<String, String> getAnimatedClasses(){
     Map<String, String> animateClasses = new HashMap<String, String>();
 
-    animateClasses.put("fadeInLeftBig", "fadeInLeftBig");
-    animateClasses.put("fadeInRightBig", "fadeInRightBig");
-    animateClasses.put("fadeInUpBig", "fadeInUpBig");
-    animateClasses.put("fadeInDownBig", "fadeInDownBig");
+    animateClasses.put("fadeInLeftBig", "Анимация влево");
+    animateClasses.put("fadeInRightBig", "Анимация вправо");
+    animateClasses.put("fadeInUpBig", "Анимация вверх");
+    animateClasses.put("fadeInDownBig", "Анимация вниз");
 
-    model.addAttribute("animateClasses", animateClasses);
+    return animateClasses;
+  }
+
+  @RequestMapping(value= "/startpage/newcarousel", method = RequestMethod.GET)
+  public String newCarousel(Model model){
+
+
+    model.addAttribute("animateClasses", getAnimatedClasses());
 
     Map<String, String> linkTypes = new HashMap<>();
     linkTypes.put("extLink", "Внешняя ссылка");
@@ -549,14 +555,7 @@ public class AdminController {
   @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/edit", method = {RequestMethod.GET})
   public String findCarousel(@PathVariable Long id, Model model){
 
-    Map<String, String> animateClasses = new HashMap<String, String>();
-
-    animateClasses.put("fadeInLeftBig", "fadeInLeftBig");
-    animateClasses.put("fadeInRightBig", "fadeInRightBig");
-    animateClasses.put("fadeInUpBig", "fadeInUpBig");
-    animateClasses.put("fadeInDownBig", "fadeInDownBig");
-
-    model.addAttribute("animateClasses", animateClasses);
+    model.addAttribute("animateClasses", getAnimatedClasses());
 
     Map<String, String> linkTypes = new HashMap<>();
     linkTypes.put("extLink", "Внешняя ссылка");

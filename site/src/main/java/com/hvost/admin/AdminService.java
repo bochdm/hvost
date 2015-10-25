@@ -10,6 +10,8 @@ import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.blog.support.CategoryPostRepository;
 import com.hvost.blog.support.PostRepository;
+import com.hvost.commons.CommonEntity;
+import com.hvost.commons.CommonsRepository;
 import com.hvost.images.Image;
 import com.hvost.startpage.Carousel;
 import com.hvost.startpage.support.CarouselRepository;
@@ -59,7 +61,10 @@ public class AdminService {
   @Autowired
   CarouselRepository carouselRepository;
 
-    @Transactional
+  @Autowired
+  CommonsRepository commonsRepository;
+
+  @Transactional
     public Post addArticle(Post a){
         //em.persist(a);
       return em.merge(a);
@@ -188,5 +193,23 @@ public class AdminService {
 
   public List<CategoryPost> getAllCategoriesPost(){
     return categoryPostRepository.findAll();
+  }
+
+  public CommonEntity getBiography(){
+    return commonsRepository.findOne(1);
+  }
+
+  public CommonEntity getContacts(){
+    return commonsRepository.findOne(2);
+  }
+
+  @Transactional
+  public void updateBiography(CommonEntity ce){
+    em.merge(ce);
+  }
+
+  @Transactional
+  public void updateContacts(CommonEntity ce){
+    em.merge(ce);
   }
 }

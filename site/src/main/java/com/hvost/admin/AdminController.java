@@ -7,6 +7,7 @@ import com.hvost.archive.support.ArchiveService;
 import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.blog.support.PostService;
+import com.hvost.commons.CommonEntity;
 import com.hvost.images.Image;
 import com.hvost.images.support.ImageService;
 import com.hvost.search.SearchResult;
@@ -61,8 +62,50 @@ public class AdminController {
   @RequestMapping(method = RequestMethod.GET)
   //@RequestMapping(value = {"/"}, method = RequestMethod.GET)
   public String index(){
-
     return "/admin/index";
+  }
+
+  @RequestMapping(value = "/biography", method = RequestMethod.GET)
+  public String getBiography(Model model) {
+
+    CommonEntity biograpfy = adminService.getBiography();
+    model.addAttribute("biograpfy", biograpfy);
+
+    return "/admin/biography";
+  }
+
+  @RequestMapping(value = {"/biography/edit"}, method = RequestMethod.POST)
+  public String updateBiography(@ModelAttribute @Valid CommonEntity biography, BindingResult bindingResult, Model model) {
+
+    CommonEntity b = adminService.getBiography();
+
+    if (!bindingResult.hasErrors()) {
+      b.setText(biography.getText());
+
+      adminService.updateBiography(b);
+    }
+
+    return "redirect:/admin/biography";
+  }
+
+  @RequestMapping(value = "contacts", method = RequestMethod.GET)
+  public String getContacts(Model model) {
+    CommonEntity contacts = adminService.getContacts();
+    model.addAttribute("contacts", contacts);
+
+    return "/admin/contacts";
+  }
+
+  @RequestMapping(value = {"contacts/edit"}, method = RequestMethod.POST)
+  public String updateContacts(@ModelAttribute @Valid CommonEntity contact, BindingResult bindingResult, Model model) {
+    CommonEntity c = adminService.getContacts();
+
+    if (!bindingResult.hasErrors()) {
+      c.setText(contact.getText());
+      adminService.updateContacts(c);
+    }
+
+      return "redirect:/admin/contacts";
   }
 
   @RequestMapping(value= {"/blog/newarticle"}, method = RequestMethod.GET)

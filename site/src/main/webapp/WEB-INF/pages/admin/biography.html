@@ -9,6 +9,7 @@
   <title>Биография</title>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5.css}"/>
+
 </head>
 <body>
   <main layout:fragment="content">
@@ -18,25 +19,106 @@
       <h3>Биография</h3>
     </div>
 
-    <form th:with="edit=1" th:action="@{'/admin/biography/edit'}" th:object="${biograpfy}" method="post">
-      <div class="row">
+    <!--<form th:with="edit=1" th:action="@{'/admin/biography/edit'}" th:object="${biografyBlocks}" method="post">-->
+    <!--  <div class="row">
         <div class="col-md-12 col-xs-12">
           <textarea type="text" id="title" name="title" th:field="${biograpfy.text}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
         </div>
+      </div>-->
+
+      <div class='col-sm-12 icon-boxes icon-boxes-lg'>
+        <div class="row" th:each="biografy, iterStat : ${biografyBlocks}" th:if="${iterStat.even}">
+          <div class='col-sm-6 icon-box' th:with="leftBlock=${biografyBlocks.get(iterStat.index)}">
+            <form th:name="${'form_biography_'+leftBlock.id}" th:with="edit=1" th:action="@{'/admin/biography/'+${leftBlock.id}+'/edit'}" th:object="${leftBlock}" method="post">
+              <div class="x_panel">
+                <div class="x_title">
+                  <div class="input-group">
+                    <span class="input-group-addon">Заголовок</span>
+                    <input type="text" name="title" class="form-control col-md-7 col-xs-12"
+                           th:value="${leftBlock.title}"/>
+                  </div>
+                  <div class="clearfix"/>
+                </div>
+                <div class="x_content">
+                  <div class="form-group">
+                    <div class='icon icon-wrap icon-circle icon-lg contrast-bg'>
+                      <i class='fa fa-filter'></i>
+                    </div>
+                    <div class='content'>
+                      <textarea type="text"  name="text" th:utext="${leftBlock.text}" class="form-control textarea form-control wysihtml5-editor placeholder"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-default">Обновить</button>
+                    <button type="submit" class="btn btn-default">Удалить</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class='col-sm-6 icon-box' th:if="${iterStat.index + 1 &lt; biografyBlocks.size()}" th:with="rightBlock=${biografyBlocks.get(iterStat.index + 1)}">
+            <form th:name="${'form_biography_'+rightBlock.id}" th:with="edit=1" th:action="@{'/admin/biography/'+${rightBlock.id}+'/edit'}" th:object="${rightBlock}" method="post">
+              <div class="x_panel">
+                <div class="x_title">
+                  <!--<h2 th:text="${rightBlock.title}"/>-->
+                  <div class="input-group">
+                    <span class="input-group-addon">Заголовок</span>
+                    <input type="text" name="title" class="form-control col-md-7 col-xs-12"
+                            th:value="${rightBlock.title}"/>
+                  </div>
+
+                  <div class="clearfix"/>
+                </div>
+                <div class="x_content">
+                  <div class="form-group">
+                    <div class='icon icon-wrap icon-circle icon-lg contrast-bg'>
+                      <i class='fa-icon-info text-white'></i>
+                    </div>
+                    <div class='content'>
+                      <textarea type="text" name="text" th:utext="${rightBlock.text}" class="form-control textarea form-control wysihtml5-editor placeholder"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-default" >Обновить</button>
+                    <button type="submit" class="btn btn-default">Удалить</button>
+                </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+
+         <!-- <div class='col-sm-6 icon-box' th:if="${iterStat.index + 1 &lt; biografyBlocks.size()}" th:with="rightBlock=${biografyBlocks.get(iterStat.index + 1)}">
+            <div class='icon icon-wrap icon-circle icon-lg contrast-bg'>
+              <i class='fa-icon-info text-white'></i>
+            </div>
+            <div class='content'>
+              <h3 class='title' th:text="${rightBlock.title}"/>
+              <div th:utext="${rightBlock.text}"/>
+            </div>
+          </div>-->
+
+
+
+        </div>
 
       </div>
+
+
 
       <br/>
       <button type="submit" class="btn btn-default">Обновить</button>
       <br/>
       <button id="updateBiography" name="updateBiography" type="button" class='btn btn-contrast btn-block'>Обновить</button>
-    </form>
+    <!--</form>-->
 
   </main>
 
   <th:block layout:fragment="script">
     <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}" type="text/javascript"></script>
     <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.js}"   type="text/javascript"></script>
+    <script th:src="@{/resources/js/easy-overlay/jquery.easy-overlay.js}" type="text/javascript"></script>
 
     <script th:inline="javascript">
       /*<![CDATA[*/
@@ -55,6 +137,31 @@
                        },
         stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
       });
+      /*]]>*/
+    </script>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      $( "form[name^='form_biography_']").submit(function(event) {
+        console.log("this.action ->" + $(this).attr("action"));
+        event.preventDefault();
+
+        var formBlock = $(this);
+
+        $.ajax({
+          url: formBlock.attr("action"),
+          type: "POST",
+          data: $(this).serialize(),
+          beforeSend: function(){
+            formBlock.easyOverlay("start");
+          },
+          success: function (responce){
+            formBlock.easyOverlay("stop");
+
+            console.log("submit ->" + responce);
+          }
+        });
+      })
       /*]]>*/
     </script>
 

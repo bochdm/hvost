@@ -12,6 +12,7 @@
         <class>com.hvost.startpage.Carousel</class>
         <class>com.hvost.images.Image</class>
         <class>com.hvost.commons.CommonEntity</class>
+        <class>com.hvost.aboutme.AboutMe</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>

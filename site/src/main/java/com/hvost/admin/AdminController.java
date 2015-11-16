@@ -1,5 +1,6 @@
 package com.hvost.admin;
 
+import com.hvost.aboutme.AboutMe;
 import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.archive.Archive;
@@ -68,10 +69,44 @@ public class AdminController {
   @RequestMapping(value = "/biography", method = RequestMethod.GET)
   public String getBiography(Model model) {
 
-    CommonEntity biograpfy = adminService.getBiography();
-    model.addAttribute("biograpfy", biograpfy);
+  /*  CommonEntity biograpfy = adminService.getBiography();
+    model.addAttribute("biograpfy", biograpfy);*/
+
+    List<AboutMe> allBlocksAboutMe = adminService.getAllBlocksAboutMe();
+
+    model.addAttribute("biografyBlocks", allBlocksAboutMe);
 
     return "/admin/biography";
+  }
+
+  @RequestMapping(value = {"/biography/{id:[0-9]+}/edit"}, method = RequestMethod.POST)
+  @ResponseBody
+  public String updateBiographyBlock(@ModelAttribute @Valid AboutMe aboutMe,
+                                  @PathVariable Integer id,
+                                  BindingResult bindingResult,
+                                  Model model){
+
+    AboutMe am = adminService.getAboutMeBlockByID(id);
+    System.out.println("updateBiographyBlock.am -> " + am);
+    if (!bindingResult.hasErrors()){
+      System.out.println("updateBiographyBlock.aboutMe -> " + aboutMe);
+      am.setText(aboutMe.getText());
+      am.setTitle(aboutMe.getTitle());
+
+      adminService.updateAboutMeBlock(am);
+      return "OK";
+    }
+
+    return "ERROR";
+   /* public String editAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
+
+    Answer ans = adminService.getAnswer(id);
+    System.out.println("editAnswer -> " + ans);
+    if (!bindingResult.hasErrors()){
+      ans.setAnswerText(answer.getAnswerText());
+      adminService.updateAnswer(ans);
+    }*/
+
   }
 
   @RequestMapping(value = {"/biography/edit"}, method = RequestMethod.POST)

@@ -31,7 +31,30 @@
         <div id='main-content'>
           <div class='container'>
 
-            <div th:utext="${biography.text}"></div>
+            <!--<div th:utext="${biography.text}"></div>-->
+
+            <div class='col-sm-12 icon-boxes icon-boxes-lg'>
+              <div class="row" th:each="biografy, iterStat : ${biografyBlocks}" th:if="${iterStat.even}">
+                <div class='col-sm-6 icon-box' th:with="leftBlock=${biografyBlocks.get(iterStat.index)}">
+                  <div class='icon icon-wrap icon-circle icon-lg contrast-bg'>
+                    <i class='fa-icon-info text-white'></i>
+                  </div>
+                  <div class='content'>
+                    <h3 class='title' th:text="${leftBlock.title}"/>
+                    <div th:utext="${leftBlock.text}"/>
+                  </div>
+                </div>
+                <div class='col-sm-6 icon-box' th:if="${iterStat.index + 1 &lt; biografyBlocks.size()}" th:with="rightBlock=${biografyBlocks.get(iterStat.index + 1)}">
+                  <div class='icon icon-wrap icon-circle icon-lg contrast-bg'>
+                    <i class='fa-icon-info text-white'></i>
+                  </div>
+                  <div class='content'>
+                    <h3 class='title' th:text="${rightBlock.title}"/>
+                    <div th:utext="${rightBlock.text}"/>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <!-- New version-->
            <!-- <div class="row">

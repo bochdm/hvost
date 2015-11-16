@@ -1,5 +1,6 @@
 package com.hvost.controller;
 
+import com.hvost.aboutme.support.AboutMeService;
 import com.hvost.admin.AdminService;
 import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
@@ -21,9 +22,15 @@ public class AboutMeController {
   @Autowired
   AdminService adminService;
 
+  @Autowired
+  private AboutMeService aboutMeService;
+
   @RequestMapping(method = RequestMethod.GET)
   public String aboutMe(Model model){
-    model.addAttribute("biography", adminService.getBiography());
+//    model.addAttribute("biography", adminService.getBiography());
+    model.addAttribute("biografyBlocks", aboutMeService.getAllBlocksAboutMe());
+    int[] counters = new int[]{1,2};
+    model.addAttribute("counter", counters);
     return "/about/aboutme";
   }
 

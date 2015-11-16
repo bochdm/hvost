@@ -1,5 +1,7 @@
 package com.hvost.admin;
 
+import com.hvost.aboutme.AboutMe;
+import com.hvost.aboutme.support.AboutMeRepository;
 import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.AnswerRepository;
@@ -63,6 +65,9 @@ public class AdminService {
 
   @Autowired
   CommonsRepository commonsRepository;
+
+  @Autowired
+  AboutMeRepository aboutMeRepository;
 
   @Transactional
     public Post addArticle(Post a){
@@ -199,6 +204,26 @@ public class AdminService {
     return commonsRepository.findOne(1);
   }
 
+  public List<AboutMe> getAllBlocksAboutMe(){
+    return aboutMeRepository.findAll();
+  }
+
+  @Transactional
+  public void addAboutMeBlock(AboutMe aboutMe){
+    em.merge(aboutMe);
+  }
+
+  @Transactional
+  public void updateAboutMeBlock(AboutMe aboutMe){
+    em.merge(aboutMe);
+  }
+
+  @Transactional
+  public void deleteAboutMeBlock(AboutMe aboutMe){
+    em.remove(em.contains(aboutMe) ? aboutMe : em.merge(aboutMe));
+  }
+
+
   public CommonEntity getContacts(){
     return commonsRepository.findOne(2);
   }
@@ -211,5 +236,9 @@ public class AdminService {
   @Transactional
   public void updateContacts(CommonEntity ce){
     em.merge(ce);
+  }
+
+  public AboutMe getAboutMeBlockByID(Integer id) {
+    return aboutMeRepository.findOne(id);
   }
 }

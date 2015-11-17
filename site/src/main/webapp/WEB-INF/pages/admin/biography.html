@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -9,6 +9,7 @@
   <title>Биография</title>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/css/fa_jednotka_min.css}"/>
 
 </head>
 <body>
@@ -41,8 +42,8 @@
                 </div>
                 <div class="x_content">
                   <div class="form-group">
-                    <div class='icon icon-wrap icon-circle icon-lg contrast-bg'>
-                      <i class='fa fa-filter'></i>
+                    <div class='icon icon-wrap icon-circle icon-md contrast-bg'>
+                      <i name="imageName" class='fa-icon-info text-white' th:value="${leftBlock.title}"></i>
                     </div>
                     <div class='content'>
                       <textarea type="text"  name="text" th:utext="${leftBlock.text}" class="form-control textarea form-control wysihtml5-editor placeholder"/>
@@ -148,10 +149,14 @@
 
         var formBlock = $(this);
 
+        var dataForm = $(this).serializeArray();
+        dataForm.push({name: "imageName", value: "lalalal"});
+
         $.ajax({
           url: formBlock.attr("action"),
           type: "POST",
-          data: $(this).serialize(),
+//          data: $(this).serialize(),
+          data: $.param(dataForm),
           beforeSend: function(){
             formBlock.easyOverlay("start");
           },

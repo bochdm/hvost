@@ -68,14 +68,17 @@
                   <li><a th:href="@{/admin/unanswered}">Неотвеченные вопросы <span class="badge" th:text="${unanswered_count}"/></a></li>
                 </ul>
               </li>
-              <li><a><i class="fa fa-bar-chart-o"></i>Архив видео<span class="fa fa-chevron-down"/></a>
+              <li><a><i class="fa fa-share-alt"></i>Архив видео<span class="fa fa-chevron-down"/></a>
                 <ul class="nav child_menu">
                   <li><a th:href="@{/admin/video/allarchivevideo}">Список видео</a></li>
                   <li><a th:href="@{/admin/video/addarchivevideo}">Добавить видео в архив</a></li>
                 </ul>
               </li>
-              <li>
-                <a th:href="@{/admin/biography}"><i class="fa fa-info"></i>Биография</a>
+              <li><a><i class="fa fa-info"></i>Биография<span class="fa fa-chevron-down"/></a>
+                <ul class="nav child_menu">
+                  <li><a th:href="@{/admin/aboutme/biography}">Список блоков</a></li>
+                  <li><a th:href="@{/admin/aboutme/newblockbiography}">Добавить новый блок</a></li>
+                </ul>
               </li>
               <li>
                 <a th:href="@{/admin/contacts}"><i class="fa fa-envelope"></i>Контакты</a>

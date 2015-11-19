@@ -1,6 +1,7 @@
 package com.hvost.controller;
 
 import com.hvost.activepeople.Question;
+import com.hvost.contacts.support.ContactService;
 import com.hvost.support.navigation.Navigation;
 import com.hvost.support.navigation.Section;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,13 @@ public class ContactsInfoController {
   @Autowired
   private JavaMailSender mailSender;
 
+  @Autowired
+  ContactService contactService;
+
   @RequestMapping(method = RequestMethod.GET)
   public String contacts(Model model){
+    model.addAttribute("contactBlocks", contactService.getAllContacts());
+
     model.addAttribute("question", new Question());
     return "/contacts/contacts";
   }

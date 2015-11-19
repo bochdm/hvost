@@ -14,6 +14,8 @@ import com.hvost.blog.support.CategoryPostRepository;
 import com.hvost.blog.support.PostRepository;
 import com.hvost.commons.CommonEntity;
 import com.hvost.commons.CommonsRepository;
+import com.hvost.contacts.Contact;
+import com.hvost.contacts.support.ContactRepository;
 import com.hvost.images.Image;
 import com.hvost.startpage.Carousel;
 import com.hvost.startpage.support.CarouselRepository;
@@ -68,6 +70,9 @@ public class AdminService {
 
   @Autowired
   AboutMeRepository aboutMeRepository;
+
+  @Autowired
+  ContactRepository contactRepository;
 
   @Transactional
     public Post addArticle(Post a){
@@ -240,5 +245,28 @@ public class AdminService {
 
   public AboutMe getAboutMeBlockByID(Integer id) {
     return aboutMeRepository.findOne(id);
+  }
+
+  public List<Contact> getAllBlocksContact(){
+    return contactRepository.findAll();
+  }
+
+  @Transactional
+  public void addContactBlock(Contact contact){
+    em.merge(contact);
+  }
+
+  @Transactional
+  public void updateContactBlock(Contact contact){
+    em.merge(contact);
+  }
+
+  @Transactional
+  public void deleteContactBlock(Contact contact){
+    em.remove(em.contains(contact) ? contact : em.merge(contact));
+  }
+
+  public Contact getContactByID(Integer id) {
+    return contactRepository.findOne(id);
   }
 }

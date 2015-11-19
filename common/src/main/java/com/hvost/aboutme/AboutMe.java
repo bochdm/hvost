@@ -27,6 +27,17 @@ public class AboutMe implements Serializable {
   @Type(type = "text")
   private String text;
 
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
+  }
+
+  @Column(name = "isactive")
+  private boolean active;
+
   @Column
   private String title;
 
@@ -71,8 +82,9 @@ public class AboutMe implements Serializable {
     return "AboutMe{" +
         "id=" + id +
         ", imageName='" + imageName + '\'' +
-        ", order=" + orderID +
+        ", orderID=" + orderID +
         ", text='" + text + '\'' +
+        ", active=" + active +
         ", title='" + title + '\'' +
         '}';
   }

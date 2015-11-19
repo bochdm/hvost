@@ -1,6 +1,6 @@
-package com.hvost.aboutme.support;
+package com.hvost.contacts.support;
 
-import com.hvost.aboutme.AboutMe;
+import com.hvost.contacts.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,18 +9,17 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Created by kseniaselezneva on 14/11/15.
+ * Created by kseniaselezneva on 19/11/15.
  */
 @Service
-public class AboutMeService {
-
+public class ContactService {
   @PersistenceContext
   EntityManager em;
 
   @Autowired
-  AboutMeRepository aboutMeRepository;
+  ContactRepository contactRepository;
 
-  public List<AboutMe> getAllBlocksAboutMe(){
-    return aboutMeRepository.findByActive();
+  public List<Contact> getAllContacts(){
+    return contactRepository.findAll();
   }
 }

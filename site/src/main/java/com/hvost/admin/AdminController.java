@@ -9,6 +9,7 @@ import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import com.hvost.blog.support.PostService;
 import com.hvost.commons.CommonEntity;
+import com.hvost.contacts.Contact;
 import com.hvost.images.Image;
 import com.hvost.images.support.ImageService;
 import com.hvost.search.SearchResult;
@@ -490,9 +491,9 @@ public class AdminController {
   @RequestMapping(value = {"/aboutme/biography/{id:[0-9]+}/edit"}, method = RequestMethod.POST)
   @ResponseBody
   public String updateBiographyBlock(@ModelAttribute @Valid AboutMe aboutMe,
-                                  @PathVariable Integer id,
-                                  BindingResult bindingResult,
-                                  Model model){
+                                     @PathVariable Integer id,
+                                     BindingResult bindingResult,
+                                     Model model){
 
     AboutMe am = adminService.getAboutMeBlockByID(id);
     System.out.println("updateBiographyBlock.am -> " + am);
@@ -501,21 +502,13 @@ public class AdminController {
       am.setText(aboutMe.getText());
       am.setTitle(aboutMe.getTitle());
       am.setImageName(aboutMe.getImageName());
+      am.setActive(aboutMe.isActive());
 
       adminService.updateAboutMeBlock(am);
       return "OK";
     }
 
     return "ERROR";
-   /* public String editAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
-
-    Answer ans = adminService.getAnswer(id);
-    System.out.println("editAnswer -> " + ans);
-    if (!bindingResult.hasErrors()){
-      ans.setAnswerText(answer.getAnswerText());
-      adminService.updateAnswer(ans);
-    }*/
-
   }
 
   @RequestMapping(value = {"/aboutme/biography/edit"}, method = RequestMethod.POST)
@@ -532,12 +525,59 @@ public class AdminController {
     return "redirect:/admin/biography";
   }
 
-  @RequestMapping(value = "contacts", method = RequestMethod.GET)
+  @RequestMapping(value = "contacts/all", method = RequestMethod.GET)
   public String getContacts(Model model) {
-    CommonEntity contacts = adminService.getContacts();
-    model.addAttribute("contacts", contacts);
+  /*  CommonEntity contacts = adminService.getContacts();
+    model.addAttribute("contacts", contacts);*/
 
-    return "/admin/contacts";
+    List<Contact> allBlocksContact = adminService.getAllBlocksContact();
+    model.addAttribute("contactBlocks", allBlocksContact);
+    model.addAttribute("faIcons", faIcon);
+
+    return "/admin/contacts/contacts";
+  }
+
+  @RequestMapping(value = {"/contact/{id:[0-9]+}/edit"}, method = RequestMethod.POST)
+  @ResponseBody
+  public String updateContactBlock(@ModelAttribute @Valid Contact contact,
+                                   @PathVariable Integer id,
+                                   BindingResult bindingResult,
+                                   Model model){
+
+    System.out.println("contact -> " + contact);
+    Contact contactByID = adminService.getContactByID(id);
+    if (!bindingResult.hasErrors()) {
+      contactByID.setTitle(contact.getTitle());
+      contactByID.setText(contact.getText());
+      contactByID.setIcon(contact.getIcon());
+      contactByID.setActive(contact.isActive());
+
+      adminService.updateContactBlock(contactByID);
+
+      return "OK";
+    }
+    return "ERROR";
+  }
+
+  @RequestMapping(value = "/contact/newblockcontact", method = RequestMethod.GET)
+  public String newContactBlock(Model model){
+    model.addAttribute("contact", new Contact());
+    model.addAttribute("faIcons", faIcon);
+
+    return "/admin/contacts/newblockcontact";
+  }
+
+  @RequestMapping(value = "/contact/addblockcontact", method = RequestMethod.POST)
+  public String addContactBlock(@Valid Contact contact, BindingResult bindingResult, Model model){
+    if (!bindingResult.hasErrors()){
+      adminService.addContactBlock(contact);
+    }else {
+      List<ObjectError> errors = bindingResult.getAllErrors();
+    }
+
+    model.addAttribute("contact", new Contact());
+
+    return "redirect:/admin/contacts/all";
   }
 
   @RequestMapping(value = {"contacts/edit"}, method = RequestMethod.POST)

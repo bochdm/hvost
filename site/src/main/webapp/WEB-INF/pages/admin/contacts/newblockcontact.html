@@ -17,10 +17,10 @@
 
     <div class='page-header page-header-with-icon'>
       <i class='fa-icon-table'></i>
-      <h3>Новый блок для раздела Биография</h3>
+      <h3>Новый блок для раздела Контакты</h3>
     </div>
 
-    <form th:with="create=1" th:action="@{'/admin/aboutme/addblockbiography'}" th:object="${biography}" method="post">
+    <form th:with="create=1" th:action="@{'/admin/contact/addblockcontact'}" th:object="${contact}" method="post">
       <div class='col-sm-12 icon-boxes icon-boxes-lg'>
         <div class="row">
           <div class='col-sm-12 icon-box'>
@@ -29,24 +29,24 @@
                   <div class="input-group">
                     <span class="input-group-addon">Заголовок</span>
                     <input type="text" name="title" class="form-control col-md-7 col-xs-12"
-                           th:field="${biography.title}"/>
+                           th:field="${contact.title}"/>
                   </div>
                   <div class="clearfix"/>
                 </div>
                 <div class="x_content">
                   <div class="form-group">
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                       <div class='icon icon-wrap icon-circle icon-sm contrast-bg' data-toggle="modal" data-target="#myModal">
-                        <i class='text-white fa-info-circle' th:value="${biography.imageName}"></i>
-                        <input name="imageName" type="hidden" th:value="${biography.imageName}"/>
+                        <i class='text-white fa-info-circle' th:value="${contact.icon}"></i>
+                        <input name="imageName" type="hidden" th:value="${contact.icon}"/>
                       </div>
                     </div>
                     <div class='content'>
-                      <textarea type="text" name="text" th:utext="${biography.text}" class="form-control textarea form-control wysihtml5-editor placeholder" style="width: 810px; height: 250px"/>
+                      <textarea type="text" name="text" th:utext="${contact.text}" class="form-control textarea form-control wysihtml5-editor placeholder" style="width: 810px; height: 250px"/>
                     </div>
                   </div>
                   <div class="form-group">
-                    <div class="col-md-offset-2">
+                    <div class="col-md-offset-1">
                       <button type="submit" class="btn btn-success btn-sm">Добавить</button>
                     </div>
                   </div>

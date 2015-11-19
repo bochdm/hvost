@@ -39,6 +39,17 @@
               </div>
             </div>
 
+            <div class="row text-center">
+              <div class='col-sm-3' th:each="contact : ${contactBlocks}">
+                <div class='icon-wrap icon-circle contrast-bg icon-md'>
+                  <!--<i class='fa-icon-map-marker text-white' th:classappend="${contact.icon}"></i>-->
+                  <i class='text-white' th:classappend="${contact.icon}"></i>
+                </div>
+                <h3 th:text="${contact.title}"/>
+                <div th:utext="${contact.text}"/>
+              </div>
+            </div>
+
             <div class='row text-center'>
               <div class='col-sm-3'>
                 <div class='icon-wrap icon-circle contrast-bg icon-md'>

@@ -6,7 +6,7 @@
       xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute">
 <head>
   <meta charset="UTF-8"/>
-  <title>Биография</title>
+  <title>Контакты</title>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/resources/css/fa_jednotka_min.css}"/>
@@ -17,20 +17,14 @@
 
     <div class='page-header page-header-with-icon'>
       <i class='fa-icon-table'></i>
-      <h3>Биография</h3>
+      <h3>Контакты</h3>
     </div>
 
-    <!--<form th:with="edit=1" th:action="@{'/admin/biography/edit'}" th:object="${biografyBlocks}" method="post">-->
-    <!--  <div class="row">
-        <div class="col-md-12 col-xs-12">
-          <textarea type="text" id="title" name="title" th:field="${biograpfy.text}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
-        </div>
-      </div>-->
 
       <div class='col-sm-12 icon-boxes icon-boxes-lg'>
-        <div class="row" th:each="biografy, iterStat : ${biografyBlocks}" th:if="${iterStat.even}">
-          <div class='col-sm-6 icon-box' th:with="leftBlock=${biografyBlocks.get(iterStat.index)}">
-            <form th:name="${'form_biography_'+leftBlock.id}" th:with="edit=1" th:action="@{'/admin/aboutme/biography/'+${leftBlock.id}+'/edit'}" th:object="${leftBlock}" method="post">
+        <div class="row" th:each="contact, iterStat : ${contactBlocks}" th:if="${iterStat.even}">
+          <div class='col-sm-6 icon-box' th:with="leftBlock=${contactBlocks.get(iterStat.index)}">
+            <form th:name="${'form_contact_'+leftBlock.id}" th:with="edit=1" th:action="@{'/admin/contact/'+${leftBlock.id}+'/edit'}" th:object="${leftBlock}" method="post">
               <div class="x_panel">
                 <div class="x_title">
                   <div class="input-group">
@@ -45,7 +39,7 @@
                     <!--<div class='icon icon-wrap icon-circle icon-sm contrast-bg' data-toggle="modal" data-target="#myModal">-->
                     <div class="col-md-1">
                       <div th:name="${'imageName_' + leftBlock.id}" class='icon icon-wrap icon-circle icon-sm contrast-bg' data-toggle="modal" data-target="#myModal">
-                        <i class='text-white' th:classappend="${leftBlock.imageName}" th:value="${leftBlock.title}"></i>
+                        <i class='text-white' th:classappend="${leftBlock.icon}" th:value="${leftBlock.title}"></i>
                       </div>
                     </div>
                     <div class='content'>
@@ -68,8 +62,8 @@
             </form>
           </div>
 
-          <div class='col-sm-6 icon-box' th:if="${iterStat.index + 1 &lt; biografyBlocks.size()}" th:with="rightBlock=${biografyBlocks.get(iterStat.index + 1)}">
-            <form th:name="${'form_biography_'+rightBlock.id}" th:with="edit=1" th:action="@{'/admin/aboutme/biography/'+${rightBlock.id}+'/edit'}" th:object="${rightBlock}" method="post">
+          <div class='col-sm-6 icon-box' th:if="${iterStat.index + 1 &lt; contactBlocks.size()}" th:with="rightBlock=${contactBlocks.get(iterStat.index + 1)}">
+            <form th:name="${'form_contact_'+rightBlock.id}" th:with="edit=1" th:action="@{'/admin/contact/'+${rightBlock.id}+'/edit'}" th:object="${rightBlock}" method="post">
               <div class="x_panel">
                 <div class="x_title">
                   <!--<h2 th:text="${rightBlock.title}"/>-->
@@ -85,7 +79,7 @@
                   <div class="form-group">
                     <div class="col-md-1">
                       <div class='icon icon-wrap icon-circle icon-sm contrast-bg' data-toggle="modal" data-target="#myModal">
-                        <i name="active" class='text-white' th:classappend="${rightBlock.imageName}"></i>
+                        <i name="active" class='text-white' th:classappend="${rightBlock.icon}"></i>
                       </div>
                     </div>
                     <div class='content'>
@@ -207,17 +201,17 @@
 
     <script th:inline="javascript">
       /*<![CDATA[*/
-      $( "form[name^='form_biography_']").submit(function(event) {
+      $( "form[name^='form_contact_']").submit(function(event) {
         console.log("this.action ->" + $(this).attr("action"));
         event.preventDefault();
 
 //        console.log("form.img ->" + $(this).find('i.text-white').attr("name"));
-//        console.log("form.img ->" + clickImage.attr("value"));
+        console.log("form.img ->" + clickImage.attr("value"));
 
         var formBlock = $(this);
 
         var dataForm = $(this).serializeArray();
-        dataForm.push({name: "imageName", value: ((typeof clickImage !== 'undefined')? clickImage.attr("value"): 'fa-icon-info')});
+        dataForm.push({name: "icon", value: ((typeof clickImage !== 'undefined')? clickImage.attr("value"): 'fa-icon-info')});
 
         $.ajax({
           url: formBlock.attr("action"),

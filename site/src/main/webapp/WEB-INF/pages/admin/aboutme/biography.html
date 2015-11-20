@@ -92,7 +92,7 @@
                       <textarea type="text" name="text" th:utext="${rightBlock.text}" class="form-control textarea form-control wysihtml5-editor placeholder"/>
                       <div class="checkbox">
                         <label>
-                          <input th:name="${rightBlock.id}" type="checkbox" th:checked="${rightBlock.active}"/>Показывать?
+                          <input name="active" type="checkbox" th:checked="${rightBlock.active}"/>Показывать?
                         </label>
                       </div>
                     </div>
@@ -147,11 +147,6 @@
     </div>
 
 
-
-      <br/>
-      <button type="submit" class="btn btn-default">Обновить</button>
-      <br/>
-      <button id="updateBiography" name="updateBiography" type="button" class='btn btn-contrast btn-block'>Обновить</button>
     <!--</form>-->
 
   </main>

@@ -11,6 +11,6 @@ import java.util.List;
  * Created by kseniaselezneva on 14/11/15.
  */
 public interface AboutMeRepository extends JpaRepository<AboutMe, Integer> {
-  @Query("select sc from Carousel sc where sc.active = true")
+  @Query("select am from AboutMe am where am.active = true")
   List<AboutMe> findByActive();
 }

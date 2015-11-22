@@ -2098,6 +2098,11 @@ pre
   }
 
 }
+
+a:hover {
+    text-decoration: none;
+}
+
 /*Button*/
 /*.btn
 {
@@ -2973,7 +2978,7 @@ a.link-info
 a.link-info:hover
 {
   color:#48bbda
-} */
+}
 
 /*Icon*/
 .icon-wrap

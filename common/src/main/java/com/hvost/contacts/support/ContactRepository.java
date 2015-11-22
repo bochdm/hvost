@@ -1,7 +1,6 @@
 package com.hvost.contacts.support;
 
 import com.hvost.contacts.Contact;
-import com.hvost.startpage.Carousel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

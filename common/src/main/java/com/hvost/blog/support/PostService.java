@@ -10,7 +10,6 @@ import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
-import org.hibernate.SessionFactory;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -41,7 +40,7 @@ import java.util.List;
 @Service
 public class PostService {
 
-  private final int PAGE_SIZE = 25;
+  private final static int PAGE_SIZE = 25;
 
   @PersistenceContext
   private EntityManager em;

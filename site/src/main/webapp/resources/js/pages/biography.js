@@ -1,27 +1,21 @@
 $(document).ready(function(){
 
-    jQuery("#new_carousel, #update_carousel").validate({
+    jQuery("#newblockbiography").validate({
         ignore: ":hidden:not(textarea)",
         rules: {
             'title': {
                 required: true
             },
-            'content': {
+            'text': {
                 required: true
-            },
-            'link':{
-                url:true
             }
         },
         messages: {
             'title':  {
                 required: "Пожалуйста, укажите заголовок"
             },
-            'content':  {
+            'text':  {
                 required: "Пожалуйста, укажите основной текст"
-            },
-            'link':{
-                url: "Пожалуйста, введите верный адрес (пример, http://www.onf.ru)"
             }
         },
         highlight: function(element) {
@@ -33,7 +27,7 @@ $(document).ready(function(){
         },
         errorPlacement: function(error, element) {
             if ($(element).prop('nodeName') === 'TEXTAREA'){
-                error.insertBefore(element);
+                error.insertBefore(element.parent());
             }
             if ($(element).prop('nodeName') === 'INPUT'){
                 error.insertBefore(element.parent());

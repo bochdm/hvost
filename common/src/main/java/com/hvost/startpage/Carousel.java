@@ -1,7 +1,6 @@
 package com.hvost.startpage;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Date;
 
 /**

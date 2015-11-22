@@ -64,9 +64,8 @@ public class TwitterService {
   private String getReplacement(Matcher matcher) {
     String prefix = "<a target=\"_blank\" href=\"";
     String postfix = "\">" + matcher.group() + "</a>";
-    String replace = prefix + matcher.group() + postfix;
 
-    return replace;
+    return prefix + matcher.group() + postfix;
   }
 
 }

@@ -1,7 +1,6 @@
 package com.hvost.aboutme.support;
 
 import com.hvost.aboutme.AboutMe;
-import com.hvost.startpage.Carousel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

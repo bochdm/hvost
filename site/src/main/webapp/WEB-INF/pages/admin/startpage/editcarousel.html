@@ -22,11 +22,11 @@
     <h3>Редактирование блока стартовой страницы</h3>
   </div>
 
-  <div class="row row-centered">
-    <div class="col-md-12 col-centered" role="main">
-      <form th:with="edit=1" th:action="@{'/admin/startpage/carousel/'+${carousel.id}+'/edit'}" th:object="${carousel}" method="post">
+  <div class="row">
+    <div class="col-md-12" role="main">
+      <form id="update_carousel" name="update_carousel" th:with="edit=1" th:action="@{'/admin/startpage/carousel/'+${carousel.id}+'/edit'}" th:object="${carousel}" method="post" class="form-horizontal form-label-left">
 
-        <div class="col-md-6 col-xs-12">
+        <div class="form-group col-md-6 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
               <h2>Заголовок<small></small></h2>
@@ -57,7 +57,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 col-xs-12">
+        <div class="form-group col-md-6 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
               <h2>Основной текст <small></small></h2>
@@ -89,7 +89,7 @@
         </div>
 
 
-        <div class="col-md-12 col-xs-12">
+        <div class="form-group col-md-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
               <h2>Ссылка</h2>
@@ -131,17 +131,17 @@
                     <label for="postsLink">Список статей: Текущее значение </label>
                     <a th:href="@{${carousel.link}}" th:text="${carousel.link}" th:class="btn-danger"/>
                     <br/>
-                      <select id="postsLink" name="postsLink" class="form-control js-data-example-ajax">
-                        <option value="3620194">select2/select2</option>
-                      </select>
+                    <select id="postsLink" name="postsLink" class="form-control js-data-example-ajax">
+                      <option value="3620194">select2/select2</option>
+                    </select>
                   </div>
                   <div id="lineOnLinkDiv" class="col-md-12 col-xs-12 linkTypeClass">
-                      <label for="lineOnLink">Список видеопередач "Прямая линия": Текущее значение </label>
-                      <a th:href="@{${carousel.link}}" th:text="${carousel.link}" th:class="btn-danger"/>
+                    <label for="lineOnLink">Список видеопередач "Прямая линия": Текущее значение </label>
+                    <a th:href="@{${carousel.link}}" th:text="${carousel.link}" th:class="btn-danger"/>
                     <br/>
-                      <select id="lineOnLink" name="lineOnLink" class="form-control js-data-example-ajax col-md-12 col-sm-12 col-xs-12">
-                        <option value="3620194">select2/select2</option>
-                      </select>
+                    <select id="lineOnLink" name="lineOnLink" class="form-control js-data-example-ajax col-md-12 col-sm-12 col-xs-12">
+                      <option value="3620194">select2/select2</option>
+                    </select>
                   </div>
                   <div id="extLinkDiv" class="col-md-12 col-xs-12 linkTypeClass">
                     <label for="extLink">Ссылка на внешний ресурс (сайт)</label>
@@ -160,7 +160,12 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-default">Обновить</button>
+        <div class="form-group">
+          <div class="col-md-12 col-xs-12">
+            <button type="submit" class="btn btn-default">Обновить</button>
+          </div>
+        </div>
+
       </form>
     </div>
   </div>
@@ -170,6 +175,7 @@
 <th:block layout:fragment="script">
 
   <script th:src="@{/resources/js/jquery/jquery.validate.min.js}"       type="text/javascript"></script>
+  <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js" type="text/javascript"></script>
   <script th:src="@{/resources/js/pages/newcarousel.js}"                type="text/javascript"></script>
   <script th:src="@{/resources/js/wysihtml5/wysihtml5x-toolbar.min.js}" type="text/javascript"></script>
   <script th:src="@{/resources/js/wysihtml5/bootstrap3-wysihtml5.js}"   type="text/javascript"></script>
@@ -242,7 +248,7 @@
       "image":       false, //Button to insert an image. Default true,
       "video":       false, //Button to change color of font
       "html":        true,
-      stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
+      stylesheets: /*[[@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.min.css}]]*/
     });
     /*]]>*/
   </script>

@@ -63,7 +63,8 @@
   <script th:inline="javascript">
     /*<![CDATA[*/
     $('.textarea').wysihtml5({
-      html:true, stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
+      html:true,
+      stylesheets: /*[[@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.min.css}]]*/
     });
     /*]]>*/
   </script>

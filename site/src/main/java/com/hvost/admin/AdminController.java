@@ -815,9 +815,8 @@ public class AdminController {
     Page<Answer> result = adminService.getAllAnswers(pageNum);
 
     List<Answer> ans = result.getContent();
-    System.out.println("AdminController:getAllAnswer");
-    for (Answer a : ans)
-      System.out.println(a);
+   /* for (Answer a : ans)
+      System.out.println(a);*/
 
     model.addAttribute("answer_count", result.getTotalElements());
 
@@ -859,11 +858,10 @@ public class AdminController {
 
     System.out.println("admin:unanswered");
     List<Question> qq = result.getContent();
-    for (Question q : qq)
+   /* for (Question q : qq)
       System.out.println("q -> " + q);
-
+*/
     model.addAttribute("unanswered_count", result.getTotalElements());
-    System.out.println("unanswered_count ->" + result.getTotalElements());
 
     model.addAttribute("questions", result);
     model.addAttribute("paginationInfo", new PaginationInfo(result));
@@ -875,7 +873,6 @@ public class AdminController {
   public String showAnswer(@PathVariable Long id, Model model){
 
     Answer answer = adminService.getAnswer(id);
-    System.out.println("AdminController:showAnswer = " + answer);
     model.addAttribute("answer", answer);
     return "redirect:/admin/allanswers";
   }
@@ -956,7 +953,6 @@ public class AdminController {
   }
   @RequestMapping(value = "/video/archivevideo/{id:[0-9]+}/edit", method = {RequestMethod.GET})
   public String findArchiveVideo(@PathVariable Long id, Model model) {
-    System.out.println("admin/editarchivevideo");
     Archive archive = adminService.getArchiveVideo(id);
     model.addAttribute("arhivevideo", archive);
     return "admin/video/editarchivevideo";
@@ -1054,17 +1050,14 @@ public class AdminController {
     String resultLink = "";
     switch (linkType){
       case "extLink":
-        resultLink = "http://" + request.getParameter("extLink");
-        System.out.println("extLink->" + resultLink);
+        resultLink = request.getParameter("extLink");
         break;
       case "postsLink":
         long linkToPost = Long.parseLong(request.getParameter("postsLink"));
-        System.out.println("linkToPost->" + linkToPost);
         resultLink = "/blog/" + linkToPost;
         break;
       case "lineOnLink":
         long lineOnLink = Long.parseLong(request.getParameter("lineOnLink"));
-        System.out.println("lineOnLink->" + lineOnLink);
         resultLink = "/video/archive/" + lineOnLink;
         break;
     }
@@ -1123,26 +1116,21 @@ public class AdminController {
       carousel.setLinkClass(archive.getLinkClass());
 
       String linkType = request.getParameter("linkType");
-      System.out.println("linkType -> " + linkType);
 
       String resultLink = "";
       switch (linkType){
         case "extLink":
-          resultLink = "http://" + request.getParameter("link");
-          System.out.println("extLink->" + resultLink);
+          resultLink = request.getParameter("link");
           break;
         case "postsLink":
           long linkToPost = Long.parseLong(request.getParameter("postsLink"));
           System.out.println("linkToPost->" + linkToPost);
-          resultLink = "/blog/" + linkToPost;
           break;
         case "lineOnLink":
           long lineOnLink = Long.parseLong(request.getParameter("lineOnLink"));
-          System.out.println("lineOnLink->" + lineOnLink);
           resultLink = "/video/archive/" + lineOnLink;
           break;
       }
-
 
       carousel.setLink(resultLink);
       adminService.updateCarousel(carousel);
@@ -1162,13 +1150,11 @@ public class AdminController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String changeShowCarousel(@PathVariable Long id, @ModelAttribute @Valid Carousel carousel, HttpSession session){
-    System.out.println("changeShowCarousel");
 //    System.out.println("id = " + id);
     Carousel c = adminService.getCarousel(id);
     System.out.println("before " + c);
     if (carousel != null) {
 //      c.setShow(carousel.getShow() ? false : true);
-      System.out.println("carousel.getActive = " + carousel.getActive());
       c.setActive(carousel.getActive()? false : true);
       adminService.updateCarousel(c);
       System.out.println("after " + c);

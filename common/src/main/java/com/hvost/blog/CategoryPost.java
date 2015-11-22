@@ -1,7 +1,6 @@
 package com.hvost.blog;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by kseniaselezneva on 19/03/15.

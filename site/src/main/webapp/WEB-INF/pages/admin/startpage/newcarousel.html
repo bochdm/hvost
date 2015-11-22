@@ -144,7 +144,7 @@
                     <div class="input-group">
                       <span class="input-group-addon">http://</span>
                       <input type="text" id="extLink" name="extLink" class="form-control col-md-7 col-xs-12"
-                             placeholder="Внешняя ссылка"/>
+                             placeholder="Внешняя ссылка" th:field="*{link}"/>
                     </div>
                   </div>
 
@@ -178,9 +178,12 @@
             </select>
           </div>
         </div>-->
+        <div class="form-group">
+          <div class="col-md-12 col-xs-12">
+            <button type="submit" class="btn btn-default">Добавить</button>
+          </div>
+        </div>
 
-
-        <button type="submit" class="btn btn-default">Submit</button>
       </form>
     </div>
   </div>
@@ -276,7 +279,7 @@
       "image":       false, //Button to insert an image. Default true,
       "video":       false, //Button to change color of font
       "html":        true,
-      stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
+      stylesheets: /*[[@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.min.css}]]*/
     });
     /*]]>*/
   </script>

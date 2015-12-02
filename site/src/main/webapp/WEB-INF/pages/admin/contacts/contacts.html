@@ -36,12 +36,19 @@
                 </div>
                 <div class="x_content">
                   <div class="form-group">
-                    <!--<div class='icon icon-wrap icon-circle icon-sm contrast-bg' data-toggle="modal" data-target="#myModal">-->
-                    <div class="col-md-1">
+             <!--       <div class="col-md-1">
                       <div th:name="${'imageName_' + leftBlock.id}" class='icon icon-wrap icon-circle icon-sm contrast-bg' data-toggle="modal" data-target="#myModal">
                         <i class='text-white' th:classappend="${leftBlock.icon}" th:value="${leftBlock.title}"></i>
                       </div>
+                    </div>-->
+
+                    <div class="col-lg-1 col-md-2 col-sm-4 col-xs-4">
+                      <a class="icon icon-wrap icon-circle icon-sm contrast-bg" data-toggle="modal" data-target="#myModal">
+                        <i class='text-white' th:classappend="${leftBlock.icon}" th:value="${leftBlock.title}"/>
+                        <input type="hidden" name="image" th:value="${leftBlock.icon}"/>
+                      </a>
                     </div>
+
                     <div class='content'>
                       <textarea type="text" name="text" th:utext="${leftBlock.text}" class="form-control textarea form-control wysihtml5-editor placeholder"/>
                       <div class="checkbox">
@@ -77,10 +84,11 @@
                 </div>
                 <div class="x_content">
                   <div class="form-group">
-                    <div class="col-md-1">
-                      <div class='icon icon-wrap icon-circle icon-sm contrast-bg' data-toggle="modal" data-target="#myModal">
-                        <i name="active" class='text-white' th:classappend="${rightBlock.icon}"></i>
-                      </div>
+                    <div class="col-lg-1 col-md-2 col-sm-4 col-xs-4">
+                      <a class="icon icon-wrap icon-circle icon-sm contrast-bg" data-toggle="modal" data-target="#myModal">
+                        <i class='text-white' th:classappend="${rightBlock.icon}" th:value="${rightBlock.title}"/>
+                        <input type="hidden" name="image" th:value="${rightBlock.icon}"/>
+                      </a>
                     </div>
                     <div class='content'>
                       <textarea type="text" name="text" th:utext="${rightBlock.text}" class="form-control textarea form-control wysihtml5-editor placeholder"/>
@@ -165,19 +173,19 @@
         parser:        function(html) {
                          return html;
                        },
-        stylesheets: ["wysihtml5/bootstrap3-wysihtml5-editor.min.css"]
+        stylesheets: /*[[@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.min.css}]]*/
       });
       /*]]>*/
     </script>
 
     <script th:inline="javascript">
       /*<![CDATA[*/
-      clickImageDiv = null;
+      var clickImageContactDiv = null;
       $("#myModal").on('show.bs.modal', function(event){
-        clickImageDiv = $(event.relatedTarget);  // Button that triggered the modal
-        clickImage = clickImageDiv.children().first();
+        clickImageContactDiv = $(event.relatedTarget);  // Button that triggered the modal
+        clickImageContact = clickImageContactDiv.children().first();
 //        var clickImage = clickImageDiv.find(".text-white :first");
-        console.log("clickImage -> " + clickImage.attr("class"));
+        console.log("clickImage -> " + clickImageContact.attr("class"));
 
       });
 
@@ -187,8 +195,8 @@
 
       //  console.log("iconSet = " + icon.attr('name'));
         $(this).addClass("bg-primary");
-        clickImage.attr("value", $(this).attr('name'));
-        clickImage.attr("class", "text-white " +$(this).attr('name'));
+        clickImageContact.attr("value", $(this).attr('name'));
+        clickImageContact.attr("class", "text-white " +$(this).attr('name'));
       });
 
       /*]]>*/
@@ -201,12 +209,12 @@
         event.preventDefault();
 
 //        console.log("form.img ->" + $(this).find('i.text-white').attr("name"));
-        console.log("form.img ->" + clickImage.attr("value"));
+        console.log("form.img ->" + clickImageContact.attr("value"));
 
         var formBlock = $(this);
 
         var dataForm = $(this).serializeArray();
-        dataForm.push({name: "icon", value: ((typeof clickImage !== 'undefined')? clickImage.attr("value"): 'fa-icon-info')});
+        dataForm.push({name: "icon", value: ((typeof clickImageContact !== 'undefined')? clickImageContact.attr("value"): 'fa-icon-info')});
 
         $.ajax({
           url: formBlock.attr("action"),

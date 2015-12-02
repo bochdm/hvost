@@ -15,7 +15,7 @@
       <div th:each="google,id : ${googleSearch}" class="item" th:classappend="${id.index == 0}? active" th:if="${googleSearch != null}">
         <div class="col-sm-12 text-center">
           <p class="lead" th:utext="${google.title}"/>
-          <p th:utext="${google.url}"/>
+          <a target="_blank" th:href="@{${google.url}}" th:text="${google.url}"/>
         </div>
       </div>
 

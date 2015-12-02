@@ -20,6 +20,6 @@ public class ContactService {
   ContactRepository contactRepository;
 
   public List<Contact> getAllContacts(){
-    return contactRepository.findAll();
+    return contactRepository.findByActive();
   }
 }

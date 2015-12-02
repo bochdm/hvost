@@ -40,7 +40,7 @@
             </div>
 
             <div class="row text-center">
-              <div class='col-sm-3' th:each="contact : ${contactBlocks}">
+              <div class='col-sm-3' th:class="'col-sm-' + ${12/contactBlocks.size()}" th:each="contact : ${contactBlocks}">
                 <div class='icon-wrap icon-circle contrast-bg icon-md'>
                   <!--<i class='fa-icon-map-marker text-white' th:classappend="${contact.icon}"></i>-->
                   <i class='text-white' th:classappend="${contact.icon}"></i>

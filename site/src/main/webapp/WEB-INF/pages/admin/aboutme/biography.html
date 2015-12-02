@@ -184,7 +184,7 @@
 
     <script th:inline="javascript">
       /*<![CDATA[*/
-      clickImageDiv = null;
+      var clickImageDiv = null;
       $("#myModal").on('show.bs.modal', function(event){
         clickImageDiv = $(event.relatedTarget);  // Button that triggered the modal
         clickImage = clickImageDiv.children().first();

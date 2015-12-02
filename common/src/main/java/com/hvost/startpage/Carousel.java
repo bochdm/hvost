@@ -107,6 +107,15 @@ public class Carousel {
     this.content = content;
   }
 
+  public String getClearText(){
+
+    if (null != title) {
+      String noHtml = title.replaceAll("\\<.*?>", "");
+      return noHtml;
+    }
+    return "";
+  }
+
   @Override
   public String toString() {
     return "Carousel{" +

@@ -31,12 +31,6 @@ public class TwitterService {
 
     List<String> tweets = new ArrayList<String>(10);
 
- /*   try {
-      Thread.sleep(3000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }*/
-
     for (Tweet tweet : twitts) {
       String regex = "((https?):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
       Pattern p = Pattern.compile(regex);

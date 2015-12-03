@@ -37,7 +37,9 @@
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="title">Заголовок <span class="required">*</span></label>
                 <div class="col-md-10 col-sm-10 col-xs-12">
-                    <textarea type="text" id="title" name="title" th:field="*{title}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                    <textarea type="text" id="title" name="title" style="height: 250px" th:field="*{title}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                  <span>Максимальное число символов 100 / осталось </span>
+                  <span id="titleChars">100</span>
                 </div>
               </div>
 
@@ -68,7 +70,9 @@
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="content">Текст <span class="required">*</span></label>
                 <div class="col-md-10 col-xs-12">
-                  <textarea type="text" id="content" name="content" required="required" th:field="*{content}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                  <textarea type="text" id="content" name="content" style="height: 250px" required="required" th:field="*{content}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                  <span>Максимальное число символов 200 / осталось </span>
+                  <span id="contentChars">200</span>
                 </div>
               </div>
 
@@ -239,18 +243,64 @@
 
   <script th:inline="javascript">
     /*<![CDATA[*/
-    $('.textarea').wysihtml5({
-      "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-      "emphasis":    true, //Italics, bold, etc. Default true
-      "color":       true, //Button to change color of font
+    $('#title').wysihtml5({
+      "font-styles": true,  //Font styling, e.g. h1, h2, etc. Default true
+      "emphasis":    true,  //Italics, bold, etc. Default true
+      "color":       false, //Button to change color of font
       "lists":       false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
       "html":        false, //Button which allows you to edit the generated HTML. Default false
       "link":        false, //Button to insert a link. Default true
       "image":       false, //Button to insert an image. Default true,
       "video":       false, //Button to change color of font
       "html":        true,
-      stylesheets: /*[[@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.min.css}]]*/
+      parser:        function(html) {
+        return html;
+      },
+      stylesheets: /*[[@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.min.css}]]*/,
+      events: {
+        load: function() {
+          var some_wysi = $('#title').data('wysihtml5').editor;
+          $(some_wysi.composer.element).bind('keyup', function(){
+            var text = $(this).html().replace('&nbsp;',' ');
+            var remains = 100 - text.length;
+            if (remains <= 0) {
+              $('#titleChars').css('color', 'red');
+            }
+            $('#titleChars').html(String(remains));
+          });
+        }
+      }
     });
+
+    $('#content').wysihtml5({
+      "font-styles": true,  //Font styling, e.g. h1, h2, etc. Default true
+      "emphasis":    true,  //Italics, bold, etc. Default true
+      "color":       false, //Button to change color of font
+      "lists":       false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+      "html":        false, //Button which allows you to edit the generated HTML. Default false
+      "link":        false, //Button to insert a link. Default true
+      "image":       false, //Button to insert an image. Default true,
+      "video":       false, //Button to change color of font
+      "html":        true,
+      parser:        function(html) {
+        return html;
+      },
+      stylesheets: /*[[@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.min.css}]]*/,
+      events: {
+        load: function() {
+          var some_wysi = $('#content').data('wysihtml5').editor;
+          $(some_wysi.composer.element).bind('keyup', function(){
+            var text = $(this).html().replace('&nbsp;',' ');
+            var remains = 200 - text.length;
+            if (remains <= 0) {
+              $('#contentChars').css('color', 'red');
+            }
+            $('#contentChars').html(String(remains));
+          });
+        }
+      }
+    });
+
     /*]]>*/
   </script>
 

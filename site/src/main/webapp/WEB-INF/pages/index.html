@@ -38,8 +38,9 @@
 
         <div class="row" >
           <div class="col-sm-12 animate">
-            <h1 th:utext="${crsl.title}" class="animated" style="font-size:46px;color:white;" th:classappend="${crsl.titleClass}"/>
-          <div th:utext="${crsl.content}" class="animated" style="font-size:21px; color:white;" th:classappend="${crsl.contentClass}"/>
+            <h1 th:utext="${crsl.title}"    class="animated" style="font-size:46px; color:dimgray; line-height: 1.4" th:classappend="${crsl.titleClass}"/>
+            <br/>
+            <div th:utext="${crsl.content}" class="animated carousel" style="font-size:21px; color:white;" th:classappend="${crsl.contentClass}"/>
           </div>
           <a class="btn btn-bordered btn-white btn-lg animated" th:classappend="${crsl.linkClass}" th:href="@{${crsl.link}}"
               th:if="${(not #strings.isEmpty(crsl.link)) and (#strings.containsIgnoreCase(crsl.link, 'blog') )}">Читать</a>

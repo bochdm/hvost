@@ -39,7 +39,7 @@
                 <div class="col-md-10 col-sm-10 col-xs-12">
                   <!--<input type="text" id="title" required="required" th:field="*{title}" class="form-control col-md-7 col-xs-12" placeholder="Заголовок"/>-->
                   <div class="col-md-12 col-xs-12">
-                    <textarea type="text" id="title" name="title" th:field="*{title}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                    <textarea type="text" id="title" name="title" style="height: 250px" th:field="*{title}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
                     <span>Максимальное число символов 100 / осталось </span>
                     <span id="titleChars">100</span>
                   </div>
@@ -72,7 +72,7 @@
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="content">Текст <span class="required">*</span></label>
                 <div class="col-md-10 col-xs-12">
-                  <textarea type="text" id="content" name="content" required="required" th:field="*{content}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
+                  <textarea type="text" id="content" name="content" style="height: 250px" required="required" th:field="*{content}" class="form-control col-md-7 col-xs-12 textarea form-control wysihtml5-editor placeholder" placeholder="Текст блока ..."/>
                   <span>Максимальное число символов 200 / осталось </span>
                   <span id="contentChars">200</span>
                 </div>
@@ -274,9 +274,9 @@
   <script th:inline="javascript">
     /*<![CDATA[*/
     $('#title').wysihtml5({
-      "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-      "emphasis":    true, //Italics, bold, etc. Default true
-      "color":       true, //Button to change color of font
+      "font-styles": true,  //Font styling, e.g. h1, h2, etc. Default true
+      "emphasis":    true,  //Italics, bold, etc. Default true
+      "color":       false, //Button to change color of font
       "lists":       false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
       "html":        false, //Button which allows you to edit the generated HTML. Default false
       "link":        false, //Button to insert a link. Default true
@@ -303,9 +303,9 @@
     });
 
     $('#content').wysihtml5({
-      "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-      "emphasis":    true, //Italics, bold, etc. Default true
-      "color":       true, //Button to change color of font
+      "font-styles": true,  //Font styling, e.g. h1, h2, etc. Default true
+      "emphasis":    true,  //Italics, bold, etc. Default true
+      "color":       false, //Button to change color of font
       "lists":       false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
       "html":        false, //Button which allows you to edit the generated HTML. Default false
       "link":        false, //Button to insert a link. Default true
@@ -400,8 +400,6 @@
   </script>
 -->
 </th:block>
-
-
 
 </body>
 </html>

@@ -1150,11 +1150,10 @@ public class AdminController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String changeShowCarousel(@PathVariable Long id, @ModelAttribute @Valid Carousel carousel, HttpSession session){
-//    System.out.println("id = " + id);
+    System.out.println("changeshow/id = " + carousel.toString());
     Carousel c = adminService.getCarousel(id);
     if (carousel != null) {
-//      c.setShow(carousel.getShow() ? false : true);
-      c.setActive(carousel.getActive());
+      c.setActive(carousel.getActive() ? false : true);
       adminService.updateCarousel(c);
       return "ok";
     }

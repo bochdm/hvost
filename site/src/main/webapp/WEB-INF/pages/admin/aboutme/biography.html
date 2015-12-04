@@ -185,11 +185,12 @@
     <script th:inline="javascript">
       /*<![CDATA[*/
       var clickImageDiv = null;
+      var clickImage = null;
       $("#myModal").on('show.bs.modal', function(event){
         clickImageDiv = $(event.relatedTarget);  // Button that triggered the modal
         clickImage = clickImageDiv.children().first();
 //        var clickImage = clickImageDiv.find(".text-white :first");
-        console.log("clickImage -> " + clickImage.attr("class"));
+    //    console.log("clickImage -> " + clickImage.attr("class"));
 
       });
 
@@ -211,9 +212,6 @@
       $( "form[name^='form_biography_']").submit(function(event) {
         console.log("this.action ->" + $(this).attr("action"));
         event.preventDefault();
-
-//        console.log("form.img ->" + $(this).find('i.text-white').attr("name"));
-//        console.log("form.img ->" + clickImage.attr("value"));
 
         var formBlock = $(this);
 

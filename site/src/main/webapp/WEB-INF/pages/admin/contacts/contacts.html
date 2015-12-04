@@ -181,11 +181,12 @@
     <script th:inline="javascript">
       /*<![CDATA[*/
       var clickImageContactDiv = null;
+      var clickImageContact = null;
       $("#myModal").on('show.bs.modal', function(event){
         clickImageContactDiv = $(event.relatedTarget);  // Button that triggered the modal
         clickImageContact = clickImageContactDiv.children().first();
 //        var clickImage = clickImageDiv.find(".text-white :first");
-        console.log("clickImage -> " + clickImageContact.attr("class"));
+ //       console.log("clickImage -> " + clickImageContact.attr("class"));
 
       });
 
@@ -195,8 +196,10 @@
 
       //  console.log("iconSet = " + icon.attr('name'));
         $(this).addClass("bg-primary");
-        clickImageContact.attr("value", $(this).attr('name'));
-        clickImageContact.attr("class", "text-white " +$(this).attr('name'));
+        if (clickImageContact) {
+          clickImageContact.attr("value", $(this).attr('name'));
+          clickImageContact.attr("class", "text-white " + $(this).attr('name'));
+        }
       });
 
       /*]]>*/
@@ -208,13 +211,10 @@
         console.log("this.action ->" + $(this).attr("action"));
         event.preventDefault();
 
-//        console.log("form.img ->" + $(this).find('i.text-white').attr("name"));
-        console.log("form.img ->" + clickImageContact.attr("value"));
-
         var formBlock = $(this);
 
         var dataForm = $(this).serializeArray();
-        dataForm.push({name: "icon", value: ((typeof clickImageContact !== 'undefined')? clickImageContact.attr("value"): 'fa-icon-info')});
+        dataForm.push({name: "icon", value: ((typeof clickImageContact !== 'undefined' && (clickImageContact != null))? clickImageContact.attr("value"): 'fa-icon-info')});
 
         $.ajax({
           url: formBlock.attr("action"),

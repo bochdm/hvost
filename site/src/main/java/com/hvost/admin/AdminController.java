@@ -1124,6 +1124,7 @@ public class AdminController {
           break;
         case "postsLink":
           long linkToPost = Long.parseLong(request.getParameter("postsLink"));
+          resultLink = "/blog/" + linkToPost;
           System.out.println("linkToPost->" + linkToPost);
           break;
         case "lineOnLink":

@@ -24,4 +24,8 @@ public class CarouselService {
   public List<Carousel> getVisible(){
     return carouselRepository.findByActive();
   }
+
+  public List<Carousel> getOnlyActual(){
+    return carouselRepository.findOlderLastWeek();
+  }
 }

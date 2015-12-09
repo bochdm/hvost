@@ -17,5 +17,5 @@ public interface CarouselRepository extends JpaRepository<Carousel, Long> {
   List<Carousel> findByActive();
 
   @Query(value = "select * from start_carousel c where c.isactive = 1 and c.created_at < DATE_SUB(NOW(), INTERVAL 7 Day)", nativeQuery = true)
-  List<Carousel> findLastWeek();
+  List<Carousel> findOlderLastWeek();
 }

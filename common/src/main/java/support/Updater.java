@@ -22,6 +22,8 @@ public class Updater {
   @Scheduled(cron = "0 0 0 * * *")
   public void carouselToBlog(){
 
+    carouselService.getOnlyActual();
+
 //    carouselService
 
 

@@ -28,6 +28,7 @@ $(document).ready(function(){
             //$(element).removeClass('has-success').addClass('has-error');
             console.log("nodeName -> " + $(element).prop('nodeName'));
             $(element).parent().find('iframe.wysihtml5-sandbox').css('border-color', 'red');
+            $(element).parent().find('div.note-editable').css('border-color', 'red');
          //   $(element).next('iframe').addClass('border-color', 'red');
           //  $('.wysihtml5-sandbox').css('border-color', 'red');
         },

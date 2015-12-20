@@ -29,27 +29,25 @@ public class Updater {
 //  @Scheduled(cron = "0 0 0 * * *")
   @Scheduled(cron = "0 * * * * *")
   public void carouselToBlog(){
+    System.out.println("Updater.carouselToBlog");
 
     List<Carousel> onlyActual = carouselService.getOnlyActual();
 
-    System.out.println("list.carousel.size = " + onlyActual.size());
     for (Carousel carousel : onlyActual) {
-      System.out.println("carousel->" + carousel);
       Post post = new Post();
       post.setTitle(carousel.getTitle().replaceAll("\\<.*?>", ""));
-      post.setSummary(carousel.getContent());
+      post.setSummary(carousel.getContent().replaceAll("\\<.*?>", ""));
       post.setAuthor("admin");
       String link = carousel.getLink();
       if (link.contains("http")) {
-        post.setContent(carousel.getContent() + "<br/><a href='" + link + "'/>");
+        post.setContent(carousel.getContent().replaceAll("\\<.*?>", "") + "<br/><a href='" + link + "'/>");
       } else {
-        post.setContent(carousel.getContent());
+        post.setContent(carousel.getContent().replaceAll("\\<.*?>", ""));
       }
       adminService.addArticle(post);
       System.out.println("move to blog ->" + post);
       carousel.setActive(false);
       adminService.updateCarousel(carousel);
     }
-
   }
 }

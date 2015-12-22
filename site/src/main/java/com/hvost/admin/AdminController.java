@@ -1150,16 +1150,17 @@ public class AdminController {
   @RequestMapping(value = "/startpage/carousel/{id:[0-9]+}/changeshow", method = {RequestMethod.POST})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public String changeShowCarousel(@PathVariable Long id, @ModelAttribute @Valid Carousel carousel, HttpSession session){
+  public Carousel changeShowCarousel(@PathVariable Long id, @ModelAttribute @Valid Carousel carousel, HttpSession session){
     System.out.println("changeshow/id = " + carousel.toString());
     Carousel c = adminService.getCarousel(id);
     if (carousel != null) {
       c.setActive(carousel.getActive() ? false : true);
+      c.setCreatedAt(new Date());
       adminService.updateCarousel(c);
-      return "ok";
+      return c;
     }
 
-    return "error";
+    return null;
  //   return new ResponseEntity<Object>(carousel, HttpStatus.OK);
 
   }

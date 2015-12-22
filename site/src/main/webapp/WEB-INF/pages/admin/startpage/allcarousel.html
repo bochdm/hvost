@@ -17,7 +17,7 @@
   <div class="row">
     <div class='col-sm-12'>
       <div class="table-responsive">
-        <table class='table table-striped'>
+        <table id="carousels" class='table table-striped'>
           <thead>
             <tr>
               <th th:text="Заголовок"/>
@@ -38,7 +38,7 @@
               </td>
               <td class="col-md-2">
                 <small>
-                  <time th:datetime-local="ru" th:datetime="${crsl.createdAt}" th:text='${#dates.format(crsl.createdAt, "dd MMMM yyyy HH:mm")}'/>
+                  <time th:id="${'createdAt_' + crsl.id}" th:datetime-local="ru" th:datetime="${crsl.createdAt}" th:text='${#dates.format(crsl.createdAt, "dd MMMM yyyy HH:mm")}'/>
                 </small>
               </td>
               <td class="col-md-2">
@@ -91,7 +91,14 @@
 
         },
         success: function(data){
-          console.log("ajax " + data);
+          /*  if (data.length > 0 ) {
+
+           var json_x = $.parseJSON(data);
+            console.log("ajax " + data);
+            console.log("data.id = " + json_x.id);
+            console.log("data.createdAt = " + json_x.createdAt);
+            $("#createdAt_" + json_x.id).text(json_x.createdAt);
+          }*/
         }
 //        data:{status:$(this).val()}
       })

@@ -84,6 +84,7 @@
 </div>
 
 <div id="main-content" >
+
 <div class="container">
   <!--<div class="row vertical-center">-->
   <div class="row">
@@ -104,6 +105,14 @@
 
   </div>
 
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div id='map-canvas' style="height: 500px;"></div>
+    </div>
+  </div>
+
+
   <div class="row">
     <div class="col-sm-12">
       <div class='page-header page-header-with-icon'>
@@ -112,6 +121,7 @@
       </div>
     </div>
   </div>
+
 
   <div class="row panels">
     <div class="col-sm-6">
@@ -290,7 +300,7 @@
 </div>
 </main>
 
-<script>
+<!--<script>
     (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -298,12 +308,100 @@
 
     ga("create", "UA-44249116-1", "bublinastudio.com");
     ga("send", "pageview");
-</script>
+</script>-->
 
 <th:block layout:fragment="script">
   <script th:src="@{/resources/js/jquery/jquery.validate.min.js}" type="text/javascript"></script>
   <script th:src="@{/resources/js/jquery/jquery.blockui.js}"      type="text/javascript"></script>
   <script th:src="@{/resources/js/pages/activepeople.js}"         type="text/javascript"></script>
+
+  <script th:src="@{http://maps.googleapis.com/maps/api/js?language=ru}" type="text/javascript"></script>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var initializeMap;
+
+    initializeMap = function() {
+      var iw1, latlng, map, marker, options;
+
+      latlng = new google.maps.LatLng(59.792212,30.16117);
+      options = {
+        scrollwheel: false,
+        zoom: 14,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: true
+      };
+
+      map = new google.maps.Map(document.getElementById("map-canvas"), options);
+
+      marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+      });
+
+      iw1 = new google.maps.InfoWindow({
+        content: "Here we are!"
+      });
+
+      return google.maps.event.addListener(marker, "click", function(e) {
+        return iw1.open(map, this);
+      });
+    };
+
+    google.maps.event.addDomListener(window, 'load', initializeMap);
+    /*]]>*/
+  </script>
+
+
+
+  <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBNLVUvtVqyOXyJhzMRkRC-G9t6d3-2Mm0&sensor=false" type="text/javascript"></script>-->
+<!--  <script th:src="@{http://maps.googleapis.com/maps/api/js?v=3.22;key=AIzaSyAABrGxjFnKzW2GJJy4tqIjEQMVG5k8Gds;callback=initMap}" type="text/javascript"></script>
+
+  <script type="text/javascript">
+
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map-canvas'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+      });
+    }
+    </script>-->
+
+<!--  <script>
+    var initializeMap;
+
+    initializeMap = function() {
+      var iw1, latlng, map, marker, options;
+
+      latlng = new google.maps.LatLng(37.331686, -122.030656);
+      options = {
+        scrollwheel: false,
+        zoom: 16,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: true
+      };
+
+      map = new google.maps.Map(document.getElementById("map-canvas"), options);
+
+      marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+      });
+
+      iw1 = new google.maps.InfoWindow({
+        content: "Here we are!"
+      });
+
+      return google.maps.event.addListener(marker, "click", function(e) {
+        return iw1.open(map, this);
+      });
+    };
+
+    google.maps.event.addDomListener(window, 'load', initializeMap);
+  </script>-->
+
 
   <script th:inline="javascript">
     var submitForm = document.querySelector('#send-question');

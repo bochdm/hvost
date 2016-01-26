@@ -27,15 +27,11 @@ public class NewCarouselListener {
     String titleNoHTML = title.replaceAll("\\<.*?>", "");
     String contentNoHTML = content.replaceAll("\\<.*?>", "");
 
-    if (titleNoHTML.length() > 60) {
-      carousel.setTitle(title.replace(titleNoHTML, titleNoHTML.substring(0, 59)));
+    if (titleNoHTML.length() > 100) {
+      carousel.setTitle(title.replace(titleNoHTML, titleNoHTML.substring(0, 99)));
     }
     if (contentNoHTML.length() > 200) {
       carousel.setContent(content.replace(contentNoHTML, contentNoHTML.substring(0, 199)));
     }
-
-    System.out.println("nohtml -> " + titleNoHTML);
-    System.out.println("nohtml -> " + contentNoHTML);
-
   }
 }

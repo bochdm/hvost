@@ -321,7 +321,8 @@
     var initializeMap;
 
     initializeMap = function() {
-      var iw1, latlng, map, marker, options;
+
+      var iw1, latlng, marker, options;
 
       latlng = new google.maps.LatLng(59.792212,30.16117);
       options = {
@@ -352,6 +353,34 @@
     /*]]>*/
   </script>
 
+  <script type="text/javascript">
+    var timer = setInterval(function (){
+    $.ajax({
+      type: 'GET',
+      url:'markers',
+      dataType: 'text',
+      success: function(data){
+        if (data.length > 0 ) {
+
+         var json_x = $.parseJSON(data);
+
+          $.each(json_x, function(i, value) {
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(value.lat,value.lon),
+              title: 'lalalla',
+              map:map
+            });
+          });
+
+
+         console.log("ajax markers -> " + data);
+//         console.log("data.id = " + json_x.id);
+//         console.log("data.createdAt = " + json_x.createdAt);
+         }
+      }
+    })
+    }, 10000);
+  </script>
 
 
   <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBNLVUvtVqyOXyJhzMRkRC-G9t6d3-2Mm0&sensor=false" type="text/javascript"></script>-->

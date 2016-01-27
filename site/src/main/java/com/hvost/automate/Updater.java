@@ -44,7 +44,7 @@ public class Updater {
       post.setSummary(carousel.getContent().replaceAll("\\<.*?>", ""));
       post.setAuthor("admin");
       String link = carousel.getLink();
-      if (link.contains("http")) {
+      if (link != null && link.contains("http")) {
         String buttonHtml = String.format("<br/><br/><a target='_blank' href='%s'class='btn btn-contrast btn-sm mg-b-md'>Перейти</a>", link);
         post.setContent(carousel.getContent().replaceAll("\\<.*?>", "") + buttonHtml);
       } else {

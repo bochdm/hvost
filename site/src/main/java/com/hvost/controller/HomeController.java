@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 //import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -219,6 +220,23 @@ public class HomeController {
 
     return new ModelAndView();
 
+  }
+
+  @RequestMapping(method = RequestMethod.GET, value="/markers")
+  @ResponseBody
+  public List<Map<String, String>> getMarkers(Model model){
+    List<Map<String, String>> coords = new ArrayList<>();
+    Map<String, String> c = new HashMap<>();
+    c.put("lat", "59.8355952");
+    c.put("lon", "30.2048149");
+    coords.add(c);
+    c = new HashMap<>();
+    c.put("lat", "59.8475237");
+    c.put("lon", "30.1853393");
+    coords.add(c);
+
+    System.out.println("calls getMarkers");
+    return coords;
   }
 
 

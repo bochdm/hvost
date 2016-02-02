@@ -170,7 +170,14 @@
             </div>
             <div class='col-sm-6'>
               <div class='form-group control-group'>
-                <input class='form-control' data-rule-email='false' data-rule-required='false' id='contact_email' name='contact_email' placeholder='Ваш E-Mail' type='text'/>
+                <input class='form-control' data-rule-email='false' data-rule-required='false' id='email' name='email' placeholder='Ваш E-Mail' type='text'/>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class='col-sm-12'>
+              <div class='form-group control-group'>
+                <input class='form-control' data-rule-email='false' data-rule-required='false' id='address' name='address' placeholder='Адрес' type='text'/>
               </div>
             </div>
           </div>
@@ -357,7 +364,7 @@
     var timer = setInterval(function (){
     $.ajax({
       type: 'GET',
-      url:'markers',
+      url: 'markers',
       dataType: 'text',
       success: function(data){
         if (data.length > 0 ) {
@@ -366,9 +373,16 @@
 
           $.each(json_x, function(i, value) {
             var marker = new google.maps.Marker({
-              position: new google.maps.LatLng(value.lat,value.lon),
+              icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+              position: new google.maps.LatLng(value.lat,value.lng),
               title: 'lalalla',
               map:map
+            });
+            var info = new google.maps.InfoWindow({
+              content: value.text
+            });
+            marker.addListener('click', function() {
+              info.open(map, marker);
             });
           });
 

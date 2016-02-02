@@ -3,6 +3,7 @@ package com.hvost.controller;
 import com.hvost.activepeople.Answer;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.ActivePeopleService;
+import com.hvost.admin.AdminService;
 import com.hvost.blog.support.PostService;
 import com.hvost.home.GoogleApiSearchService;
 import com.hvost.home.GoogleResults;
@@ -18,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.twitter.api.*;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
@@ -222,21 +225,52 @@ public class HomeController {
 
   }
 
+  @Autowired
+  private AdminService adminService;
+
   @RequestMapping(method = RequestMethod.GET, value="/markers")
   @ResponseBody
   public List<Map<String, String>> getMarkers(Model model){
-    List<Map<String, String>> coords = new ArrayList<>();
-    Map<String, String> c = new HashMap<>();
+
+    PageRequest pageNum = new PageRequest(0, 25, Sort.Direction.DESC, "date");
+
+    List<Map<String, String>> markers = new ArrayList<>();
+
+    Page<Question> allUnansweredQuestions = activePeopleService.getAllUnansweredQuestions(pageNum);
+
+    for (Question allUnansweredQuestion : allUnansweredQuestions) {
+      double lat = allUnansweredQuestion.getLat();
+      double lng = allUnansweredQuestion.getLng();
+      if (lat != 0 && lng != 0){
+        Map<String, String> questionInfo = new HashMap<>();
+        questionInfo.put("lat", String.valueOf(lat));
+        questionInfo.put("lng", String.valueOf(lng));
+
+        StringBuilder sb = new StringBuilder("<b>");
+        sb.append(allUnansweredQuestion.getAddress());
+        sb.append("</b>");
+        sb.append("<br/>");
+        sb.append(allUnansweredQuestion.getQuestionText());
+
+        questionInfo.put("text", sb.toString());
+        markers.add(questionInfo);
+      }
+    }
+
+/*    Map<String, String> c = new HashMap<>();
     c.put("lat", "59.8355952");
     c.put("lon", "30.2048149");
+    c.put("text", "point 1");
     coords.add(c);
     c = new HashMap<>();
     c.put("lat", "59.8475237");
     c.put("lon", "30.1853393");
-    coords.add(c);
+    c.put("text", "point 2");
+
+    coords.add(c);*/
 
     System.out.println("calls getMarkers");
-    return coords;
+    return markers;
   }
 
 

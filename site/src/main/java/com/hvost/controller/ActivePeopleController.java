@@ -1,6 +1,8 @@
 package com.hvost.controller;
 
+import com.google.maps.model.*;
 import com.hvost.activepeople.Answer;
+import com.hvost.activepeople.GoogleGeoCoding;
 import com.hvost.activepeople.Question;
 import com.hvost.activepeople.support.ActivePeopleService;
 import com.hvost.activepeople.EmailService;
@@ -73,17 +75,15 @@ public class ActivePeopleController {
     for(Questions q: qq)
       System.out.println(q);*/
 
-    List<Answer> aa =  result.getContent();
+    List<Answer> aa = result.getContent();
     for(Answer ans : aa)
       System.out.println(ans);
 
 
-
     return renderList(result, model);
-
   }
 
-  @RequestMapping(value="unaswered", method = RequestMethod.GET)
+  @RequestMapping(value = "unaswered", method = RequestMethod.GET)
   public String listUnansweredQuestions(Model model, @RequestParam(defaultValue = "1") int page){
     PageRequest pageNum = new PageRequest(page - 1, 10, Sort.Direction.DESC, "date");
     Page<Question> listQuestion = service.getAllUnansweredQuestions(pageNum);
@@ -94,6 +94,22 @@ public class ActivePeopleController {
     return "/activepeople/unanswered_questions";
   }
 
+  @RequestMapping(value = "allquestion", method = RequestMethod.GET)
+  public String getAllQuestion(Model model){
+    List<Question> allQuestion = service.getAllQuestion();
+
+    for (Question question : allQuestion) {
+      System.out.println("getAllQuestion:question -> " + question);
+    }
+
+    model.addAttribute("allquestion", allQuestion);
+
+    return "allquestion";
+  }
+
+  @Autowired
+  private GoogleGeoCoding googleGeoCoding;
+
   @RequestMapping(value = "/addquestion", method = RequestMethod.POST)
   public String addQuestion(@ModelAttribute("question") @Valid Question question,
                             BindingResult bindingResult,
@@ -103,6 +119,11 @@ public class ActivePeopleController {
     if (bindingResult.hasErrors()) {
       return "/activepeople/activepeople";
     }
+
+    com.google.maps.model.LatLng latLng = googleGeoCoding.geo(question.getAddress());
+    question.setLatLng(latLng.toString());
+    question.setLat(latLng.lat);
+    question.setLng(latLng.lng);
 
     Question newQuestion = service.addNewQuestion(question);
 
@@ -118,7 +139,6 @@ public class ActivePeopleController {
       ImageUtils.saveFileToLocalDisk(multipartFile, imageInfo, FolderPath.ACTIVEPEOPLE);
 
     }
-
 
     emailService.sendEmail(question);
 

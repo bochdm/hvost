@@ -18,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,7 @@ import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
 
 
 /**
@@ -45,9 +48,30 @@ public class ActivePeopleService {
   @PersistenceContext
   EntityManager em;
 
+  @Async
+  public Future<Page<Question>> getAllUnaswered(){
+    PageRequest pageNum = new PageRequest(0, 30, Sort.Direction.DESC, "date");
+
+    Page<Question> allUnswered = questionRepository.findAllUnswered(pageNum);
+    return new AsyncResult<>(allUnswered);
+  }
+
+  @Async
+  public Future<Page<Answer>> getAnswers(){
+    PageRequest pageNum = new PageRequest(0, 30, Sort.Direction.DESC, "date");
+
+    Page<Answer> byPublished = answerRepository.findByPublished(pageNum);
+    return new AsyncResult<>(byPublished);
+  }
+
+
   public Page<Question> getAll(Pageable pageRequest){
 
     return questionRepository.findAll(pageRequest);
+  }
+
+  public List<Question> getAllQuestion(){
+    return questionRepository.findAll();
   }
 
   public Page<Question> getAllUnansweredQuestions(Pageable pageRequest){

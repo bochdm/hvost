@@ -63,6 +63,66 @@ public class Question implements Serializable {
   @JoinColumn(name = "CQ_CQ_ID", insertable = false)
   private CategoryQuestion category;
 
+  @Column(name = "EMAIL")
+  private String email;
+
+  @Column(name = "ADDRESS")
+  private String address;
+
+  public String getLatLng() {
+    return latlng;
+  }
+
+  public void setLatLng(String latlng) {
+    this.latlng = latlng;
+  }
+
+  @Column(name = "LATLNG")
+  private String latlng;
+
+
+  @Column(name = "LAT")
+  private double lat;
+
+  @Column(name = "LNG")
+  private double lng;
+
+  public double getLat() {
+    return lat;
+  }
+
+  public void setLat(double lat) {
+    this.lat = lat;
+  }
+
+  public double getLng() {
+    return lng;
+  }
+
+  public void setLng(double lng) {
+    this.lng = lng;
+  }
+
+  public void setLat(float lat) {
+    this.lat = lat;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
   public Question() {
   }
 
@@ -130,11 +190,15 @@ public class Question implements Serializable {
 
   @Override
   public String toString() {
-    return "Questions{" +
+    return "Question{" +
         "id=" + id +
         ", questionText='" + questionText + '\'' +
         ", date=" + date +
         ", author='" + author + '\'' +
+        ", category=" + category +
+        ", email='" + email + '\'' +
+        ", address='" + address + '\'' +
+        ", images=" + images +
         '}';
   }
 }

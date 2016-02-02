@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+  <head>
+    <title>Статьи</title>
+    <meta content='all' name='robots'/>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+
+  </head>
+  <body>
+    <div id='wrapper'>
+
+
+      <main  layout:fragment="content">
+
+
+      <div id='main' role='main'>
+        <div id='main-content-header'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-sm-12'>
+                <h1 class='title'>
+                  Ваши вопросы
+                </h1>
+                <ol class='breadcrumb'>
+                  <li>
+                    <a href='index.html'>
+                      <i class='fa-icon-home'></i>
+                    </a>
+                  </li>
+                  <li class='active'>Вопросы</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="main-content">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div id='map-canvas' style="height: 500px;"></div>
+            </div>
+          </div>
+
+
+          <div class="container">
+            <div class="row">
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <form th:action="@{/activepeople/search}" class='mg-b' method='post'>
+                    <div class='input-group'>
+                      <input id="q" name="q" class='form-control' placeholder='Поиск по вопросам и ответам...' type='text'/>
+                        <span class='input-group-btn'>
+                          <button class='btn btn-contrast' type="submit">
+                            <i class='fa-icon-search'></i>
+                          </button>
+                        </span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div th:each="question : ${listQuestion}" class="row" >
+                <hr class='hr-half'/>
+                <div class="col-sm-10">
+                  <p class='text-justify' th:utext="${question.questionText}"/>
+                  <br/>
+                  <div id="links">
+                    <div class="row">
+                      <div class="col-xs-3" th:each="image : ${question.images}">
+                        <a th:href="${image.location}" th:title="${image.name}" class="thumbnail">
+                          <img th:src="@{'/images/activepeople/' +${image.name}}" th:alt="${image.name}"/>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-sm-2">
+                  <div class='box'>
+                    <small>
+                      <ul class='list-unstyled list-padded'>
+                        <li>
+                          <i class='fa-icon-user text-contrast fa-icon-fixed-width'></i>
+                          <span th:text="${question.author}"/>
+                        </li>
+                        <li>
+                          <i class='fa-icon-calendar-empty text-contrast fa-icon-fixed-width'></i>
+                          <time th:datetime-local="ru" th:datetime="${question.date}" th:text='${#dates.format(question.date, "dd MMMM yyyy HH:mm")}'/>
+                        </li>
+                        <li>
+                          <i class='fa-icon-ok text-contrast fa-icon-fixed-width'></i>
+                          <span th:text="${question.category.name}"/>
+                        </li>
+                   <!--     <li>
+                          <i class='fa-icon-comments text-contrast fa-icon-fixed-width'></i>
+                          <a href='#mc-container'>
+                            <span>Комментариев:</span>
+                            <span id="count"></span>
+                          </a>
+                        </li>-->
+                      </ul>
+                    </small>
+                  </div>
+                </div>
+
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <div class='fade' id='scroll-to-top'>
+          <i class='fa-icon-chevron-up'></i>
+        </div>
+      </div>
+      </main>
+    </div>
+
+    <th:block layout:fragment="script">
+
+      <script th:src="@{http://maps.googleapis.com/maps/api/js?language=ru}" type="text/javascript"></script>
+
+      <script type="text/javascript">
+        /*<![CDATA[*/
+//        var unaswered = /*[[${#vars['unaswered']}]]*/
+        var unaswered = /*[[${unaswered}]]*/
+        console.log(unaswered);
+
+
+        var initializeMap;
+
+        initializeMap = function() {
+
+          var iw1, latlng, marker, options;
+
+          latlng = new google.maps.LatLng(59.792212,30.16117);
+          options = {
+            scrollwheel: false,
+            zoom: 14,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: true
+          };
+
+          map = new google.maps.Map(document.getElementById("map-canvas"), options);
+
+          marker = new google.maps.Marker({
+            position: latlng,
+            map: map
+          });
+
+          iw1 = new google.maps.InfoWindow({
+            content: "Here we are!"
+          });
+
+          return google.maps.event.addListener(marker, "click", function(e) {
+            return iw1.open(map, this);
+          });
+        };
+
+        google.maps.event.addDomListener(window, 'load', initializeMap);
+
+      /*]]>*/
+    </script>
+
+      <script th:inline="javascript">
+        var timer = setInterval(function (){
+          console.log("unasweredcheck setInterval");
+          $.ajax({
+            type: 'GET',
+            url: 'map/unansweredcheck',
+            dataType: 'text',
+           /* beforeSend: function(){
+              $('#tweets').html('<p class="text-center"><img th:src="@{/resources/img/ajax-loader.gif}"/></p>');
+            },*/
+
+            success: function(data){
+              if (data.length > 0) {
+                var json_x = $.parseJSON(data);
+                $.each(json_x, function (i, value) {
+                  var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(value.lat,value.lng),
+                    title: 'lalalla',
+                    map:map
+                  });
+                  var info = new google.maps.InfoWindow({
+                    content: value.text
+                  });
+                  marker.addListener('click', function() {
+                    info.open(map, marker);
+                  });
+                });
+                clearInterval(timer);
+              }
+
+            /*  if (data.length > 0){
+                $('#tweets').html(data);
+                console.log("ajax COMPLETE");
+                clearInterval(timer);
+              }*/
+            }
+          });
+        }, 3000);
+
+      </script>
+
+      <script th:inline="javascript">
+        var timer = setInterval(function (){
+          console.log("answeredcheck setInterval");
+          $.ajax({
+            type: 'GET',
+            url: 'map/answeredcheck',
+            dataType: 'text',
+            /* beforeSend: function(){
+             $('#tweets').html('<p class="text-center"><img th:src="@{/resources/img/ajax-loader.gif}"/></p>');
+             },*/
+
+            success: function(data){
+              if (data.length > 0) {
+                var json_x = $.parseJSON(data);
+                $.each(json_x, function (i, value) {
+                  var marker = new google.maps.Marker({
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                    position: new google.maps.LatLng(value.lat,value.lng),
+                    title: 'lalalla',
+                    map:map
+                  });
+                  var info = new google.maps.InfoWindow({
+                    content: value.text
+                  });
+                  marker.addListener('click', function() {
+                    info.open(map, marker);
+                  });
+                });
+                clearInterval(timer);
+              }
+
+              /*  if (data.length > 0){
+               $('#tweets').html(data);
+               console.log("ajax COMPLETE");
+               clearInterval(timer);
+               }*/
+            }
+          });
+        }, 3000);
+
+      </script>
+
+    </th:block>
+
+  </body>
+</html>

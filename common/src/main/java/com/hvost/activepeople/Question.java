@@ -80,12 +80,14 @@ public class Question implements Serializable {
   @Column(name = "LATLNG")
   private String latlng;
 
-
   @Column(name = "LAT")
   private double lat;
 
   @Column(name = "LNG")
   private double lng;
+
+  @Column(name = "IS_SHOW")
+  private boolean isShow;
 
   public double getLat() {
     return lat;
@@ -188,6 +190,14 @@ public class Question implements Serializable {
     this.author = author;
   }
 
+  public boolean isShow() {
+    return isShow;
+  }
+
+  public void setShow(boolean isShow) {
+    this.isShow = isShow;
+  }
+
   @Override
   public String toString() {
     return "Question{" +
@@ -198,6 +208,10 @@ public class Question implements Serializable {
         ", category=" + category +
         ", email='" + email + '\'' +
         ", address='" + address + '\'' +
+        ", latlng='" + latlng + '\'' +
+        ", lat=" + lat +
+        ", lng=" + lng +
+        ", isShow=" + isShow +
         ", images=" + images +
         '}';
   }

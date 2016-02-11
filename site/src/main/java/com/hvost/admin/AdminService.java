@@ -177,6 +177,11 @@ public class AdminService {
     return questionRepository.findOne(id);
   }
 
+  @Transactional
+  public void updateQuestion(Question q) {
+    em.merge(q);
+  }
+
   public List<Carousel> getAllCarousel(){
     return carouselRepository.findAll(new Sort(Sort.Direction.DESC, "createdAt"));
   }

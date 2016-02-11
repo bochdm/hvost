@@ -42,6 +42,8 @@ public class MapsController {
     session.setAttribute("answers", answers);
     model.addAttribute("answers", answers);
 
+    model.addAttribute("question", new Question());
+
     return "/activepeople/map_question";
   }
 

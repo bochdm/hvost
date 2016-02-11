@@ -1164,4 +1164,26 @@ public class AdminController {
  //   return new ResponseEntity<Object>(carousel, HttpStatus.OK);
 
   }
+
+  @RequestMapping(value = "/question/{id:[0-9]+}/changevisible", method = {RequestMethod.POST})
+//  @RequestMapping(value = {"/changevisible"}, method = {RequestMethod.POST})
+  @ResponseBody
+//  public String changeShowQuestion(@PathVariable Long id, @ModelAttribute @Valid Question question, HttpSession session){
+  public String changeShowQuestion(@PathVariable Long id, HttpSession session){
+    System.out.println("question/id = " + id);
+    Question q = adminService.getQuestion(id);
+    System.out.println("before q -> " + q);
+    if (id != null) {
+//      q.setShow(question.isShow() ? false : true);
+      q.setShow(q.isShow() ? false : true);
+      adminService.updateQuestion(q);
+      System.out.println("after q -> " + q);
+
+      return "ok";
+    }
+
+    return "notok";
+    //   return new ResponseEntity<Object>(carousel, HttpStatus.OK);
+
+  }
 }

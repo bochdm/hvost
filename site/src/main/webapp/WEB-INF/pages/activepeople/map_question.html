@@ -13,9 +13,7 @@
   <body>
     <div id='wrapper'>
 
-
       <main  layout:fragment="content">
-
 
       <div id='main' role='main'>
         <div id='main-content-header'>
@@ -23,7 +21,7 @@
             <div class='row'>
               <div class='col-sm-12'>
                 <h1 class='title'>
-                  Ваши вопросы
+                  Карта активного гражданина
                 </h1>
                 <ol class='breadcrumb'>
                   <li>
@@ -31,7 +29,7 @@
                       <i class='fa-icon-home'></i>
                     </a>
                   </li>
-                  <li class='active'>Вопросы</li>
+                  <li class='active'>Карта вопросов</li>
                 </ol>
               </div>
             </div>
@@ -39,79 +37,76 @@
         </div>
 
         <div id="main-content">
-
-          <div class="row">
-            <div class="col-sm-12">
-              <div id='map-canvas' style="height: 500px;"></div>
-            </div>
-          </div>
-
-
-          <div class="container">
+          <div class='container'>
             <div class="row">
-              <div class='row'>
-                <div class='col-sm-12'>
-                  <form th:action="@{/activepeople/search}" class='mg-b' method='post'>
-                    <div class='input-group'>
-                      <input id="q" name="q" class='form-control' placeholder='Поиск по вопросам и ответам...' type='text'/>
-                        <span class='input-group-btn'>
-                          <button class='btn btn-contrast' type="submit">
-                            <i class='fa-icon-search'></i>
-                          </button>
-                        </span>
-                    </div>
-                  </form>
-                </div>
+              <div class="col-sm-12">
+                <div id='map-canvas' style="height: 600px;"></div>
               </div>
+            </div>
 
-              <div th:each="question : ${listQuestion}" class="row" >
-                <hr class='hr-half'/>
-                <div class="col-sm-10">
-                  <p class='text-justify' th:utext="${question.questionText}"/>
-                  <br/>
-                  <div id="links">
+            <div class='row' id="askme">
+              <form id="send-question" th:action="@{/activepeople/addquestion}" th:object="${question}"
+                    class='form dropzone' method='post' enctype="multipart/form-data"
+                    style="border:none;background-color: transparent;">
+                <div class='page-header page-header-with-icon'>
+                  <i class='fa-icon-question-sign'></i>
+                  <h2>Не смогли найти ответ? Задайте&nbsp;свой&nbsp;вопрос!</h2>
+                </div>
+                <div class='col-sm-6'>
+                  <fieldset>
+                    <div class='row'>
+                      <div class='col-sm-6'>
+                        <div class='form-group'>
+                          <input class='form-control' th:field="*{author}" data-rule-required='false' id='author' name='author' placeholder='Ваше имя' type='text'/>
+                        </div>
+                      </div>
+                      <div class='col-sm-6'>
+                        <div class='form-group'>
+                          <input class='form-control' id='contact_email'
+                                 name='contact_email' placeholder='Ваш E-Mail' type='email'/>
+                        </div>
+                      </div>
+                    </div>
                     <div class="row">
-                      <div class="col-xs-3" th:each="image : ${question.images}">
-                        <a th:href="${image.location}" th:title="${image.name}" class="thumbnail">
-                          <img th:src="@{'/images/activepeople/' +${image.name}}" th:alt="${image.name}"/>
-                        </a>
+                      <div class='col-sm-12'>
+                        <div class='form-group control-group'>
+                          <input class='form-control' data-rule-email='false' data-rule-required='false' id='address' name='address' placeholder='Адрес' type='text'/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='row'>
+                      <div class='col-sm-12'>
+                        <div class='form-group'>
+                          <textarea class='form-control' id='questionText' name='text_question' placeholder='Ваш вопрос...' rows='14' th:field="*{questionText}"/>
+                          <td th:if="${#fields.hasErrors('questionText')}" class="text-danger" th:errors="*{questionText}">Name Error</td>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='row'>
+                      <div class='col-sm-12'>
+                        <button id="newQuestion" name="newQuestion" class='btn btn-contrast btn-block' type="button" th:text="#{ask.question}"/>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                </div>
+                <div class="col-sm-6">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_content">
+
+                        <p>Перенесите файлы изображений в область ниже или кликните на ней</p>
+                        <div id="dropzonePreview" class="dz-default dz-message form-control" style="height: 430px; ">
+                          <div id="preview">
+                            <span class="preview"><img data-dz-thumbnail="" /></span>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
                   </div>
-
                 </div>
-                <div class="col-sm-2">
-                  <div class='box'>
-                    <small>
-                      <ul class='list-unstyled list-padded'>
-                        <li>
-                          <i class='fa-icon-user text-contrast fa-icon-fixed-width'></i>
-                          <span th:text="${question.author}"/>
-                        </li>
-                        <li>
-                          <i class='fa-icon-calendar-empty text-contrast fa-icon-fixed-width'></i>
-                          <time th:datetime-local="ru" th:datetime="${question.date}" th:text='${#dates.format(question.date, "dd MMMM yyyy HH:mm")}'/>
-                        </li>
-                        <li>
-                          <i class='fa-icon-ok text-contrast fa-icon-fixed-width'></i>
-                          <span th:text="${question.category.name}"/>
-                        </li>
-                   <!--     <li>
-                          <i class='fa-icon-comments text-contrast fa-icon-fixed-width'></i>
-                          <a href='#mc-container'>
-                            <span>Комментариев:</span>
-                            <span id="count"></span>
-                          </a>
-                        </li>-->
-                      </ul>
-                    </small>
-                  </div>
-                </div>
-
-
-              </div>
-
-
+              </form>
             </div>
           </div>
         </div>
@@ -139,10 +134,10 @@
 
           var iw1, latlng, marker, options;
 
-          latlng = new google.maps.LatLng(59.792212,30.16117);
+          latlng = new google.maps.LatLng(59.809067, 30.152698);
           options = {
             scrollwheel: false,
-            zoom: 14,
+            zoom: 13,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             mapTypeControl: true

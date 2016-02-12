@@ -70,7 +70,7 @@
                   </small>
                 </td>
                 <td class="col-md-1">
-                  <input th:name="${question.id}" type="checkbox" th:checked="${question.show}" />
+                  <input th:name="${question.id}" type="checkbox" th:checked="${question.visible}" />
                 </td>
                 <td class="col-md-1">
                   <small><a id="edit" th:href="@{'/admin/question/'+${question.id}+'/newreply'}" th:text="Ответить"/></small>

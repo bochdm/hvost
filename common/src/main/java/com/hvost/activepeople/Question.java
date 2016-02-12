@@ -4,16 +4,11 @@ package com.hvost.activepeople;
 
 
 import com.hvost.images.Image;
-import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
-import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
-import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.annotations.Filter;
 import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.persistence.Parameter;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -86,8 +81,16 @@ public class Question implements Serializable {
   @Column(name = "LNG")
   private double lng;
 
+  public boolean isVisible() {
+    return visible;
+  }
+
+  public void setVisible(boolean visible) {
+    this.visible = visible;
+  }
+
   @Column(name = "IS_SHOW")
-  private boolean isShow;
+  private boolean visible;
 
   public double getLat() {
     return lat;
@@ -190,13 +193,6 @@ public class Question implements Serializable {
     this.author = author;
   }
 
-  public boolean isShow() {
-    return isShow;
-  }
-
-  public void setShow(boolean isShow) {
-    this.isShow = isShow;
-  }
 
   @Override
   public String toString() {
@@ -211,7 +207,7 @@ public class Question implements Serializable {
         ", latlng='" + latlng + '\'' +
         ", lat=" + lat +
         ", lng=" + lng +
-        ", isShow=" + isShow +
+        ", visible=" + visible +
         ", images=" + images +
         '}';
   }

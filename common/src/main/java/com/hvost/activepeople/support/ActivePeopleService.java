@@ -49,11 +49,15 @@ public class ActivePeopleService {
   EntityManager em;
 
   @Async
-  public Future<Page<Question>> getAllUnaswered(){
+  public Future<Page<Question>> getAllVisibleUnaswered(){
     PageRequest pageNum = new PageRequest(0, 30, Sort.Direction.DESC, "date");
 
-    Page<Question> allUnswered = questionRepository.findAllUnswered(pageNum);
-    return new AsyncResult<>(allUnswered);
+    Page<Question> allUnswered = questionRepository.findVisibleUnswered(pageNum);
+/*    for (Question question : allUnswered) {
+      System.out.println("getAllVisibleUnaswered -> " + question);
+    }*/
+
+    return new AsyncResult<Page<Question>>(allUnswered);
   }
 
   @Async
@@ -61,7 +65,10 @@ public class ActivePeopleService {
     PageRequest pageNum = new PageRequest(0, 30, Sort.Direction.DESC, "date");
 
     Page<Answer> byPublished = answerRepository.findByPublished(pageNum);
-    return new AsyncResult<>(byPublished);
+/*    for (Answer answer : byPublished) {
+      System.out.println("getAnswers -> " + answer);
+    }*/
+    return new AsyncResult<Page<Answer>>(byPublished);
   }
 
 

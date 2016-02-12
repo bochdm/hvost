@@ -858,9 +858,8 @@ public class AdminController {
 
     System.out.println("admin:unanswered");
     List<Question> qq = result.getContent();
-   /* for (Question q : qq)
+    for (Question q : qq)
       System.out.println("q -> " + q);
-*/
     model.addAttribute("unanswered_count", result.getTotalElements());
 
     model.addAttribute("questions", result);
@@ -902,7 +901,7 @@ public class AdminController {
   @RequestMapping(value = "/answer/{id:[0-9]+}/publish", method = {RequestMethod.GET})
   public String publishAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
     Answer ans = adminService.getAnswer(id);
-    System.out.println( "publishAnswer ->" + ans);
+    System.out.println("publishAnswer ->" + ans);
 
     if (!bindingResult.hasErrors()) {
       ans.setIsPublic(true);
@@ -1166,16 +1165,15 @@ public class AdminController {
   }
 
   @RequestMapping(value = "/question/{id:[0-9]+}/changevisible", method = {RequestMethod.POST})
-//  @RequestMapping(value = {"/changevisible"}, method = {RequestMethod.POST})
   @ResponseBody
 //  public String changeShowQuestion(@PathVariable Long id, @ModelAttribute @Valid Question question, HttpSession session){
-  public String changeShowQuestion(@PathVariable Long id, HttpSession session){
+  public String changeShowQuestion(@PathVariable Long id){
     System.out.println("question/id = " + id);
     Question q = adminService.getQuestion(id);
     System.out.println("before q -> " + q);
     if (id != null) {
 //      q.setShow(question.isShow() ? false : true);
-      q.setShow(q.isShow() ? false : true);
+      q.setVisible(q.isVisible() ? false : true);
       adminService.updateQuestion(q);
       System.out.println("after q -> " + q);
 

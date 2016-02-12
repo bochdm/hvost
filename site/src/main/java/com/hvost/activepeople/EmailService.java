@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 /**
  * Created by kseniaselezneva on 15/08/15.
  */
@@ -20,7 +22,7 @@ public class EmailService {
   public void sendEmail(Question question){
     SimpleMailMessage email = new SimpleMailMessage( );
     email.setFrom("bochdm@tkhostov.com");
-    email.setTo("bochkanov.dm@gmail.com");
+    email.setTo(new String[]{"bochkanov.dm@gmail.com", "seleznevaks@gmail.com"});
     email.setSubject("новый вопрос");
     email.setText("Новый вопрос от проекта Активный гражданин " + System.lineSeparator() + question.getQuestionText());
 

@@ -51,7 +51,7 @@ public class AdminService {
   PostRepository postRepository;
 
   @Autowired
-   AnswerRepository answerRepository;
+  AnswerRepository answerRepository;
 
   @Autowired
   QuestionRepository questionRepository;
@@ -75,21 +75,21 @@ public class AdminService {
   ContactRepository contactRepository;
 
   @Transactional
-    public Post addArticle(Post a){
-        //em.persist(a);
-      return em.merge(a);
-    }
+  public Post addArticle(Post a) {
+    //em.persist(a);
+    return em.merge(a);
+  }
 
 
   @Transactional
-  public void updateAnswer(Answer a){
-  //  answerRepository.save(a);
+  public void updateAnswer(Answer a) {
+    //  answerRepository.save(a);
 
     em.merge(a);
   }
 
   @Transactional
-  public void addReply(Answer a){
+  public void addReply(Answer a) {
     em.persist(a);
   }
 
@@ -97,57 +97,60 @@ public class AdminService {
    * Обновляем статью
    */
   @Transactional
-  public void updatePost(Post p){
+  public void updatePost(Post p) {
     em.merge(p);
   }
 
   @Transactional
-  public void deletePost(Post p){
+  public void deletePost(Post p) {
     // em.remove(p);
     em.remove(em.contains(p) ? p : em.merge(p));
   }
 
   @Transactional
-  public void addArchiveVideo(Archive a){
+  public void addArchiveVideo(Archive a) {
     em.merge(a);
   }
 
   @Transactional
-  public void updateArchiveVideo(Archive a){
+  public void updateArchiveVideo(Archive a) {
     em.merge(a);
   }
 
   @Transactional
-  public void deleteArchiveVideo(Archive a){
-    em.remove(em.contains(a) ? a :em.merge(a));
+  public void deleteArchiveVideo(Archive a) {
+    em.remove(em.contains(a) ? a : em.merge(a));
   }
 
-    @Transactional
-    public List<Post> getAllArticles() {
-      List<Post> result = em.createQuery("SELECT a FROM Post a", Post.class).getResultList();
+  @Transactional
+  public List<Post> getAllArticles() {
+    List<Post> result = em.createQuery("SELECT a FROM Post a", Post.class).getResultList();
 
-      for(Post p : result)
-        System.out.println("a -> " + p);
+    for (Post p : result)
+      System.out.println("a -> " + p);
 
-      return result;
-    }
+    return result;
+  }
 
-    public Page<Answer> getAllAnswers(Pageable pageRequest){
+  public Page<Answer> getAllAnswers(Pageable pageRequest) {
     //  PageRequest pageRequest = new PageRequest(pageNumber-1, 10, Sort.Direction.DESC, "date");
-     // Page<Answer> pageAnswer = answerRepository.findAll(pageRequest);
-      return answerRepository.findAll(pageRequest);
-    }
+    // Page<Answer> pageAnswer = answerRepository.findAll(pageRequest);
+    return answerRepository.findAll(pageRequest);
+  }
 
-
-  public Page<Question> getAllUnansweredQuestions(Pageable pageRequest){
+  public Page<Question> getAllUnansweredQuestions(Pageable pageRequest) {
     return questionRepository.findAllUnswered(pageRequest);
   }
 
-  public Answer getAnswer(Long ansId){
+  public Page<Question> getAllVisibleUnansweredQuestions(Pageable pageRequest) {
+    return questionRepository.findVisibleUnswered(pageRequest);
+  }
+
+  public Answer getAnswer(Long ansId) {
     return answerRepository.findOne(ansId);
   }
 
-  public Page<Post> getAllPosts(Pageable pageRequest){
+  public Page<Post> getAllPosts(Pageable pageRequest) {
     return postRepository.findAll(pageRequest);
   }
 
@@ -155,25 +158,25 @@ public class AdminService {
     return postRepository.findOne(postID);
   }
 
-  public Page<Archive> getAllArchive(Pageable pageRequest){
-   return archiveRepository.findAll(pageRequest);
+  public Page<Archive> getAllArchive(Pageable pageRequest) {
+    return archiveRepository.findAll(pageRequest);
   }
 
   @Transactional
-  public void deleteAnswer(Answer answer){
+  public void deleteAnswer(Answer answer) {
     em.remove((em.contains(answer) ? answer : em.merge(answer)));
   }
 
   @Transactional
   public void deleteQuestion(Question q) {
-    em.remove(em.contains(q) ? q :em.merge(q));
+    em.remove(em.contains(q) ? q : em.merge(q));
   }
 
-  public Archive getArchiveVideo(Long videoID){
+  public Archive getArchiveVideo(Long videoID) {
     return archiveRepository.findOne(videoID);
   }
 
-  public Question getQuestion(Long id){
+  public Question getQuestion(Long id) {
     return questionRepository.findOne(id);
   }
 
@@ -182,69 +185,69 @@ public class AdminService {
     em.merge(q);
   }
 
-  public List<Carousel> getAllCarousel(){
+  public List<Carousel> getAllCarousel() {
     return carouselRepository.findAll(new Sort(Sort.Direction.DESC, "createdAt"));
   }
 
-  public Carousel getCarousel(Long carouselID){
+  public Carousel getCarousel(Long carouselID) {
     return carouselRepository.findOne(carouselID);
   }
 
   @Transactional
-  public void addCarousel(Carousel c){
+  public void addCarousel(Carousel c) {
     em.merge(c);
   }
 
   @Transactional
-  public void updateCarousel(Carousel c){
+  public void updateCarousel(Carousel c) {
     em.merge(c);
   }
 
   @Transactional
-  public void deleteCarousel(Carousel c){
-    em.remove(em.contains(c) ? c :em.merge(c));
+  public void deleteCarousel(Carousel c) {
+    em.remove(em.contains(c) ? c : em.merge(c));
   }
 
 
-  public List<CategoryPost> getAllCategoriesPost(){
+  public List<CategoryPost> getAllCategoriesPost() {
     return categoryPostRepository.findAll();
   }
 
-  public CommonEntity getBiography(){
+  public CommonEntity getBiography() {
     return commonsRepository.findOne(1);
   }
 
-  public List<AboutMe> getAllBlocksAboutMe(){
+  public List<AboutMe> getAllBlocksAboutMe() {
     return aboutMeRepository.findAll();
   }
 
   @Transactional
-  public void addAboutMeBlock(AboutMe aboutMe){
+  public void addAboutMeBlock(AboutMe aboutMe) {
     em.merge(aboutMe);
   }
 
   @Transactional
-  public void updateAboutMeBlock(AboutMe aboutMe){
+  public void updateAboutMeBlock(AboutMe aboutMe) {
     em.merge(aboutMe);
   }
 
   @Transactional
-  public void deleteAboutMeBlock(AboutMe aboutMe){
+  public void deleteAboutMeBlock(AboutMe aboutMe) {
     em.remove(em.contains(aboutMe) ? aboutMe : em.merge(aboutMe));
   }
 
 
-  public CommonEntity getContacts(){
+  public CommonEntity getContacts() {
     return commonsRepository.findOne(2);
   }
 
   @Transactional
-  public void updateBiography(CommonEntity ce){
+  public void updateBiography(CommonEntity ce) {
     em.merge(ce);
   }
 
   @Transactional
-  public void updateContacts(CommonEntity ce){
+  public void updateContacts(CommonEntity ce) {
     em.merge(ce);
   }
 
@@ -252,22 +255,22 @@ public class AdminService {
     return aboutMeRepository.findOne(id);
   }
 
-  public List<Contact> getAllBlocksContact(){
+  public List<Contact> getAllBlocksContact() {
     return contactRepository.findAll();
   }
 
   @Transactional
-  public void addContactBlock(Contact contact){
+  public void addContactBlock(Contact contact) {
     em.merge(contact);
   }
 
   @Transactional
-  public void updateContactBlock(Contact contact){
+  public void updateContactBlock(Contact contact) {
     em.merge(contact);
   }
 
   @Transactional
-  public void deleteContactBlock(Contact contact){
+  public void deleteContactBlock(Contact contact) {
     em.remove(em.contains(contact) ? contact : em.merge(contact));
   }
 

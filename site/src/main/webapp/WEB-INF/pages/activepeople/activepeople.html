@@ -80,7 +80,7 @@
                   </div>
                 </div>
 
-                <div class="row" th:each="answer : ${answers}">
+                <div class="row" th:each="answer : ${answers}" th:id="${answer.id}">
                   <hr class='hr-half'/>
                   <div class="col-sm-6">
                     <!--<p class='dropcap-contrast'><span class='first-letter'>В</span></p>-->

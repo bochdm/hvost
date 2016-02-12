@@ -134,18 +134,19 @@
 
           var iw1, latlng, marker, options;
 
-          latlng = new google.maps.LatLng(59.809067, 30.152698);
+          latlng = new google.maps.LatLng(59.843574, 30.193437);
           options = {
             scrollwheel: false,
             zoom: 13,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControl: true
+            mapTypeControl: true,
+
           };
 
           map = new google.maps.Map(document.getElementById("map-canvas"), options);
 
-          marker = new google.maps.Marker({
+/*          marker = new google.maps.Marker({
             position: latlng,
             map: map
           });
@@ -156,7 +157,7 @@
 
           return google.maps.event.addListener(marker, "click", function(e) {
             return iw1.open(map, this);
-          });
+          });*/
         };
 
         google.maps.event.addDomListener(window, 'load', initializeMap);
@@ -190,6 +191,10 @@
                   marker.addListener('click', function() {
                     info.open(map, marker);
                   });
+                  info.addListener('click', function(){
+                     console.log("click on info");
+                  });
+
                 });
                 clearInterval(timer);
               }

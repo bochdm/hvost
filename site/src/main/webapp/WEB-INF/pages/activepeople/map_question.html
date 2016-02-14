@@ -9,6 +9,13 @@
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'/>
     <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
 
+    <th:block layout:fragment="cascasestyles">
+      <link th:href="@{/resources/css/dropzone.css}" rel="stylesheet"/>
+      <link th:href="@{/resources/css/notify/ns-default.css}" rel="stylesheet"/>
+      <link th:href="@{/resources/css/notify/ns-style-growl.css}" rel="stylesheet"/>
+      <link th:href="@{/resources/css/wysihtml5/bootstrap3-wysihtml5-editor.css}" media="all" rel="stylesheet" type="text/css"/>
+
+    </th:block>
   </head>
   <body>
     <div id='wrapper'>
@@ -41,6 +48,21 @@
             <div class="row">
               <div class="col-sm-12">
                 <div id='map-canvas' style="height: 600px;"></div>
+              </div>
+            </div>
+
+            <div class='row vertical-center' style="margin-top: 50px;">
+              <div class="col-sm-6 btn-group-vertical">
+                <a class="btn btn-contrast btn-md mg-b-md" th:href="@{'#askme'}" th:text="#{ask.question}"/>
+                <a class="btn btn-contrast btn-md mg-b-md" th:href="@{/activepeople/unaswered}" th:text="#{answer.question}"/>
+
+                <!-- <p th:text="${#vars['redirect']}"/>-->
+
+              </div>
+              <div class="col-sm-6">
+                <blockquote>
+                  <p class='text-justify small'>Умение задавать вопросы как качество личности – способность посредством правильно заданных вопросов достигнуть взаимопонимания, добиться исполнения своих желаний, добраться до истины, получить информацию, выразить сомнения, проявить собственную позицию, выказать доверие и заинтересованность в сказанном.</p>
+                </blockquote>
               </div>
             </div>
 
@@ -120,6 +142,14 @@
     <th:block layout:fragment="script">
 
       <script th:src="@{http://maps.googleapis.com/maps/api/js?language=ru}" type="text/javascript"></script>
+      <script th:src="@{/resources/js/jquery/jquery.validate.min.js}" type="text/javascript"></script>
+      <script th:src="@{/resources/js/jquery/jquery.blockui.js}"      type="text/javascript"></script>
+      <script th:src="@{/resources/js/pages/activepeople.js}"         type="text/javascript"></script>
+      <script th:src="@{/resources/js/bootbox.min.js}"                type="text/javascript"></script>
+      <script th:src="@{/resources/js/admin/dropzone.js}"             type="text/javascript"></script>
+
+      <script th:src="@{/resources/js/notify/classie.js}"             type="text/javascript"></script>
+      <script th:src="@{/resources/js/notify/notificationFx.js}"      type="text/javascript"></script>
 
       <script type="text/javascript">
         /*<![CDATA[*/
@@ -134,10 +164,10 @@
 
           var iw1, latlng, marker, options;
 
-          latlng = new google.maps.LatLng(59.843574, 30.193437);
+          latlng = new google.maps.LatLng(59.8573266,30.1971923);
           options = {
             scrollwheel: false,
-            zoom: 13,
+            zoom: 14,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             mapTypeControl: true,
@@ -250,6 +280,127 @@
           });
         }, 3000);
 
+      </script>
+
+      <script th:inline="javascript">
+        /*<![CDATA[*/
+        var isRedirect = /*[[${#vars['redirect']}]]*/;
+        console.log("isRedirect =" + isRedirect);
+        if (isRedirect === '1'){
+          // create the notification
+          var notification = new NotificationFx({
+            message : '<p style="color:white">Спасибо за Ваш вопрос!<br/> Мы постараемся ответить Вам в ближайшее время</p>',
+            layout : 'growl',
+            effect : 'scale',
+            type : 'notice', // notice, warning or error
+            ttl  : 7500,
+            onClose : function() {
+              //   $('#newQuestion').disabled = false;
+            }
+          });
+
+          notification.show();
+
+          $.unblockUI();
+        }
+        /*]]>*/
+      </script>
+
+      <script th:inline="javascript">
+
+
+        /*<![CDATA[*/
+        Dropzone.options.sendQuestion = { // The camelized version of the ID of the form element
+
+          clickable:'#dropzonePreview',
+          previewsContainer: '#preview',
+          autoProcessQueue: false,
+          uploadMultiple: true,
+          parallelUploads: 10,
+          maxFiles: 6,
+          addRemoveLinks: true,
+          maxFilesize: 1,
+          dictRemoveFile: 'Удалить файл',
+          dictFileTooBig: 'Файл слишком большой, уменьшите размер до 1 Mb',
+
+
+          // The setting up of the dropzone
+          init: function() {
+            var myDropzone = this;
+            var submitButton = document.querySelector('#newQuestion');
+            var submitForm = document.querySelector('#send-question');
+
+            submitButton.addEventListener("click", function(e) {
+              var valid = $('#send-question').valid();
+              if (valid === true) {
+                e.preventDefault();
+                e.stopPropagation();
+                $.blockUI({
+                  message: 'Пожалуйста, подождите',
+                  baseZ: 99999999999999999,
+                  css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .3,
+                    color: '#fff'
+                  }
+                });
+
+                submitButton.disable = true;
+
+                if (myDropzone.getQueuedFiles().length > 0) {
+
+                  myDropzone.processQueue();
+
+                } else {
+
+                  setTimeout(function () {
+                    submitForm.submit();
+                  }, 300);
+
+                  submitButton.disable = false;
+                }
+              }
+            });
+
+            this.on("error", function(files, message){
+              alert(message);
+            });
+
+            this.on("successmultiple", function(files, response) {
+
+              $.unblockUI();
+
+              //window.location.href = /*[[@{/activepeople}]]*/;
+              console.log("successmultiple ");
+
+              // create the notification
+              var notification = new NotificationFx({
+                message : '<p style="color:white">Спасибо за Ваш вопрос!<br/> Мы постараемся ответить Вам в ближайшее время</p>',
+                layout : 'growl',
+                effect : 'scale',
+                type : 'notice', // notice, warning or error
+                ttl  : 7000,
+                onClose : function() {
+                  submitButton.disabled = false;
+                }
+              });
+
+              notification.show();
+            });
+            this.on("complete", function(file) {
+              $("#send-question").get(0).reset();
+              myDropzone.removeFile(file);
+            });
+
+          }
+
+        }
+
+        /*]]>*/
       </script>
 
     </th:block>

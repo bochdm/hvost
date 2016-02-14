@@ -77,9 +77,6 @@ public class MapsController {
             sb.append(question.getQuestionText());
             sb.append("<br/><br/>");
 
-            sb.append("<a href=\"https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194\">'+\n" +
-                "      'https://en.wikipedia.org/w/index.php?title=Uluru</a>");
-
             questionInfo.put("text", sb.toString());
             unAnsweredMarkers.add(questionInfo);
           }
@@ -113,7 +110,7 @@ public class MapsController {
 
 
     StringBuilder req = new StringBuilder("http://");
-    req.append(request.getRemoteHost()).append(":").append(request.getServerPort()).append("/").append("activepeople").append("/#");
+    req.append(request.()).append(":").append(request.getServerPort()).append("/").append("activepeople").append("/#");
 
     if (asyncResult.isDone()){
       Page<Answer> answers = null;

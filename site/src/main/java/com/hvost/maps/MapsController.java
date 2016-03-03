@@ -109,8 +109,8 @@ public class MapsController {
     System.out.println("request.getServerPort ->" + request.getServerPort());
 
 
-    StringBuilder req = new StringBuilder("http://");
-    req.append(request.()).append(":").append(request.getServerPort()).append("/").append("activepeople").append("/#");
+    StringBuilder req = new StringBuilder();
+    req.append("http://www.tkhostov.com/").append("activepeople").append("/#");
 
     if (asyncResult.isDone()){
       Page<Answer> answers = null;

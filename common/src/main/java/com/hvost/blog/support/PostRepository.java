@@ -1,22 +1,18 @@
 package com.hvost.blog.support;
 
-import com.hvost.blog.CategoryPost;
 import com.hvost.blog.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * Created by kseniaselezneva on 07/02/15.
+ * @author kseniaselezneva
  */
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-
-    Post findByTitle(String title);
 
    // Page<Post> findTop10OrderByCreatedAtOrderByCreatedAtDesc(Pageable top);
 

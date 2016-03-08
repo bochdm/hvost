@@ -65,12 +65,28 @@
                   <li><a th:href="@{/admin/blog/newarticle}">Новая статья</a></li>
                 </ul>
               </li>
-              <li><a><i class="fa fa-desktop"></i>Активный гражданин<span class="fa fa-chevron-down"/></a>
+              <li>
+                <a>
+                  <i class="fa fa-desktop"/>Общественная приемная<span class="fa fa-chevron-down"/>
+                </a>
                 <ul class="nav child_menu">
-                  <li><a th:href="@{/admin/allanswers}">Все вопросы <span class="badge" th:text="${answer_count}"/></a>
+                  <li>
+                    <a th:href="@{/admin/allanswers}">Все вопросы <span class="badge" th:text="${answer_count}"/></a>
                   </li>
-                  <li><a th:href="@{/admin/unanswered}">Неотвеченные вопросы <span class="badge"
-                                                                                   th:text="${unanswered_count}"/></a>
+                  <li>
+                    <a th:href="@{/admin/allanswersbytype/1}">Проект "Активный гражданин" <span class="badge" th:text="${answer_count}"/></a>
+                  </li>
+                  <li>
+                    <a th:href="@{/admin/allanswersbytype/2}">Проект "Безопасный двор"<span class="badge" th:text="${answer_count}"/></a>
+                  </li>
+                  <li>
+                    <a th:href="@{/admin/allanswersbytype/3}">Проект "Удобный двор"<span class="badge" th:text="${answer_count}"/></a>
+                  </li>
+                  <li>
+                    <a th:href="@{/admin/allanswersbytype/4}">Проект "Дворовый тренер"<span class="badge" th:text="${answer_count}"/></a>
+                  </li>
+                  <li>
+                    <a th:href="@{/admin/unanswered}">Неотвеченные вопросы <span class="badge" th:text="${unanswered_count}"/></a>
                   </li>
                 </ul>
               </li>

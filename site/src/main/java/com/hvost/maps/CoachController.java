@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,9 +29,9 @@ import java.util.concurrent.Future;
  */
 @SuppressWarnings("SpringMVCViewInspection")
 @Controller
-@RequestMapping(value = "/map")
-@Navigation(Section.ACTIVEPEOPLE)
-public class MapsController {
+@RequestMapping(value = "/coach")
+@Navigation(Section.COACH)
+public class CoachController {
 
   @Autowired
   private ActivePeopleService activePeopleService;
@@ -41,11 +40,11 @@ public class MapsController {
   @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
   public String toMap(Model model, @RequestParam(defaultValue = "1") int page, HttpSession session){
 
-    Future<Page<Question>> allUnansweredQuestions = activePeopleService.getAllVisibleUnaswered(1);
+    Future<Page<Question>> allUnansweredQuestions = activePeopleService.getAllVisibleUnaswered(4);
     session.setAttribute("unaswered", allUnansweredQuestions);
     model.addAttribute("unaswered", allUnansweredQuestions);
 
-    Future<Page<Answer>> answers = activePeopleService.getAnswers(1);
+    Future<Page<Answer>> answers = activePeopleService.getAnswers(4);
     session.setAttribute("answers", answers);
     model.addAttribute("answers", answers);
 
@@ -53,18 +52,18 @@ public class MapsController {
 
     PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "date");
 //    Page<Answer> result = activePeopleService.getPublished1(pageNum);
-    Page<Answer> result = activePeopleService.getPublishedAnswerByType(pageNum, 1);
+    Page<Answer> result = activePeopleService.getPublishedAnswerByType(pageNum, 4);
 
 
     renderList(result, model);
 
-    return "/activepeople/map_question";
+    return "/activepeople/coach";
   }
 
   private void renderList(Page<Answer> page, Model model){
 
     model.addAttribute("answers", page);
-    model.addAttribute("question", new Question(1));
+    model.addAttribute("question", new Question(4));
     model.addAttribute("paginationInfo", new PaginationInfo(page));
   }
 

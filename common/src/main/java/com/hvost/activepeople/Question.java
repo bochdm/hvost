@@ -64,6 +64,9 @@ public class Question implements Serializable {
   @Column(name = "ADDRESS")
   private String address;
 
+  @Column(name = "TYPE")
+  private int type;
+
   public String getLatLng() {
     return latlng;
   }
@@ -131,6 +134,10 @@ public class Question implements Serializable {
   public Question() {
   }
 
+  public Question(int type) {
+    this.type = type;
+  }
+
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "idEntity", cascade = CascadeType.ALL)
   @Filter(name="category", condition = "category=2")
   private Set<Image> images;
@@ -194,6 +201,14 @@ public class Question implements Serializable {
   }
 
 
+  public int getType() {
+    return type;
+  }
+
+  public void setType(int type) {
+    this.type = type;
+  }
+
   @Override
   public String toString() {
     return "Question{" +
@@ -204,6 +219,7 @@ public class Question implements Serializable {
         ", category=" + category +
         ", email='" + email + '\'' +
         ", address='" + address + '\'' +
+        ", type=" + type +
         ", latlng='" + latlng + '\'' +
         ", lat=" + lat +
         ", lng=" + lng +

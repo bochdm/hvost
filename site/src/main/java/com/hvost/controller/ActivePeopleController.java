@@ -37,6 +37,7 @@ import java.util.Map;
 /**
  * Created by kseniaselezneva on 02/03/15.
  */
+@SuppressWarnings("SpringMVCViewInspection")
 @Controller
 @RequestMapping(value = "/activepeople")
 @Navigation(Section.ACTIVEPEOPLE)
@@ -68,7 +69,7 @@ public class ActivePeopleController {
     a.setIsPublic(true);
   //  Page<Questions> result = service.getPublished(a, pageNum);
 
-    Page<Answer> result = service.getPublished1(pageNum);
+    Page<Answer> result = service.getPublished1(pageNum, 1);
 
 
 /*    List<Questions> qq =  result.getContent();
@@ -120,7 +121,14 @@ public class ActivePeopleController {
       return "/activepeople/activepeople";
     }
 
-    com.google.maps.model.LatLng latLng = googleGeoCoding.geo(question.getAddress());
+    com.google.maps.model.LatLng latLng;
+    String address = question.getAddress().toUpperCase();
+    if (address.contains("САНКТ-ПЕТЕРБУРГ")) {
+      latLng = googleGeoCoding.geo(question.getAddress());
+    } else {
+      latLng = googleGeoCoding.geo("Санкт-Петербург, " + question.getAddress());
+    }
+
     question.setLatLng(latLng.toString());
     question.setLat(latLng.lat);
     question.setLng(latLng.lng);
@@ -144,7 +152,19 @@ public class ActivePeopleController {
 
     redirectAttributes.addFlashAttribute("redirect", "1");
 
-    return "redirect:/activepeople";
+//    return "redirect:/activepeople";
+    switch (question.getType()){
+      case 1:
+        return "redirect:/map";
+      case 2:
+        return "redirect:/save_outdoors/";
+      case 3:
+        return "redirect:/comfortable_outdoors/";
+      case 4:
+        return "redirect:/coach/";
+      default:
+        return "redirect:/map";
+    }
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
@@ -152,7 +172,7 @@ public class ActivePeopleController {
                        @RequestParam String q,
                        @RequestParam(defaultValue = "1") int page){
 
-    List<Answer> result = service.getAnswerBySearch(q, page);
+    List<Answer> result = service.getAnswerBySearch(q);
     model.addAttribute("search_results", result);
     model.addAttribute("searchCount", result.size());
     model.addAttribute("queryString", q);
@@ -166,6 +186,7 @@ public class ActivePeopleController {
     model.addAttribute("question", new Question());
     model.addAttribute("paginationInfo", new PaginationInfo(page));
 
+//    return "/activepeople/activepeople";
     return "/activepeople/activepeople";
   }
 

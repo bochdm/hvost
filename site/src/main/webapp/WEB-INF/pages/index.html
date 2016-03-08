@@ -476,7 +476,7 @@
   </script>
 
   <script th:inline="javascript">
-    var timer = setInterval(function (){
+    var timerTweet = setInterval(function (){
       console.log("ajax setInterval");
       $.ajax({
         type: 'GET',
@@ -495,7 +495,7 @@
           if (data.length > 0){
             $('#tweets').html(data);
             console.log("ajax COMPLETE");
-            clearInterval(timer);
+            clearInterval(timerTweet);
           }
         }
       });

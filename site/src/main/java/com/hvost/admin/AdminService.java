@@ -16,19 +16,16 @@ import com.hvost.commons.CommonEntity;
 import com.hvost.commons.CommonsRepository;
 import com.hvost.contacts.Contact;
 import com.hvost.contacts.support.ContactRepository;
-import com.hvost.images.Image;
 import com.hvost.startpage.Carousel;
 import com.hvost.startpage.support.CarouselRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -138,12 +135,22 @@ public class AdminService {
     return answerRepository.findAll(pageRequest);
   }
 
+  public Page<Answer> getAnswersByType(Pageable pageRequest, int type) {
+    return answerRepository.findByPublishedAndType(pageRequest, type);
+  }
+
+
   public Page<Question> getAllUnansweredQuestions(Pageable pageRequest) {
     return questionRepository.findAllUnswered(pageRequest);
   }
 
+  /**
+   * TODO поменять тип
+   * @param pageRequest
+   * @return
+   */
   public Page<Question> getAllVisibleUnansweredQuestions(Pageable pageRequest) {
-    return questionRepository.findVisibleUnswered(pageRequest);
+    return questionRepository.findVisibleUnswered(pageRequest, 1);
   }
 
   public Answer getAnswer(Long ansId) {

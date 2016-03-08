@@ -50,6 +50,7 @@
             <thead>
             <tr>
               <th th:text="Вопрос"/>
+              <th th:text="Адрес"/>
               <th th:text="Автор"/>
               <th th:text="Дата"/>
               <th th:text="Показать"/>
@@ -58,21 +59,24 @@
             </thead>
             <tbody>
               <tr th:each="question : ${questions}">
-                <td class="col-md-3">
+                <td class="col-sm-4">
                   <small th:text="${question.questionText}"/>
                 </td>
-                <td class="col-md-1">
+                <td class="col-sm-3">
+                  <small th:text="${question.address}"/>
+                </td>
+                <td class="col-sm-2">
                   <small th:text="${question.author}"/>
                 </td>
-                <td  class="col-md-2">
+                <td  class="col-sm-1">
                   <small>
                     <time th:datetime-local="ru" th:datetime="${question.date}" th:text='${#dates.format(question.date, "dd MMMM yyyy HH:mm")}'/>
                   </small>
                 </td>
-                <td class="col-md-1">
+                <td class="col-sm-1">
                   <input th:name="${question.id}" type="checkbox" th:checked="${question.visible}" />
                 </td>
-                <td class="col-md-1">
+                <td class="col-sm-1">
                   <small><a id="edit" th:href="@{'/admin/question/'+${question.id}+'/newreply'}" th:text="Ответить"/></small>
                   <small><a id="delete" th:href="@{'/admin/question/'+${question.id}+'/delete'}" th:text="Удалить"/></small>
                 </td>

@@ -31,6 +31,7 @@ public class AboutMeController {
     model.addAttribute("biografyBlocks", aboutMeService.getAllBlocksAboutMe());
     int[] counters = new int[]{1,2};
     model.addAttribute("counter", counters);
+    //noinspection SpringMVCViewInspection
     return "/about/aboutme";
   }
 

@@ -32,12 +32,10 @@ import java.util.concurrent.Future;
 
 
 /**
- * Created by kseniaselezneva on 04/03/15.
+ * @author kseniaselezneva
  */
 @Service
 public class ActivePeopleService {
-
-  private int size = 25;
 
   @Autowired
   QuestionRepository questionRepository;
@@ -48,35 +46,51 @@ public class ActivePeopleService {
   @PersistenceContext
   EntityManager em;
 
+  /**
+   *
+   * @param type Категория вопроса:
+   *             <ol>
+   *               <li>Активный гражданин (1)</li>
+   *               <li>Безопасный двор    (2)</li>
+   *               <li>Комфортный двор    (3)</li>
+   *               <li>Дворовый тренер    (4)</li>
+   *             </ol>
+   * @return Список всех неотвеченных вопросов
+   */
   @Async
-  public Future<Page<Question>> getAllVisibleUnaswered(){
+  public Future<Page<Question>> getAllVisibleUnaswered(int type){
     PageRequest pageNum = new PageRequest(0, 30, Sort.Direction.DESC, "date");
 
-    Page<Question> allUnswered = questionRepository.findVisibleUnswered(pageNum);
-/*    for (Question question : allUnswered) {
-      System.out.println("getAllVisibleUnaswered -> " + question);
-    }*/
+    Page<Question> allUnswered = questionRepository.findVisibleUnswered(pageNum, type);
 
-    return new AsyncResult<Page<Question>>(allUnswered);
+    return new AsyncResult<>(allUnswered);
   }
 
+  /**
+   *
+   * @param type Категория вопроса:
+   *             <ol>
+   *               <li>Активный гражданин (1)</li>
+   *               <li>Безопасный двор    (2)</li>
+   *               <li>Комфортный двор    (3)</li>
+   *               <li>Дворовый тренер    (4)</li>
+   *             </ol>
+   * @return Список опубликованных ответов
+   */
   @Async
-  public Future<Page<Answer>> getAnswers(){
+  public Future<Page<Answer>> getAnswers(int type){
     PageRequest pageNum = new PageRequest(0, 30, Sort.Direction.DESC, "date");
 
-    Page<Answer> byPublished = answerRepository.findByPublished(pageNum);
-/*    for (Answer answer : byPublished) {
-      System.out.println("getAnswers -> " + answer);
-    }*/
-    return new AsyncResult<Page<Answer>>(byPublished);
+    Page<Answer> byPublished = answerRepository.findByPublishedAndType(pageNum, type);
+
+    return new AsyncResult<>(byPublished);
   }
 
 
-  public Page<Question> getAll(Pageable pageRequest){
-
-    return questionRepository.findAll(pageRequest);
-  }
-
+  /**
+   *
+   * @return Список всех вопросов
+   */
   public List<Question> getAllQuestion(){
     return questionRepository.findAll();
   }
@@ -85,13 +99,12 @@ public class ActivePeopleService {
     return questionRepository.findAllUnswered(pageRequest);
   }
 
-/*  public Page<Questions> getPublished(Answer a, Pageable pageRequest){
-
-     return questionRepository.findByAnswerId(pageRequest);
-  }*/
-
-  public Page<Answer> getPublished1(Pageable pageRequest){
+  public Page<Answer> getPublished1(Pageable pageRequest, int type){
     return answerRepository.findByPublished(pageRequest);
+  }
+
+  public Page<Answer> getPublishedAnswerByType(Pageable pageRequest, int type){
+    return answerRepository.findByPublishedAndType(pageRequest, type);
   }
 
   public Page<Answer> getLatestPublished(){
@@ -104,8 +117,7 @@ public class ActivePeopleService {
   }
 
   @Transactional
-//  public List<SearchResult> getAnswerBySearch(String queryString, int page) {
-  public List<Answer> getAnswerBySearch(String queryString, int page) {
+  public List<Answer> getAnswerBySearch(String queryString) {
     FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
     QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Answer.class).get();
 
@@ -117,16 +129,7 @@ public class ActivePeopleService {
     javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Answer.class);
     List<Answer> result = jpaQuery.getResultList();
 
-    for(Answer a : result){
-      System.out.println("answer search -> " + a);
-    }
-//    List<SearchResult> searchResults = new ArrayList<>();
-    List<Answer> searchResults = new ArrayList<Answer>();
-
-    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<code>", "</code>");
-    QueryScorer qs = new QueryScorer(luceneQuery);
-
-    Highlighter highlighter = new Highlighter(formatter, qs);
+    List<Answer> searchResults = new ArrayList<>();
 
     String highLightStr = "<code>" + queryString + "</code>";
 
@@ -139,24 +142,6 @@ public class ActivePeopleService {
       answer.getQuestion().setQuestionText(questionText);
       searchResults.add(answer);
     }
-
-  /*  for(Answer answer : result){
-      String findResult = "";
-      Analyzer analyzer = new RussianAnalyzer();
-      SearchResult sr = new SearchResult(answer.getId());
-      try {
-        findResult = highlighter.getBestFragment(analyzer, "content", answer.getAnswerText());
-        if (findResult != null && !findResult.isEmpty()) {
-          sr.setContent(findResult);
-          searchResults.add(sr);
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (InvalidTokenOffsetsException e) {
-        e.printStackTrace();
-      }
-
-    }*/
 
     return searchResults;
   }

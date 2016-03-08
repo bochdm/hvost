@@ -94,6 +94,7 @@
                     <span th:text="#{menu.videoline}">Прямая линия</span>
               </a>
             </li>
+<!--
             <li th:class="${beans.uih.navClass(navSection?:'','activepeople')}">
               <a class="dropdown-toggle" th:href="@{/activepeople}">
                     <span th:text="#{menu.society}">Активный гражданин
@@ -121,11 +122,37 @@
                 </li>
               </ul>
             </li>
-            <li >
-              <a class="dropdown-toggle" th:href="@{/map}">
-                <span>Карта</span>
+-->
+            <li class="dropdown">
+              <a class='dropdown-toggle' data-delay='50' data-hover='dropdown' data-toggle='dropdown' href='#'>
+                <span>Общественная приемная
+                  <i class="fa-icon-angle-down"></i>
+                </span>
               </a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="" th:class="${beans.uih.navClass(navSection?:'','activepeople')}">
+                  <a class="dropdown-toggle" th:href="@{/map}">
+                    <span th:text="#{menu.society}">Активный гражданин</span>
+                  </a>
+                </li>
+                <li class="" th:class="${beans.uih.navClass(navSection?:'','save_outdoors')}">
+                  <a class="dropdown-toggle" th:href="@{/save_outdoors}">
+                    <span th:text="#{menu.save.outdoors}">Безопасный двор</span>
+                  </a>
+                </li>
+                <li class="" th:class="${beans.uih.navClass(navSection?:'','comfortable_outdoors')}">
+                  <a class="dropdown-toggle" th:href="@{/comfortable_outdoors}">
+                    <span th:text="#{menu.comfortable.outdoors}">Удобный двор</span>
+                  </a>
+                </li>
+                <li class="" th:class="${beans.uih.navClass(navSection?:'','coach')}">
+                  <a class="dropdown-toggle" th:href="@{/coach}">
+                    <span th:text="#{menu.coach}">Дворовый тренер</span>
+                  </a>
+                </li>
+              </ul>
             </li>
+
             <li th:class="${beans.uih.navClass(navSection?:'','blog')}">
               <a class="dropdown-toggle" th:href="@{/blog}">
                     <span>Статьи</span>

@@ -2,6 +2,7 @@ package com.hvost.admin;
 
 import com.hvost.aboutme.AboutMe;
 import com.hvost.activepeople.Answer;
+import com.hvost.activepeople.EmailService;
 import com.hvost.activepeople.Question;
 import com.hvost.archive.Archive;
 import com.hvost.archive.support.ArchiveService;
@@ -825,6 +826,22 @@ public class AdminController {
     return "admin/allquestions";
   }
 
+  @RequestMapping(value = "/allanswersbytype/{type:[0-4]}", method = RequestMethod.GET)
+  public String getAnswerByType(Model model,
+                                @RequestParam(defaultValue = "1") int page,
+                                @PathVariable int type){
+    PageRequest pageNum = new PageRequest(page-1, 10, Sort.Direction.DESC, "date");
+    System.out.println("getAnswerByType -> type => " + type);
+
+    Page<Answer> result = adminService.getAnswersByType(pageNum, type);
+
+    model.addAttribute("answer_all_count", result.getTotalElements());
+
+    model.addAttribute("answers", result);
+    model.addAttribute("paginationInfo", new PaginationInfo(result));
+    return "admin/allquestions";
+  }
+
   @RequestMapping(value = "/question/{id:[0-9]+}/newreply", method = RequestMethod.GET)
   public String reply(Model model, @PathVariable Long id){
     Question q = adminService.getQuestion(id);
@@ -898,6 +915,9 @@ public class AdminController {
     return "redirect:/admin/allanswers";
   }
 
+  @Autowired
+  private EmailService emailService;
+
   @RequestMapping(value = "/answer/{id:[0-9]+}/publish", method = {RequestMethod.GET})
   public String publishAnswer(@PathVariable Long id, @ModelAttribute @Valid Answer answer, BindingResult bindingResult, Model model){
     Answer ans = adminService.getAnswer(id);
@@ -906,6 +926,8 @@ public class AdminController {
     if (!bindingResult.hasErrors()) {
       ans.setIsPublic(true);
       adminService.updateAnswer(ans);
+
+      emailService.notifyActiveUser(ans);
     }
     return "redirect:/admin/allanswers";
   }

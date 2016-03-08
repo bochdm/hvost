@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.awt.print.Pageable;
 
 /**
- * Created by kseniaselezneva on 05/07/15.
+ * @author kseniaselezneva
  */
 public interface ArchiveRepository extends JpaRepository<Archive, Long> {
 

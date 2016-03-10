@@ -49,6 +49,7 @@
           <table class='table table-striped'>
             <thead>
             <tr>
+              <th th:text="Проект"/>
               <th th:text="Вопрос"/>
               <th th:text="Адрес"/>
               <th th:text="Автор"/>
@@ -59,13 +60,16 @@
             </thead>
             <tbody>
               <tr th:each="question : ${questions}">
-                <td class="col-sm-4">
+                <td class="col-sm-1">
+                  <small th:text="${question.getTypeText()}"/>
+                </td>
+                <td class="col-sm-5">
                   <small th:text="${question.questionText}"/>
                 </td>
-                <td class="col-sm-3">
+                <td class="col-sm-2">
                   <small th:text="${question.address}"/>
                 </td>
-                <td class="col-sm-2">
+                <td class="col-sm-1">
                   <small th:text="${question.author}"/>
                 </td>
                 <td  class="col-sm-1">

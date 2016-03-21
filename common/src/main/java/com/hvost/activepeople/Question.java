@@ -150,6 +150,22 @@ public class Question implements Serializable {
     this.images = images;
   }
 
+  public String getTypeText() {
+    switch (type){
+      case 0:
+      case 1:
+        return "Активный гражданин";
+      case 2:
+        return "Безопасный двор";
+      case 3:
+        return "Удобный двор";
+      case 4:
+        return "Дворовый тренер";
+      default:
+        return "Активный гражданин";
+    }
+  }
+
 
   /*
   public Answer getAnswerId() {

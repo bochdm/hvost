@@ -63,7 +63,7 @@ public class ActivePeopleService {
 
     Page<Question> allUnswered = questionRepository.findVisibleUnswered(pageNum, type);
 
-    return new AsyncResult<>(allUnswered);
+    return new AsyncResult<Page<Question>>(allUnswered);
   }
 
   /**
@@ -83,7 +83,7 @@ public class ActivePeopleService {
 
     Page<Answer> byPublished = answerRepository.findByPublishedAndType(pageNum, type);
 
-    return new AsyncResult<>(byPublished);
+    return new AsyncResult<Page<Answer>>(byPublished);
   }
 
 
@@ -129,7 +129,7 @@ public class ActivePeopleService {
     javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Answer.class);
     List<Answer> result = jpaQuery.getResultList();
 
-    List<Answer> searchResults = new ArrayList<>();
+    List<Answer> searchResults = new ArrayList<Answer>();
 
     String highLightStr = "<code>" + queryString + "</code>";
 

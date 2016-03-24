@@ -89,53 +89,6 @@
             </div>
           </div>
 
-            <div class='row panels'>
-              <div class='col-sm-4 panel-item'>
-                <a class='panel panel-circle-contrast' href='#'>
-                  <div class='panel-icon'>
-                    <i class='fa-icon-time'></i>
-                  </div>
-                  <div class='panel-body text-center'>
-                    <h3 class='panel-title'>Цели проекта</h3>
-                    <ul class="text-justify">
-                      <li>Обеспечение спортивного досуга наших детей</li>
-                      <li>формирование у них здорового образа жизни</li>
-                      <li>развитие общедоступного дворового спорта, пропаганда спорта, как основы
-                        воспитания здорового и социально активного подрастающего поколения.</li>
-                    </ul>
-                  </div>
-                </a>
-              </div>
-
-              <div class='col-sm-8 panel-item'>
-                <a class='panel panel-circle-contrast' href='#'>
-                  <div class='panel-icon'>
-                    <i class='fa-icon-rocket'></i>
-                  </div>
-                  <div class='panel-body text-center'>
-                    <h3 class='panel-title'>Задачи проекта</h3>
-                    <ul class="text-justify">
-                      <li>поддержка развития инициатив по организации физкультурной, спортивно-массовой
-                        деятельности, детского и юношеского спорта на дворовых и пришкольных спортивных
-                        площадках</li>
-
-                      <li>привлечение местного населения к решению проблем организации спортивного досуга</li>
-
-                      <li>содействие продвижению здорового образа жизни среди населения</li>
-
-                      <li>укрепление дружбы и взаимопонимания в детско-юношеской среде через участие в
-                        спортивных мероприятиях</li>
-
-                      <li>патриотическое воспитание подрастающего поколения</li>
-
-                      <li>активизация деятельности общеобразовательных учреждений в сфере физической
-                        культуры и спорта</li>
-                    </ul>
-                  </div>
-                </a>
-              </div>
-            </div>
-
             <br/>
 
             <div class="row ">
@@ -373,7 +326,7 @@
           console.log("unasweredcheck setInterval");
           $.ajax({
             type: 'GET',
-            url: /*[[@{/map/unansweredcheck}]]*/,
+            url: /*[[@{/coach/unansweredcheck}]]*/,
             dataType: 'text',
            /* beforeSend: function(){
               $('#tweets').html('<p class="text-center"><img th:src="@{/resources/img/ajax-loader.gif}"/></p>');
@@ -418,7 +371,7 @@
           console.log("answeredcheck setInterval");
           $.ajax({
             type: 'GET',
-            url: /*[[@{/map/answeredcheck}]]*/,
+            url: /*[[@{/coach/answeredcheck}]]*/,
             dataType: 'text',
             /* beforeSend: function(){
              $('#tweets').html('<p class="text-center"><img th:src="@{/resources/img/ajax-loader.gif}"/></p>');

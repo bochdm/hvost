@@ -15,7 +15,6 @@
 <body>
 
 <h1>INDEX.HTML</h1>
-<!--<div layout:fragment="header-container"></div>-->
 
 <main layout:fragment="content">
 <div id="main" role="main">
@@ -140,7 +139,7 @@
                   Disk space
                 </li>
               </ul>
-              <a class='btn btn-block  btn-contrast ' th:href="">Перейти</a>
+              <a class='btn btn-block  btn-contrast ' th:href="@{/map}">Перейти</a>
             </div>
           </div>
         </div>
@@ -157,7 +156,7 @@
                    на придомовой территории
                 </li>
               </ul>
-              <a class='btn btn-block  btn-contrast ' href='#'>Перейти</a>
+              <a class='btn btn-block  btn-contrast ' th:href="@{/save_outdoors}">Перейти</a>
             </div>
           </div>
         </div>
@@ -175,7 +174,7 @@
                 </li>
 
               </ul>
-              <a class='btn btn-block  btn-contrast ' href='#'>Перейти</a>
+              <a class='btn btn-block  btn-contrast ' th:href="@{/comfortable_outdoors}">Перейти</a>
             </div>
           </div>
         </div>
@@ -192,7 +191,7 @@
                   Обеспечение <strong>спортивного досуга</strong> наших детей, пропаганда спорта
                 </li>
               </ul>
-              <a class='btn btn-block  btn-contrast ' href='#'>Перейти</a>
+              <a class='btn btn-block  btn-contrast ' th:href="@{/coach}">Перейти</a>
             </div>
           </div>
         </div>

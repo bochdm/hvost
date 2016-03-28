@@ -135,8 +135,8 @@
 
               <ul class='list-unstyled'>
                 <li>
-                  <strong>5GB</strong>
-                  Disk space
+                  <strong>Будьте активны!</strong>
+                  Спрашивайте, советуйте, предлагайте, требуйте
                 </li>
               </ul>
               <a class='btn btn-block  btn-contrast ' th:href="@{/map}">Перейти</a>
@@ -209,41 +209,28 @@
   </div>
 
   <div class="row panels">
-    <div class="col-sm-6">
-        <p class="lead text-center">Ответы на Ваши вопросы</p>
-      <div class='row text-boxes'>
-        <div class='col-sm-12 text-box' th:each="answer : ${newest_answers}">
-          <div class="row">
-          <h5 class='title' th:text="${answer.question.questionText}"/>
+    <p class="lead text-center">Ответы на Ваши вопросы</p>
+    <div class='col-sm-12 text-box' th:each="answer : ${newest_answers}">
+      <div class="col-sm-6">
+        <div class='row text-boxes'>
+            <div class="row">
+              <h5 class='title' th:text="${answer.question.questionText}"/>
 
-          <!--<div class="toolbar">
-            <a class='btn btn-link' th:href="@{/}">
-              <i class="fa-icon-calendar-empty"></i>
-              <time th:datetime-local="ru" th:datetime="${answer.question.date}" th:text='${#dates.format(answer.question.date, "dd MMMM yyyy HH:mm")}'/>
-            </a>
-            <a class='btn btn-link' href='#'>
-              <i class='fa-icon-user'></i>
-              <span th:text="${answer.question.author}"/>
-            </a>
-            <a class='btn btn-link btn-xs' th:href="@{/}">
-              <span>Категория: <span th:text="${answer.question.category.name}"/></span>
-            </a>
-          </div>-->
-            <blockquote class="mg-b-lg">
-              <p class="mg-b-lg text-justify" th:utext="${answer.answerText}"/>
-              <small>
-                <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
-              </small>
-            </blockquote>
-
-            <a class="btn btn-contrast btn-md mg-b-md" th:href="@{/activepeople}" th:text="Вопрос-Ответ"/>
-
-            <!--<hr class="hr-half"/>-->
-          </div>
+            </div>
         </div>
       </div>
+      <div class="col-sm-6">
+        <blockquote class="mg-b-lg">
+          <p class="mg-b-lg text-justify" th:utext="${answer.answerText}"/>
+          <small>
+            <time th:datetime-local="ru" th:datetime="${answer.date}" th:text='${#dates.format(answer.date, "dd MMMM yyyy HH:mm")}'/>
+          </small>
+        </blockquote>
+
+        <a class="btn btn-contrast btn-md mg-b-md " th:href="@{/activepeople}" th:text="Вопрос-Ответ"/>
+      </div>
     </div>
-    <div class="col-sm-6">
+    <!--<div class="col-sm-6">
         <p class="lead text-center">Задайте&nbsp;свой&nbsp;вопрос!</p>
       <form id="send-question" th:action="@{/activepeople/addquestion}" th:object="${question}" class='form' method='post'  enctype="multipart/form-data">
         <fieldset>
@@ -281,7 +268,7 @@
           </div>
         </fieldset>
       </form>
-    </div>
+    </div>-->
   </div>
 
 

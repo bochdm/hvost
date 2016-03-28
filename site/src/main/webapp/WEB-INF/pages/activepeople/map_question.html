@@ -292,7 +292,7 @@
                 $.each(json_x, function (i, value) {
                   var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(value.lat,value.lng),
-                    title: 'lalalla',
+                    title: value.address,
                     map:map
                   });
                   var info = new google.maps.InfoWindow({
@@ -338,7 +338,7 @@
                   var marker = new google.maps.Marker({
                     icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                     position: new google.maps.LatLng(value.lat,value.lng),
-                    title: 'lalalla',
+                    title: value.address,
                     map:map
                   });
                   var info = new google.maps.InfoWindow({
@@ -475,11 +475,8 @@
               $("#send-question").get(0).reset();
               myDropzone.removeFile(file);
             });
-
           }
-
         }
-
         /*]]>*/
       </script>
 

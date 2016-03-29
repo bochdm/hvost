@@ -22,13 +22,31 @@ public class EmailService {
 
   @Async
   public void sendEmail(Question question){
-    email.setFrom("Активный гражданин <admin@tkhostov.com>");
+
+    String projectName = getProjectName(question.getType());
 
     email.setTo(new String[]{"bochkanov.dm@gmail.com", "seleznevaks@gmail.com"});
-    email.setSubject("новый вопрос от проекта Активный гражданин");
-    email.setText("Новый вопрос от проекта Активный гражданин " + System.lineSeparator() + question.getQuestionText());
+
+    email.setFrom(String.format("%s <admin@tkhostov.com>", projectName));
+    email.setSubject(String.format("новый вопрос от проекта %s", projectName));
+    email.setText(String.format("Новый вопрос от проекта %s", projectName) + System.lineSeparator() + question.getQuestionText());
 
     mailSender.send(email);
+  }
+
+  private String getProjectName(int type){
+    switch (type) {
+      case 1:
+        return "Активный гражданин";
+      case 2:
+        return "Безопасный двор";
+      case 3:
+        return  "Удобный двор";
+      case 4:
+        return "Дворовый тренер";
+      default:
+        return "Активный гражданин";
+    }
   }
 
   /**
@@ -40,7 +58,7 @@ public class EmailService {
 
     if (answer.getQuestion().getEmail() != null) {
       email.setFrom("Активный гражданин <direktor369@rambler.ru>");
-      email.setSubject("Официальный ответ портала 'Активный гражданин'");
+      email.setSubject(String.format("Официальный ответ портала '%s'", getProjectName(answer.getQuestion().getType())));
       email.setTo(answer.getQuestion().getEmail());
 
       StringBuilder text = new StringBuilder(String.format("Уважаемый %s, благодарим за Ваш вопрос.", answer.getAuthor()));
@@ -55,5 +73,4 @@ public class EmailService {
       mailSender.send(email);
     }
   }
-
 }

@@ -89,6 +89,7 @@ public class MapsController {
             questionInfo.put("lat", String.valueOf(lat));
             questionInfo.put("lng", String.valueOf(lng));
 
+            questionInfo.put("address", question.getAddress());
             questionInfo.put("text", "<b>" + question.getAddress() + "</b>" + "<br/>" + question.getQuestionText() + "<br/><br/>");
             unAnsweredMarkers.add(questionInfo);
           }
@@ -127,6 +128,7 @@ public class MapsController {
             questionInfo.put("lat", String.valueOf(lat));
             questionInfo.put("lng", String.valueOf(lng));
 
+            questionInfo.put("address", answer.getQuestion().getAddress());
             questionInfo.put("text", "<b>" + answer.getQuestion().getAddress() + "</b>" + "<br/>" + answer.getQuestion().getQuestionText() + "<br/><br/>" + "<b>" + String.format("<a href='%s%s'>Проверить ответ</a>", req.toString(), answer.getId()) + "</b>");
             answeredMarkers.add(questionInfo);
           }
